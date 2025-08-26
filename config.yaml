@@ -1,0 +1,6 @@
+# Sample config
+---
+window:
+  title: "Snake"
+  width: 320
+  height: 240

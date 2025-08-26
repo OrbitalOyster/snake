@@ -1,4 +1,19 @@
-cmake_minimum_required(VERSION 3.10) # Specify the minimum required CMake version
-project(snake LANGUAGES CXX) # Define your project name and required languages
+# main
+cmake_minimum_required(VERSION 3.10)
+project(snake LANGUAGES CXX)
+add_executable(main main.cpp)
 
-add_executable(main main.cpp) # Add an executable target and its source files
+include_directories(${PROJECT_SOURCE_DIR}/yaml-cpp/include)
+
+# yaml-cpp
+
+include(FetchContent)
+
+FetchContent_Declare(
+  yaml-cpp
+  GIT_REPOSITORY https://github.com/jbeder/yaml-cpp.git
+  GIT_TAG master
+)
+FetchContent_MakeAvailable(yaml-cpp)
+
+target_link_libraries(main yaml-cpp::yaml-cpp)
