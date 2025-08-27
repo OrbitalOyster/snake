@@ -2,26 +2,28 @@
 #include <SDL3/SDL_log.h>
 #include <stdexcept>
 
-Core::Core(std::string title, int window_width, int window_height)
-    : title(title) {
+Core::Core(Config config) {
   if (!SDL_Init(SDL_INIT_VIDEO)) {
     throw std::runtime_error("Unable to initialize SDL (" +
                              std::string(SDL_GetError()) + " )");
   }
-
-  if (!SDL_CreateWindowAndRenderer(title.c_str(), window_width, window_height,
-                                   0, &window, &renderer)) {
+  if (!SDL_CreateWindowAndRenderer(
+          config.get_title().c_str(), config.get_window_width(),
+          config.get_window_height(),
+          SDL_WINDOW_FULLSCREEN * config.fullscreen | SDL_WINDOW_RESIZABLE * config.resizeable,
+          &window, &renderer)) {
     throw std::runtime_error("Unable to initialize renderer (" +
                              std::string(SDL_GetError()) + " )");
   }
-  // goose = load_png(renderer, "assets/goose.png");
+  background_color = config.background_color;
   SDL_Log("Started");
 }
 
 void Core::iterate() {
-  SDL_SetRenderDrawColor(renderer, 0x88, 0x88, 0xCC, 0xFF);
+  SDL_SetRenderDrawColor(renderer, background_color.r, background_color.g,
+                         background_color.b, 0xFF);
   SDL_RenderClear(renderer);
-  SDL_FRect dstRect = {32, 32, 198, 50};
+  SDL_FRect dstRect = {16, 16, 294, 47};
   SDL_RenderTexture(renderer, hello, NULL, &dstRect);
   SDL_RenderPresent(renderer);
 }
