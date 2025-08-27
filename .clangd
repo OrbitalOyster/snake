@@ -1,5 +1,6 @@
 CompileFlags:
   Add:
+    - "-I./include"
     - "-I./yaml-cpp/include"
     - "-std=c++20"
     - "-Wall"
