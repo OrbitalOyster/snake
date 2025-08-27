@@ -23,7 +23,6 @@ FetchContent_Declare(
   GIT_TAG master
 )
 FetchContent_MakeAvailable(yaml-cpp)
-include_directories(${PROJECT_SOURCE_DIR}/yaml-cpp/include)
 
 # SDL
 add_subdirectory(SDL EXCLUDE_FROM_ALL)
