@@ -1,15 +1,13 @@
-#include "SDL3/SDL_init.h"
-#include <SDL3/SDL_log.h>
 #define SDL_MAIN_USE_CALLBACKS
-#include <stdexcept>
-
-#include <SDL3/SDL.h>
-#include <SDL3/SDL_main.h>
-#include <stdlib.h>
-
 #include <Config.hpp>
 #include <Core.hpp>
 #include <Font.hpp>
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_init.h>
+#include <SDL3/SDL_log.h>
+#include <SDL3/SDL_main.h>
+#include <stdexcept>
+#include <stdlib.h>
 
 SDL_Texture *goose = NULL;
 

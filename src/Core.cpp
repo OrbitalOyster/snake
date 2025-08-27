@@ -7,11 +7,12 @@ Core::Core(Config config) {
     throw std::runtime_error("Unable to initialize SDL (" +
                              std::string(SDL_GetError()) + " )");
   }
-  if (!SDL_CreateWindowAndRenderer(
-          config.get_title().c_str(), config.get_window_width(),
-          config.get_window_height(),
-          SDL_WINDOW_FULLSCREEN * config.fullscreen | SDL_WINDOW_RESIZABLE * config.resizeable,
-          &window, &renderer)) {
+  if (!SDL_CreateWindowAndRenderer(config.get_title().c_str(),
+                                   config.get_window_width(),
+                                   config.get_window_height(),
+                                   SDL_WINDOW_FULLSCREEN * config.fullscreen |
+                                       SDL_WINDOW_RESIZABLE * config.resizeable,
+                                   &window, &renderer)) {
     throw std::runtime_error("Unable to initialize renderer (" +
                              std::string(SDL_GetError()) + " )");
   }

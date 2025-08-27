@@ -11,6 +11,7 @@ private:
   SDL_Window *window;
   std::string title;
   SDL_Color background_color;
+
 public:
   Core(Config config);
   void iterate();

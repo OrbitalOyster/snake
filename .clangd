@@ -1,6 +1,8 @@
 CompileFlags:
   Add:
     - "-I/home/oyster/snake/SDL/include"
+    - "-I/home/oyster/snake/SDL_ttf/include"
+    - "-I/home/oyster/snake/SDL_image/include"
     - "-I/home/oyster/snake/include"
     - "-I/home/oyster/snake/yaml-cpp/include"
     - "-std=c++20"
