@@ -1,8 +1,7 @@
 # main
 cmake_minimum_required(VERSION 3.10)
 project(snake LANGUAGES CXX)
-add_executable(main main.cpp)
-include_directories(${PROJECT_SOURCE_DIR}/yaml-cpp/include)
+add_executable(main src/main.cpp)
 
 # Create output directory
 file(MAKE_DIRECTORY build)
@@ -16,3 +15,4 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(yaml-cpp)
 target_link_libraries(main yaml-cpp::yaml-cpp)
+include_directories(${PROJECT_SOURCE_DIR}/yaml-cpp/include)
