@@ -14,9 +14,7 @@ Core::Core(std::string title, int window_width, int window_height)
     throw std::runtime_error("Unable to initialize renderer (" +
                              std::string(SDL_GetError()) + " )");
   }
-
   // goose = load_png(renderer, "assets/goose.png");
-
   SDL_Log("Started");
 }
 
@@ -25,7 +23,6 @@ void Core::iterate() {
   SDL_RenderClear(renderer);
   SDL_FRect dstRect = {32, 32, 198, 50};
   SDL_RenderTexture(renderer, hello, NULL, &dstRect);
-
   SDL_RenderPresent(renderer);
 }
 

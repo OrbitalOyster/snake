@@ -1,6 +1,5 @@
 #include <SDL3/SDL_log.h>
 #define SDL_MAIN_USE_CALLBACKS
-#include <iostream>
 #include <stdexcept>
 
 #include <SDL3/SDL.h>
@@ -18,7 +17,7 @@ struct AppState {
   Font *font;
 };
 
-SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
+SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
   try {
     SDL_Log("Loading config...");
     const Config config("config.yaml");
@@ -51,7 +50,7 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
   return SDL_APP_CONTINUE;
 }
 
-void SDL_AppQuit(void *appstate, SDL_AppResult result) {
+void SDL_AppQuit(void *appstate, [[maybe_unused]] SDL_AppResult result) {
   auto app = (struct AppState *)appstate;
   if (app) {
     delete app->core;
