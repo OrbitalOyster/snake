@@ -1,3 +1,4 @@
+#include "GUI.hpp"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
@@ -8,13 +9,11 @@
 #include <SDL3/SDL_main.h>
 #include <stdexcept>
 #include <stdlib.h>
-#include <map>
 
 SDL_Texture *goose = NULL;
 
 struct AppState {
   Core *core;
-  Font *font;
 };
 
 SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
@@ -25,19 +24,17 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     Config config("config.yaml");
     /* Create core */
     Core *core = new Core(config);
-    /* Load fonts */
-    std::map<std::string, Font*> fonts;
-    for (struct FontConfig font_config : config.get_fonts())
-      fonts[font_config.key] = new Font(core->renderer, font_config);
+    /* Create GUI */
+    GUI *gui = new GUI(core->renderer);
+    gui->load_fonts(config.get_fonts());
 
-    Font *font =
-        new Font(core->renderer, "assets/fonts/MartianMono-Regular.ttf", 32, 4);
     SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
     SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
-    core->hello = font->render_text("Hello, World!", white, black);
+
+    core->hello = gui->render_text("Hello, World!", "regular", white, black);
+
     *appstate = new AppState{
-        .core = core,
-        .font = font,
+        .core = core
     };
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {

@@ -8,6 +8,7 @@ target_sources(main PRIVATE
     src/Config.cpp
     src/Core.cpp
     src/Font.cpp
+    src/GUI.cpp
 )
 
 include_directories(include)

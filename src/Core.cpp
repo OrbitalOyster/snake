@@ -17,7 +17,6 @@ Core::Core(Config config) {
                              std::string(SDL_GetError()) + " )");
   }
   background_color = config.get_background_color();
-  SDL_Log("Started");
 }
 
 void Core::iterate() {
@@ -30,12 +29,11 @@ void Core::iterate() {
 }
 
 SDL_AppResult Core::on_event(SDL_Event *event) {
-  // Esc key
+  /* Esc key */
   if (event->type == SDL_EVENT_KEY_DOWN &&
       event->key.scancode == SDL_SCANCODE_ESCAPE)
     return SDL_APP_SUCCESS;
-
-  // Quit event
+  /* Quit event */
   if (event->type == SDL_EVENT_QUIT)
     return SDL_APP_SUCCESS;
 

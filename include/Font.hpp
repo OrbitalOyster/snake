@@ -14,7 +14,6 @@ struct FontConfig {
 
 class Font {
 private:
-  SDL_Renderer *renderer;
   const std::string filename;
   TTF_Font *ttf;
   float size;
@@ -22,13 +21,10 @@ private:
   float outline_size;
 
 public:
-  Font(SDL_Renderer *renderer, const std::string filename, float size,
-       float outline_size);
-  Font(SDL_Renderer *renderer, const struct FontConfig config);
-  SDL_Texture *render_text(const std::string text, bool is_outline,
-                           SDL_Color color);
-  SDL_Texture *render_text(const std::string text, SDL_Color color,
-                           SDL_Color outline_color);
+  Font(const struct FontConfig config);
+  TTF_Font *get_ttf();
+  TTF_Font *get_outline();
+  float get_outline_size();
   ~Font();
 };
 
