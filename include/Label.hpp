@@ -5,12 +5,13 @@
 #include <string>
 
 class Label {
-  private:
-    std::string text;
-    SDL_Texture *texture;
-  public:
-    Label(std::string text);
-    void set_text(std::string new_text);
+private:
+public:
+  Label(std::string text, float x, float y);
+  std::string text;
+  SDL_Texture *texture;
+  float x, y;
+  void set_text(std::string new_text);
 };
 
 #endif

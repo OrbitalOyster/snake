@@ -28,14 +28,18 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     GUI *gui = new GUI(core->renderer);
     gui->load_fonts(config.get_fonts());
 
+    Label *hello = new Label("Hello, World!", 16, 16);
+    gui->add_label(hello);
+
+    core->set_GUI(gui);
+
+    /*
     SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
     SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
-
     core->hello = gui->render_text("Hello, World!", "regular", white, black);
+    */
 
-    *appstate = new AppState{
-        .core = core
-    };
+    *appstate = new AppState{core};
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {
     SDL_LogError(1, "Unable to init engine -> %s", err.what());
@@ -44,12 +48,12 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
 }
 
 SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
-  auto app = (struct AppState *)appstate;
+  struct AppState *app = (struct AppState *)appstate;
   return app->core->on_event(event);
 }
 
 SDL_AppResult SDL_AppIterate(void *appstate) {
-  auto app = (struct AppState *)appstate;
+  struct AppState *app = (struct AppState *)appstate;
   app->core->iterate();
   return SDL_APP_CONTINUE;
 }

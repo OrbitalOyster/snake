@@ -1,3 +1,4 @@
+#include "SDL3/SDL_log.h"
 #include "SDL3_ttf/SDL_ttf.h"
 #include <GUI.hpp>
 #include <stdexcept>
@@ -67,11 +68,15 @@ SDL_Texture *GUI::render_text(const std::string text, std::string font_key,
 }
 
 void GUI::add_label(Label *label) {
+  SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
+  SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
+  label->texture = render_text(label->text, "regular", white, black);
   labels.push_back(label);
 }
 
 void GUI::render() {
   for (const Label *l : labels) {
-
+    SDL_FRect dstRect = {l->x, l->y, 294, 47};
+    SDL_RenderTexture(renderer, l->texture, NULL, &dstRect);
   }
 }

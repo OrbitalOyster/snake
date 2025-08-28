@@ -19,12 +19,16 @@ Core::Core(Config config) {
   background_color = config.get_background_color();
 }
 
+void Core::set_GUI(GUI *new_gui) { gui = new_gui; }
+
 void Core::iterate() {
+  SDL_Delay(100);
+  /* Clear screen with background color */
   SDL_SetRenderDrawColor(renderer, background_color.r, background_color.g,
                          background_color.b, 0xFF);
   SDL_RenderClear(renderer);
-  SDL_FRect dstRect = {16, 16, 294, 47};
-  SDL_RenderTexture(renderer, hello, NULL, &dstRect);
+
+  gui->render();
   SDL_RenderPresent(renderer);
 }
 
