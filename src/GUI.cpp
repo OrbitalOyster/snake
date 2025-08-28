@@ -65,3 +65,13 @@ SDL_Texture *GUI::render_text(const std::string text, std::string font_key,
   /* Done */
   return result;
 }
+
+void GUI::add_label(Label *label) {
+  labels.push_back(label);
+}
+
+void GUI::render() {
+  for (const Label *l : labels) {
+
+  }
+}

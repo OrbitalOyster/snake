@@ -9,6 +9,7 @@ target_sources(main PRIVATE
     src/Core.cpp
     src/Font.cpp
     src/GUI.cpp
+    src/Label.cpp
 )
 
 include_directories(include)

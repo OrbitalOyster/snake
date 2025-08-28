@@ -14,5 +14,5 @@ fonts:
     size: 32
     outline: 4
   bold:
-    filename: "assets/fonts/MartianMono-SemiBold.ttf"
+    filename: "assets/fonts/MartianMono-Bold.ttf"
     size: 32
