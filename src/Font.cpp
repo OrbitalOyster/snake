@@ -18,6 +18,22 @@ Font::Font(SDL_Renderer *renderer, const std::string filename, float size,
           outline_size);
 }
 
+Font::Font(SDL_Renderer *renderer, const struct FontConfig config)
+    : renderer(renderer), filename(config.filename), size(config.size),
+      outline_size(config.outline) {
+  // TODO: Not here
+  TTF_Init();
+  ttf = TTF_OpenFont(filename.c_str(), size);
+  outline = TTF_OpenFont(filename.c_str(), size);
+  if (!ttf || !outline) {
+    throw std::runtime_error("Unable to open font " + filename + " (" +
+                             SDL_GetError() + ")");
+  }
+  TTF_SetFontOutline(outline, outline_size);
+  SDL_Log("Loaded font \"%s\", size %f, outline %f", filename.c_str(), size,
+          outline_size);
+}
+
 SDL_Texture *Font::render_text(const std::string text, bool is_outline,
                                SDL_Color color) {
   // Create surface from font

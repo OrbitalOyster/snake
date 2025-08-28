@@ -8,6 +8,7 @@
 #include <SDL3/SDL_main.h>
 #include <stdexcept>
 #include <stdlib.h>
+#include <map>
 
 SDL_Texture *goose = NULL;
 
@@ -19,9 +20,16 @@ struct AppState {
 SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                           [[maybe_unused]] char *argv[]) {
   try {
+    /* Get config */
     SDL_Log("Loading config...");
     Config config("config.yaml");
+    /* Create core */
     Core *core = new Core(config);
+    /* Load fonts */
+    std::map<std::string, Font*> fonts;
+    for (struct FontConfig font_config : config.get_fonts())
+      fonts[font_config.key] = new Font(core->renderer, font_config);
+
     Font *font =
         new Font(core->renderer, "assets/fonts/MartianMono-Regular.ttf", 32, 4);
     SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
@@ -33,7 +41,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     };
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {
-    SDL_LogError(1, "Unable to init engine: %s", err.what());
+    SDL_LogError(1, "Unable to init engine -> %s", err.what());
     return SDL_APP_FAILURE;
   }
 }

@@ -2,8 +2,17 @@
 ---
 window:
   title: "Snake"
-  background-color: 0xA8E0FF
+  background-color: 0x2596be
   width: 320
   height: 240
   fullscreen: false
   resizeable: true
+
+fonts:
+  regular:
+    filename: "assets/fonts/MartianMono-Regular.ttf"
+    size: 32
+    outline: 4
+  bold:
+    filename: "assets/fonts/MartianMono-SemiBold.ttf"
+    size: 32
