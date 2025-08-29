@@ -27,17 +27,14 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     /* Create GUI */
     GUI *gui = new GUI(core->renderer);
     gui->load_fonts(config.get_fonts());
+    Font *regular_font = gui->get_font("regular");
 
-    Label *hello = new Label("Hello, World!", 16, 16);
+    SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
+    SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
+    Label *hello = new Label(std::string("Hello, World!"), 16, 16, regular_font, white, black);
     gui->add_label(hello);
 
     core->set_GUI(gui);
-
-    /*
-    SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
-    SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
-    core->hello = gui->render_text("Hello, World!", "regular", white, black);
-    */
 
     *appstate = new AppState{core};
     return SDL_APP_CONTINUE;

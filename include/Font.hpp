@@ -1,7 +1,6 @@
 #ifndef FONT_HPP_
 #define FONT_HPP_
 
-#include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <string>
 
@@ -19,12 +18,14 @@ private:
   float size;
   TTF_Font *outline;
   float outline_size;
+  SDL_Renderer *renderer;
+  SDL_Texture *render_text(const std::string text, TTF_Font *font,
+                           SDL_Color color);
 
 public:
-  Font(const struct FontConfig config);
-  TTF_Font *get_ttf();
-  TTF_Font *get_outline();
-  float get_outline_size();
+  Font(const struct FontConfig config, SDL_Renderer *renderer);
+  SDL_Texture *render_text(const std::string text, SDL_Color color,
+                           SDL_Color outline_color, float *w, float *h);
   ~Font();
 };
 

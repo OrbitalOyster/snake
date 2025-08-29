@@ -27,7 +27,6 @@ void Core::iterate() {
   SDL_SetRenderDrawColor(renderer, background_color.r, background_color.g,
                          background_color.b, 0xFF);
   SDL_RenderClear(renderer);
-
   gui->render();
   SDL_RenderPresent(renderer);
 }
@@ -54,6 +53,8 @@ SDL_Texture *Core::load_png(const char *filename) {
 }
 
 Core::~Core() {
+  if (gui)
+    delete gui;
   if (renderer)
     SDL_DestroyRenderer(renderer);
   if (window)
