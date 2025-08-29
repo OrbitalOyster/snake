@@ -24,7 +24,7 @@ private:
 
 public:
   Font(const struct FontConfig config, SDL_Renderer *renderer);
-  SDL_Texture *render_text(const std::string text, SDL_Color color,
+  SDL_Texture *get_texture(const std::string text, SDL_Color color,
                            SDL_Color outline_color, float *w, float *h);
   ~Font();
 };

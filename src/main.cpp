@@ -1,8 +1,8 @@
-#include "GUI.hpp"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
 #include <Font.hpp>
+#include <GUI.hpp>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_log.h>
@@ -11,10 +11,6 @@
 #include <stdlib.h>
 
 SDL_Texture *goose = NULL;
-
-struct AppState {
-  Core *core;
-};
 
 SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                           [[maybe_unused]] char *argv[]) {
@@ -26,17 +22,16 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     Core *core = new Core(config);
     /* Create GUI */
     GUI *gui = new GUI(core->renderer);
+    core->set_GUI(gui);
     gui->load_fonts(config.get_fonts());
-    Font *regular_font = gui->get_font("regular");
 
     SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
     SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
-    Label *hello = new Label(std::string("Hello, World!"), 16, 16, regular_font, white, black);
+    Label *hello = new Label(std::string("Hello, World!"), 16, 16,
+                             gui->get_font("regular"), white, black);
     gui->add_label(hello);
 
-    core->set_GUI(gui);
-
-    *appstate = new AppState{core};
+    *appstate = core;
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {
     SDL_LogError(1, "Unable to init engine -> %s", err.what());
@@ -45,13 +40,13 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
 }
 
 SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
-  struct AppState *app = (struct AppState *)appstate;
-  return app->core->on_event(event);
+  Core *core = (Core *)appstate;
+  return core->on_event(event);
 }
 
 SDL_AppResult SDL_AppIterate(void *appstate) {
-  struct AppState *app = (struct AppState *)appstate;
-  app->core->iterate();
+  Core *core = (Core *)appstate;
+  core->iterate();
   return SDL_APP_CONTINUE;
 }
 
@@ -67,8 +62,7 @@ void SDL_AppQuit(void *appstate, SDL_AppResult result) {
     SDL_Log("Crashed :(");
     break;
   }
-  auto app = (struct AppState *)appstate;
-  if (app) {
-    delete app->core;
-  }
+  Core *core = (Core *)appstate;
+  if (core)
+    delete core;
 }

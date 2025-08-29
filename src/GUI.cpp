@@ -1,4 +1,3 @@
-#include "SDL3_ttf/SDL_ttf.h"
 #include <GUI.hpp>
 
 GUI::GUI(SDL_Renderer *renderer) : renderer(renderer) { TTF_Init(); }
@@ -19,7 +18,7 @@ void GUI::add_label(Label *label) {
 void GUI::render() {
   for (const Label *l : labels) {
     SDL_FRect dstRect = l->get_bounding_rect();
-    SDL_RenderTexture(renderer, l->texture, NULL, &dstRect);
+    SDL_RenderTexture(renderer, l->get_texture(), NULL, &dstRect);
   }
 }
 

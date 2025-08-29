@@ -14,10 +14,13 @@ private:
   SDL_Color background_color;
   GUI *gui;
 
+  unsigned int ticks = 0;
+
 public:
   Core(Config config);
   void set_GUI(GUI *new_gui);
   void iterate();
+  unsigned int get_ticks();
   SDL_AppResult on_event(SDL_Event *event);
   SDL_Texture *load_png(const char *filename);
   SDL_Texture *hello;

@@ -1,4 +1,3 @@
-#include "SDL3/SDL_log.h"
 #include <Font.hpp>
 #include <stdexcept>
 
@@ -33,7 +32,7 @@ SDL_Texture *Font::render_text(const std::string text, TTF_Font *ttf_font,
   return result;
 }
 
-SDL_Texture *Font::render_text(const std::string text, SDL_Color color,
+SDL_Texture *Font::get_texture(const std::string text, SDL_Color color,
                                SDL_Color outline_color, float *w, float *h) {
   /* Outline text on background */
   SDL_Texture *bg = render_text(text, outline, outline_color);
@@ -42,11 +41,9 @@ SDL_Texture *Font::render_text(const std::string text, SDL_Color color,
   /* Get bg dimensions */
   float bw, bh;
   SDL_GetTextureSize(bg, &bw, &bh);
-  // SDL_Log("%f %f\n", bw, bh);
   /*  Get fg dimensions */
   float fw, fh;
   SDL_GetTextureSize(fg, &fw, &fh);
-  // SDL_Log("%f %f\n", fw, fh);
   /* Transparent background */
   SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
   SDL_Texture *result = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32,

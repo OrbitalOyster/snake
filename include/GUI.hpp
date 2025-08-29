@@ -12,6 +12,7 @@ private:
   SDL_Renderer *renderer;
   std::map<std::string, Font *> fonts;
   std::vector<Label *> labels;
+
 public:
   GUI(SDL_Renderer *renderer);
   void load_fonts(std::vector<struct FontConfig> configs);

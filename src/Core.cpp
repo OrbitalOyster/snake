@@ -29,6 +29,8 @@ void Core::iterate() {
   SDL_RenderClear(renderer);
   gui->render();
   SDL_RenderPresent(renderer);
+
+  ticks++;
 }
 
 SDL_AppResult Core::on_event(SDL_Event *event) {
