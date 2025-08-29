@@ -7,6 +7,11 @@
 #include <string>
 #include <vector>
 
+struct ImageConfig {
+  std::string key;
+  std::string filename;
+};
+
 class Config {
 private:
   std::string title;
@@ -15,7 +20,8 @@ private:
   SDL_Color background_color;
   bool fullscreen;
   bool resizeable;
-  std::vector<struct FontConfig> fonts;
+  std::vector<struct FontConfig> font_configs;
+  std::vector<struct ImageConfig> image_configs;
 
 public:
   Config(std::string filename);

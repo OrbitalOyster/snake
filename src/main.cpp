@@ -21,7 +21,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     /* Create core */
     Core *core = new Core(config);
     /* Create GUI */
-    GUI *gui = new GUI(core->renderer);
+    GUI *gui = new GUI(core->get_renderer());
     core->set_GUI(gui);
     gui->load_fonts(config.get_fonts());
 

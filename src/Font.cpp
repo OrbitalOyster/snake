@@ -10,7 +10,7 @@ Font::Font(const struct FontConfig config, SDL_Renderer *renderer)
     throw std::runtime_error("Unable to open font '" + filename + "' -> " +
                              SDL_GetError());
   TTF_SetFontOutline(outline, outline_size);
-  SDL_Log("Loaded font \"%s\", size %f, outline %f", filename.c_str(), size,
+  SDL_Log("Loaded font \"%s\", size %.2f, outline %.2f", filename.c_str(), size,
           outline_size);
 }
 
@@ -54,10 +54,9 @@ SDL_Texture *Font::get_texture(const std::string text, SDL_Color color,
   // SDL_RenderClear(renderer);
   const SDL_FRect bg_rect = {0, 0, bw, bh};
   const SDL_FRect fg_rect = {outline_size, outline_size, fw, fh};
-
+  /* Set width and height */
   *w = bw;
   *h = bh;
-
   /* Copy bg, fg, clear render target */
   SDL_RenderTexture(renderer, bg, NULL, &bg_rect);
   SDL_RenderTexture(renderer, fg, NULL, &fg_rect);

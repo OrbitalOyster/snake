@@ -1,3 +1,4 @@
+#include "SDL3/SDL_render.h"
 #include <Core.hpp>
 #include <SDL3/SDL_log.h>
 #include <stdexcept>
@@ -17,6 +18,10 @@ Core::Core(Config config) {
                              std::string(SDL_GetError()) + " )");
   }
   background_color = config.get_background_color();
+}
+
+SDL_Renderer *Core::get_renderer() {
+  return renderer;
 }
 
 void Core::set_GUI(GUI *new_gui) { gui = new_gui; }
@@ -45,13 +50,18 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
   return SDL_APP_CONTINUE;
 }
 
-SDL_Texture *Core::load_png(const char *filename) {
-  SDL_Texture *texture = IMG_LoadTexture(renderer, filename);
-  if (!texture) {
-    SDL_Log("Failed to load asset: %s", SDL_GetError());
-    return NULL;
-  }
+SDL_Texture *Core::load_png(std::string filename) {
+  SDL_Texture *texture = IMG_LoadTexture(renderer, filename.c_str());
+  if (!texture)
+    throw std::runtime_error("Failed to load image" +
+                             std::string(SDL_GetError()));
   return texture;
+}
+
+void Core::render_sprites() {
+  for (const Sprite sprite : sprites) {
+
+  }
 }
 
 Core::~Core() {

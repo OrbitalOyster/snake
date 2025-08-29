@@ -16,3 +16,7 @@ fonts:
   bold:
     filename: "assets/fonts/MartianMono-Bold.ttf"
     size: 32
+
+images:
+  goose:
+    filename: "assets/goose.png"

@@ -33,7 +33,16 @@ Config::Config(std::string filename) {
       const float size = value["size"].as<float>();
       /* Outline is optional */
       const float outline = value["outline"] ? value["outline"].as<float>() : 0;
-      fonts.push_back({key, filename, size, outline});
+      font_configs.push_back({key, filename, size, outline});
+    }
+    /* Images */
+    YAML::Node images_yaml = yaml["images"];
+    for (YAML::const_iterator i = images_yaml.begin(); i != images_yaml.end();
+         ++i) {
+      const std::string key = i->first.as<YAML::Node>().as<std::string>();
+      const auto value = i->second.as<YAML::Node>();
+      const std::string filename = value["filename"].as<std::string>();
+      image_configs.push_back({key, filename});
     }
   } catch (const std::runtime_error err) {
     throw std::runtime_error(
@@ -48,4 +57,4 @@ int Config::get_window_height() const { return window_height; }
 SDL_Color Config::get_background_color() const { return background_color; };
 bool Config::get_fullscreen() const { return fullscreen; };
 bool Config::get_resizeable() const { return resizeable; };
-std::vector<struct FontConfig> Config::get_fonts() const { return fonts; };
+std::vector<struct FontConfig> Config::get_fonts() const { return font_configs; };
