@@ -4,11 +4,12 @@
 #include <SDL3_image/SDL_image.h>
 
 class Sprite {
-  private:
+private:
   SDL_Texture *texture;
-  float x,y;
+  float x, y;
   float width, height;
-  public:
+
+public:
   Sprite();
   SDL_FRect get_bounding_rect();
 };

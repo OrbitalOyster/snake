@@ -1,6 +1,6 @@
-#include "SDL3/SDL_render.h"
 #include <Core.hpp>
 #include <SDL3/SDL_log.h>
+#include <SDL3/SDL_render.h>
 #include <stdexcept>
 
 Core::Core(Config config) {
@@ -20,9 +20,7 @@ Core::Core(Config config) {
   background_color = config.get_background_color();
 }
 
-SDL_Renderer *Core::get_renderer() {
-  return renderer;
-}
+SDL_Renderer *Core::get_renderer() { return renderer; }
 
 void Core::set_GUI(GUI *new_gui) { gui = new_gui; }
 
@@ -60,7 +58,6 @@ SDL_Texture *Core::load_png(std::string filename) {
 
 void Core::render_sprites() {
   for (const Sprite sprite : sprites) {
-
   }
 }
 

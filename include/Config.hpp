@@ -1,9 +1,10 @@
 #ifndef CONFIG_HPP_
 #define CONFIG_HPP_
 
-#include "SDL3/SDL_pixels.h"
 #include <Font.hpp>
 #include <SDL3/SDL.h>
+#include <SDL3/SDL_pixels.h>
+#include <SpriteMap.hpp>
 #include <string>
 #include <vector>
 
@@ -22,6 +23,7 @@ private:
   bool resizeable;
   std::vector<struct FontConfig> font_configs;
   std::vector<struct ImageConfig> image_configs;
+  std::vector<struct SpriteMapConfig> sprite_map_configs;
 
 public:
   Config(std::string filename);

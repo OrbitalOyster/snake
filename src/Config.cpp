@@ -6,7 +6,7 @@ SDL_Color hex_to_color(unsigned hex) {
   Uint8 r = hex >> 16 & 0xff;
   Uint8 g = hex >> 8 & 0xff;
   Uint8 b = hex & 0xff;
-  return {r, g, b, 0xFF};
+  return {r, g, b, 0xff};
 }
 
 Config::Config(std::string filename) {
@@ -44,6 +44,21 @@ Config::Config(std::string filename) {
       const std::string filename = value["filename"].as<std::string>();
       image_configs.push_back({key, filename});
     }
+    /* Sprite maps */
+    YAML::Node sprite_maps_yaml = yaml["sprite_maps"];
+    for (YAML::const_iterator m = sprite_maps_yaml.begin(); m != sprite_maps_yaml.end(); m++) {
+        const std::string key = m->first.as<YAML::Node>().as<std::string>();
+        const auto value = m->second.as<YAML::Node>();
+        const std::string image = value["image"].as<std::string>();
+        const unsigned x = value["x"].as<unsigned>();
+        const unsigned y = value["y"].as<unsigned>();
+        const unsigned w = value["w"].as<unsigned>();
+        const unsigned h = value["h"].as<unsigned>();
+        const unsigned n = value["n"].as<unsigned>();
+        const unsigned fps = value["fps"].as<unsigned>();
+        sprite_map_configs.push_back({key, x, y, w, h, n, fps});
+    }
+
   } catch (const std::runtime_error err) {
     throw std::runtime_error(
         std::string("Unable to load config '" + filename + "' -> ") +

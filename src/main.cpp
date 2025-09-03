@@ -10,8 +10,6 @@
 #include <stdexcept>
 #include <stdlib.h>
 
-SDL_Texture *goose = NULL;
-
 SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                           [[maybe_unused]] char *argv[]) {
   try {
