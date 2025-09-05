@@ -5,7 +5,9 @@
 #include <GUI.hpp>
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
-#include "Sprite.hpp"
+#include <Sprite.hpp>
+#include <SpriteMap.hpp>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -16,8 +18,7 @@ private:
   SDL_Color background_color;
   SDL_Renderer *renderer;
   GUI *gui;
-  unsigned int ticks = 0;
-
+  std::map<std::string, SpriteMap *> sprite_maps;
   std::vector<Sprite> sprites;
 
 public:
@@ -29,7 +30,6 @@ public:
   SDL_AppResult on_event(SDL_Event *event);
   SDL_Texture *load_png(std::string filename);
   void render_sprites();
-  // SDL_Texture *hello;
   ~Core();
 };
 

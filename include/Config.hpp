@@ -34,6 +34,7 @@ public:
   bool get_fullscreen() const;
   bool get_resizeable() const;
   std::vector<struct FontConfig> get_fonts() const;
+  std::vector<struct SpriteMapConfig> get_sprite_maps() const;
 };
 
 #endif

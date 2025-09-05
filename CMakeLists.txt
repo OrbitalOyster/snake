@@ -10,6 +10,8 @@ target_sources(main PRIVATE
     src/Font.cpp
     src/GUI.cpp
     src/Label.cpp
+    src/SpriteMap.cpp
+    src/Sprite.cpp
 )
 
 include_directories(include)

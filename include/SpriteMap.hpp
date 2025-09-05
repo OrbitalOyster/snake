@@ -6,20 +6,21 @@
 
 struct SpriteMapConfig {
   std::string key;
-  unsigned x;
-  unsigned y;
-  unsigned w;
-  unsigned h;
+  unsigned x, y;
+  unsigned w, h;
   unsigned n;
   unsigned fps;
 };
 
 class SpriteMap {
 private:
-  SDL_Renderer *renderer;
+  float x, y;
+  float w, h;
+  unsigned n;
+  unsigned fps;
 
 public:
-  SpriteMap(const struct SpriteMapConfig config, SDL_Renderer *renderer);
+  SpriteMap(const struct SpriteMapConfig config);
 };
 
 #endif

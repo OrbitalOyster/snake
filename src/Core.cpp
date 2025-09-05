@@ -1,3 +1,4 @@
+#include "SDL3/SDL_timer.h"
 #include <Core.hpp>
 #include <SDL3/SDL_log.h>
 #include <SDL3/SDL_render.h>
@@ -18,6 +19,10 @@ Core::Core(Config config) {
                              std::string(SDL_GetError()) + " )");
   }
   background_color = config.get_background_color();
+
+  /* Set sprite maps */
+  for (struct SpriteMapConfig sprite_map_config : config.get_sprite_maps())
+    sprite_maps[sprite_map_config.key] = new SpriteMap(sprite_map_config);
 }
 
 SDL_Renderer *Core::get_renderer() { return renderer; }
@@ -31,9 +36,8 @@ void Core::iterate() {
                          background_color.b, 0xFF);
   SDL_RenderClear(renderer);
   gui->render();
+  render_sprites();
   SDL_RenderPresent(renderer);
-
-  ticks++;
 }
 
 SDL_AppResult Core::on_event(SDL_Event *event) {
@@ -57,6 +61,7 @@ SDL_Texture *Core::load_png(std::string filename) {
 }
 
 void Core::render_sprites() {
+  SDL_Log("Ticks: %lu", SDL_GetTicks());
   for (const Sprite sprite : sprites) {
   }
 }

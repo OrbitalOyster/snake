@@ -46,17 +46,18 @@ Config::Config(std::string filename) {
     }
     /* Sprite maps */
     YAML::Node sprite_maps_yaml = yaml["sprite_maps"];
-    for (YAML::const_iterator m = sprite_maps_yaml.begin(); m != sprite_maps_yaml.end(); m++) {
-        const std::string key = m->first.as<YAML::Node>().as<std::string>();
-        const auto value = m->second.as<YAML::Node>();
-        const std::string image = value["image"].as<std::string>();
-        const unsigned x = value["x"].as<unsigned>();
-        const unsigned y = value["y"].as<unsigned>();
-        const unsigned w = value["w"].as<unsigned>();
-        const unsigned h = value["h"].as<unsigned>();
-        const unsigned n = value["n"].as<unsigned>();
-        const unsigned fps = value["fps"].as<unsigned>();
-        sprite_map_configs.push_back({key, x, y, w, h, n, fps});
+    for (YAML::const_iterator m = sprite_maps_yaml.begin();
+         m != sprite_maps_yaml.end(); m++) {
+      const std::string key = m->first.as<YAML::Node>().as<std::string>();
+      const auto value = m->second.as<YAML::Node>();
+      const std::string image = value["image"].as<std::string>();
+      const unsigned x = value["x"].as<unsigned>();
+      const unsigned y = value["y"].as<unsigned>();
+      const unsigned w = value["w"].as<unsigned>();
+      const unsigned h = value["h"].as<unsigned>();
+      const unsigned n = value["n"].as<unsigned>();
+      const unsigned fps = value["fps"].as<unsigned>();
+      sprite_map_configs.push_back({key, x, y, w, h, n, fps});
     }
 
   } catch (const std::runtime_error err) {
@@ -72,4 +73,9 @@ int Config::get_window_height() const { return window_height; }
 SDL_Color Config::get_background_color() const { return background_color; };
 bool Config::get_fullscreen() const { return fullscreen; };
 bool Config::get_resizeable() const { return resizeable; };
-std::vector<struct FontConfig> Config::get_fonts() const { return font_configs; };
+std::vector<struct FontConfig> Config::get_fonts() const {
+  return font_configs;
+};
+std::vector<struct SpriteMapConfig> Config::get_sprite_maps() const {
+  return sprite_map_configs;
+};
