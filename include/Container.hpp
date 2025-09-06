@@ -14,6 +14,7 @@ public:
   Container(float x, float y, float w, float h);
   SDL_FRect get_bounding_rect() const;
   void resize(float new_width, float new_height);
+  void on_parent_resize(float new_parent_width, float new_parent_height);
   void add_container(Container *container);
   void render();
 };
