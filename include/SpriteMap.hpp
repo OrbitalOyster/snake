@@ -6,6 +6,7 @@
 
 struct SpriteMapConfig {
   std::string key;
+  std::string texture;
   unsigned x, y;
   unsigned w, h;
   unsigned n;
@@ -14,13 +15,19 @@ struct SpriteMapConfig {
 
 class SpriteMap {
 private:
+  SDL_Texture * texture;
   float x, y;
   float w, h;
   unsigned n;
   unsigned fps;
 
+  unsigned long ticks_per_loop;
+  unsigned long frame_size;
+
 public:
-  SpriteMap(const struct SpriteMapConfig config);
+  SpriteMap(const struct SpriteMapConfig config, SDL_Texture * texture);
+  SDL_FRect get_frame(unsigned long animation_start_time,
+                      unsigned long ticks) const;
 };
 
 #endif

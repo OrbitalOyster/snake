@@ -22,9 +22,13 @@ Core::Core(Config config) {
   }
   background_color = config.get_background_color();
 
+  /* Load images */
+  for (struct ImageConfig image_config : config.get_images())
+    textures[image_config.key] = load_png(image_config.filename);
+
   /* Set sprite maps */
   for (struct SpriteMapConfig sprite_map_config : config.get_sprite_maps())
-    sprite_maps[sprite_map_config.key] = new SpriteMap(sprite_map_config);
+    sprite_maps[sprite_map_config.key] = new SpriteMap(sprite_map_config, textures.at(sprite_map_config.texture));
 }
 
 SDL_Renderer *Core::get_renderer() { return renderer; }
@@ -59,6 +63,7 @@ SDL_Texture *Core::load_png(std::string filename) {
   if (!texture)
     throw std::runtime_error("Failed to load image" +
                              std::string(SDL_GetError()));
+  SDL_Log("Loaded texture %s", filename.c_str());
   return texture;
 }
 
@@ -72,9 +77,9 @@ const SpriteMap * Core::get_sprite_map(std::string key) const {
 void Core::add_sprite(Sprite *sprite) { sprites.push_back(sprite); }
 
 void Core::render_sprites() {
-  SDL_Log("Ticks: %lu", SDL_GetTicks());
-  for (const Sprite *sprite : sprites) {
-  }
+  unsigned long ticks = SDL_GetTicks();
+  for (const Sprite *sprite : sprites)
+    sprite->render(ticks, renderer);
 }
 
 Core::~Core() {

@@ -50,14 +50,14 @@ Config::Config(std::string filename) {
          m != sprite_maps_yaml.end(); m++) {
       const std::string key = m->first.as<YAML::Node>().as<std::string>();
       const auto value = m->second.as<YAML::Node>();
-      const std::string image = value["image"].as<std::string>();
+      const std::string texture = value["texture"].as<std::string>();
       const unsigned x = value["x"].as<unsigned>();
       const unsigned y = value["y"].as<unsigned>();
       const unsigned w = value["w"].as<unsigned>();
       const unsigned h = value["h"].as<unsigned>();
       const unsigned n = value["n"].as<unsigned>();
       const unsigned fps = value["fps"].as<unsigned>();
-      sprite_map_configs.push_back({key, x, y, w, h, n, fps});
+      sprite_map_configs.push_back({key, texture, x, y, w, h, n, fps});
     }
 
   } catch (const std::runtime_error err) {
@@ -75,6 +75,9 @@ bool Config::get_fullscreen() const { return fullscreen; };
 bool Config::get_resizeable() const { return resizeable; };
 std::vector<struct FontConfig> Config::get_fonts() const {
   return font_configs;
+};
+std::vector<struct ImageConfig> Config::get_images() const {
+  return image_configs;
 };
 std::vector<struct SpriteMapConfig> Config::get_sprite_maps() const {
   return sprite_map_configs;

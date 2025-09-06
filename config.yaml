@@ -19,16 +19,16 @@ fonts:
 
 images:
   goose:
-    filename: "assets/goose.png"
+    filename: "assets/sprites/goose.png"
   apple:
-    filename: "assets/Apple.png"
+    filename: "assets/sprites/Apple.png"
 
 sprite_maps:
   apple_default:
-    image: "apple"
+    texture: "apple"
     x: 0
     y: 0
     w: 32
     h: 32
     n: 17
-    fps: 5
+    fps: 4

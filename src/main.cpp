@@ -1,4 +1,3 @@
-#include "Sprite.hpp"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>

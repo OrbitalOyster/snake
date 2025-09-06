@@ -1,8 +1,10 @@
+#include "SDL3/SDL_render.h"
 #include <SpriteMap.hpp>
 
 #include <iostream>
+#include <stdexcept>
 
-SpriteMap::SpriteMap(const struct SpriteMapConfig config) {
+SpriteMap::SpriteMap(const struct SpriteMapConfig config, SDL_Texture * texture) : texture(texture) {
   x = (float)config.x;
   y = (float)config.y;
   w = (float)config.w;
@@ -10,5 +12,18 @@ SpriteMap::SpriteMap(const struct SpriteMapConfig config) {
   n = config.n;
   fps = config.fps;
 
-  std::cout << "Loaded" << std::endl;
+  if (1000 % fps)
+    throw std::runtime_error("Bad fps value (" + std::to_string(fps) +
+                             ") for SpriteMap " + config.key);
+
+  frame_size = 1000 / fps;
+  std::cout << frame_size << std::endl;
+}
+
+SDL_FRect SpriteMap::get_frame(unsigned long animation_start_time,
+                               unsigned long ticks) const {
+  const unsigned long time_passed = ticks - animation_start_time;
+  const unsigned int frames_passed = time_passed / frame_size;
+  const unsigned current_frame = frames_passed % n;
+  return {x + current_frame * w, y, w, h};
 }
