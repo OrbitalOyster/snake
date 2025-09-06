@@ -14,13 +14,16 @@ private:
   std::map<std::string, Font *> fonts;
   std::vector<Label *> labels;
   std::vector<Container *> containers;
+  Container *root_container;
 
 public:
   GUI(SDL_Renderer *renderer);
   void load_fonts(std::vector<struct FontConfig> configs);
+  Container *get_root_container() const;
   Font *get_font(std::string key) const;
   void add_container(Container *container);
   void add_label(Label *label);
+  void on_window_resize(int width, int height);
   void render();
   ~GUI();
 };
