@@ -4,14 +4,15 @@ project(snake LANGUAGES CXX)
 add_executable(main)
 
 target_sources(main PRIVATE
-    src/main.cpp
     src/Config.cpp
+    src/Container.cpp
     src/Core.cpp
     src/Font.cpp
     src/GUI.cpp
     src/Label.cpp
-    src/SpriteMap.cpp
     src/Sprite.cpp
+    src/SpriteMap.cpp
+    src/main.cpp
 )
 
 include_directories(include)

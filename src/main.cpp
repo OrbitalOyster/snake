@@ -23,13 +23,17 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     core->set_GUI(gui);
     gui->load_fonts(config.get_fonts());
 
+    Container *test_container = new Container(64, 64, 128, 128);
+    gui->add_container(test_container);
+
     SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
     SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
     Label *hello = new Label(std::string("Hello, World!"), 16, 16,
                              gui->get_font("regular"), white, black);
     gui->add_label(hello);
 
-    Sprite *apple = new Sprite(100, 100, 320, 320, core->get_sprite_map("apple_default"));
+    Sprite *apple =
+        new Sprite(64, 64, 128, 128, core->get_sprite_map("apple_default"));
     core->add_sprite(apple);
 
     *appstate = core;

@@ -52,6 +52,13 @@ void Core::iterate() {
 }
 
 SDL_AppResult Core::on_event(SDL_Event *event) {
+  /* Resize event */
+  if (event->type == SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED) {
+    int w, h;
+    SDL_GetWindowSizeInPixels(window, &w, &h);
+    SDL_Log("Window resize: %i %i", w, h);
+  }
+
   /* Esc key */
   if (event->type == SDL_EVENT_KEY_DOWN &&
       event->key.scancode == SDL_SCANCODE_ESCAPE)
@@ -91,7 +98,7 @@ Core::~Core() {
   if (gui)
     delete gui;
   for (auto it = textures.begin(); it != textures.end(); ++it)
-      SDL_DestroyTexture(textures[it->first]);
+    SDL_DestroyTexture(textures[it->first]);
   if (renderer)
     SDL_DestroyRenderer(renderer);
   if (window)
