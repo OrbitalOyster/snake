@@ -26,6 +26,7 @@ private:
 
 public:
   SpriteMap(const struct SpriteMapConfig config, SDL_Texture * texture);
+  SDL_Texture * get_texture() const;
   SDL_FRect get_frame(unsigned long animation_start_time,
                       unsigned long ticks) const;
 };

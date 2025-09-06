@@ -29,7 +29,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                              gui->get_font("regular"), white, black);
     gui->add_label(hello);
 
-    Sprite *apple = new Sprite(100, 100, 32, 32, core->get_sprite_map("apple_default"));
+    Sprite *apple = new Sprite(100, 100, 320, 320, core->get_sprite_map("apple_default"));
     core->add_sprite(apple);
 
     *appstate = core;

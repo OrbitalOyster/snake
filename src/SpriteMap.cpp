@@ -17,7 +17,10 @@ SpriteMap::SpriteMap(const struct SpriteMapConfig config, SDL_Texture * texture)
                              ") for SpriteMap " + config.key);
 
   frame_size = 1000 / fps;
-  std::cout << frame_size << std::endl;
+}
+
+SDL_Texture * SpriteMap::get_texture() const {
+    return texture;
 }
 
 SDL_FRect SpriteMap::get_frame(unsigned long animation_start_time,

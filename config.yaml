@@ -31,4 +31,4 @@ sprite_maps:
     w: 32
     h: 32
     n: 17
-    fps: 4
+    fps: 25
