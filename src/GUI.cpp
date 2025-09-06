@@ -7,8 +7,8 @@ void GUI::load_fonts(std::vector<struct FontConfig> font_configs) {
     fonts[font_config.key] = new Font(font_config, renderer);
 }
 
-Font *GUI::get_font(std::string key) {
-  return fonts[key];
+Font *GUI::get_font(std::string key) const {
+  return fonts.at(key);
 }
 
 void GUI::add_label(Label *label) {

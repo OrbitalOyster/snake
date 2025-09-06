@@ -16,7 +16,7 @@ private:
 public:
   GUI(SDL_Renderer *renderer);
   void load_fonts(std::vector<struct FontConfig> configs);
-  Font *get_font(std::string key);
+  Font *get_font(std::string key) const;
   void add_label(Label *label);
   void render();
   ~GUI();

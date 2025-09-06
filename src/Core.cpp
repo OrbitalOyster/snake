@@ -1,8 +1,10 @@
 #include "SDL3/SDL_timer.h"
+#include "SpriteMap.hpp"
 #include <Core.hpp>
 #include <SDL3/SDL_log.h>
 #include <SDL3/SDL_render.h>
 #include <stdexcept>
+#include <string>
 
 Core::Core(Config config) {
   if (!SDL_Init(SDL_INIT_VIDEO)) {
@@ -60,9 +62,18 @@ SDL_Texture *Core::load_png(std::string filename) {
   return texture;
 }
 
+const SpriteMap * Core::get_sprite_map(std::string key) const {
+  if (sprite_maps.find(key) != sprite_maps.end())
+      return sprite_maps.at(key);
+  else
+      throw std::runtime_error("Invalid sprite map: " + key);
+}
+
+void Core::add_sprite(Sprite *sprite) { sprites.push_back(sprite); }
+
 void Core::render_sprites() {
   SDL_Log("Ticks: %lu", SDL_GetTicks());
-  for (const Sprite sprite : sprites) {
+  for (const Sprite *sprite : sprites) {
   }
 }
 

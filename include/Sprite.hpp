@@ -6,13 +6,13 @@
 
 class Sprite {
 private:
-  SpriteMap *sprite_map;
   float x, y;
   float w, h;
+  const SpriteMap *sprite_map;
   unsigned long animation_start;
 
 public:
-  Sprite(SpriteMap *sprite_map, float x, float y, float w, float h);
+  Sprite(float x, float y, float w, float h, const SpriteMap *sprite_map);
   SDL_FRect get_bounding_rect();
   void set_animation();
   void render();

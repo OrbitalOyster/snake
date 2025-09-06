@@ -19,16 +19,17 @@ private:
   SDL_Renderer *renderer;
   GUI *gui;
   std::map<std::string, SpriteMap *> sprite_maps;
-  std::vector<Sprite> sprites;
+  std::vector<Sprite *> sprites;
 
 public:
   Core(Config config);
   SDL_Renderer *get_renderer();
   void set_GUI(GUI *new_gui);
   void iterate();
-  unsigned int get_ticks();
   SDL_AppResult on_event(SDL_Event *event);
   SDL_Texture *load_png(std::string filename);
+  const SpriteMap *get_sprite_map(std::string key) const;
+  void add_sprite(Sprite *sprite);
   void render_sprites();
   ~Core();
 };

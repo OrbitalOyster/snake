@@ -1,3 +1,4 @@
+#include "Sprite.hpp"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
@@ -28,6 +29,9 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     Label *hello = new Label(std::string("Hello, World!"), 16, 16,
                              gui->get_font("regular"), white, black);
     gui->add_label(hello);
+
+    Sprite *apple = new Sprite(100, 100, 32, 32, core->get_sprite_map("apple_default"));
+    core->add_sprite(apple);
 
     *appstate = core;
     return SDL_APP_CONTINUE;
