@@ -98,8 +98,8 @@ void Core::render_sprites() {
 Core::~Core() {
   if (gui)
     delete gui;
-  for (auto it = textures.begin(); it != textures.end(); ++it)
-    SDL_DestroyTexture(textures[it->first]);
+  for (const auto &it : textures)
+    SDL_DestroyTexture(textures[it.first]);
   if (renderer)
     SDL_DestroyRenderer(renderer);
   if (window)

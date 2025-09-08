@@ -38,6 +38,6 @@ void GUI::render() {
 }
 
 GUI::~GUI() {
-  for (const auto &pair : fonts)
-    delete fonts[pair.first];
+  for (const auto &it : fonts)
+    delete fonts[it.first];
 }
