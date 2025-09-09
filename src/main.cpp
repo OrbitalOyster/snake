@@ -25,7 +25,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     gui->load_fonts(config.get_fonts());
 
     Container *test_container = new Container();
-    test_container->set_horizontal_sizing(GUIUnit(), GUIUnit(320u), GUIUnit(16u));
+    test_container->set_horizontal_sizing(GUIUnit(.5f), GUIUnit(320u), GUIUnit(), GUIUnit(-.5f));
     test_container->set_vertical_sizing(GUIUnit(), GUIUnit(240u), GUIUnit(16u));
     gui->add_container(test_container);
 

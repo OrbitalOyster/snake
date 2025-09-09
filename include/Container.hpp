@@ -15,11 +15,14 @@ private:
   GUIUnit u_left, u_width, u_right;
   GUIUnit u_top, u_height, u_bottom;
 
+  GUIUnit u_offset_left;
+
   std::vector<Container *> children;
 
 public:
   Container();
   void set_horizontal_sizing(GUIUnit left, GUIUnit width, GUIUnit right);
+  void set_horizontal_sizing(GUIUnit left, GUIUnit width, GUIUnit right, GUIUnit offset_left);
   void set_vertical_sizing(GUIUnit top, GUIUnit height, GUIUnit bottom);
   SDL_FRect get_bounding_rect() const;
   float get_width() const;

@@ -18,6 +18,7 @@ public:
   GUIUnit(float l);
 
   bool is_computable();
+  bool is_static();
 
   unsigned int to_pixels(unsigned int parent_length);
 };
