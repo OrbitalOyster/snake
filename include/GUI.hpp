@@ -13,7 +13,6 @@ private:
   SDL_Renderer *renderer;
   std::map<std::string, Font *> fonts;
   std::vector<Label *> labels;
-  std::vector<Container *> containers;
   Container *root_container;
 
 public:

@@ -4,7 +4,6 @@
 GUI::GUI(SDL_Renderer *renderer) : renderer(renderer) {
   TTF_Init();
   root_container = new Container(0, 0, 0, 0);
-  containers.push_back(root_container);
 }
 
 void GUI::load_fonts(std::vector<struct FontConfig> font_configs) {
@@ -15,7 +14,7 @@ void GUI::load_fonts(std::vector<struct FontConfig> font_configs) {
 Font *GUI::get_font(std::string key) const { return fonts.at(key); }
 
 void GUI::add_container(Container *container) {
-  containers.push_back(container);
+  root_container->add_container(container);
 }
 
 void GUI::add_label(Label *label) { labels.push_back(label); }
@@ -25,11 +24,7 @@ void GUI::on_window_resize(int width, int height) {
 }
 
 void GUI::render() {
-  for (const Container *c : containers) {
-    const SDL_FRect dst = c->get_bounding_rect();
-    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0, 0xFF);
-    SDL_RenderRect(renderer, &dst);
-  }
+  root_container->render(renderer);
 
   for (const Label *l : labels) {
     SDL_FRect dst = l->get_bounding_rect();
