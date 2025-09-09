@@ -13,13 +13,9 @@ GUIUnit::GUIUnit(float l) {
 
 GUIUnit::GUIUnit() {}
 
-bool GUIUnit::is_computable() {
-    return type == Computable;
-}
+bool GUIUnit::is_computable() { return type == Computable; }
 
-bool GUIUnit::is_static() {
-    return type == Pixels;
-}
+bool GUIUnit::is_static() { return type == Pixels; }
 
 unsigned int GUIUnit::to_pixels(unsigned int parent_length) {
   switch (type) {

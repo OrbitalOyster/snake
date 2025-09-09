@@ -1,7 +1,7 @@
 #ifndef CONTAINER_HPP_
 #define CONTAINER_HPP_
 
-#include "GUISizing.hpp"
+#include <GUISizing.hpp>
 #include <GUIUnit.hpp>
 #include <SDL3/SDL_rect.h>
 #include <SDL3/SDL_render.h>
@@ -12,23 +12,11 @@ private:
   /* Actual dimensions */
   float x, y;
   float w, h;
-
-  GUIUnit u_left, u_width, u_right;
-  GUIUnit u_top, u_height, u_bottom;
-
-  GUIUnit u_offset_left;
-
-  GUISizing vertical_sizing;
-
+  GUISizing horizontal_sizing, vertical_sizing;
   std::vector<Container *> children;
-
 public:
   Container();
-  void set_horizontal_sizing(GUIUnit left, GUIUnit width, GUIUnit right);
-  void set_horizontal_sizing(GUIUnit left, GUIUnit width, GUIUnit right, GUIUnit offset_left);
-
-  void set_vertical_sizing(GUIUnit top, GUIUnit height, GUIUnit bottom);
-  void set_vertical_sizing(GUISizing sizing);
+  void set_sizing(GUISizing horizontal_sizing, GUISizing vertical_sizing);
 
   SDL_FRect get_bounding_rect() const;
   float get_width() const;

@@ -1,4 +1,3 @@
-#include "GUIUnit.hpp"
 #include <GUISizing.hpp>
 #include <stdexcept>
 
@@ -14,6 +13,15 @@ GUISizing::GUISizing(GUIUnit u1, GUIUnit u2, GUIUnit u3)
     throw std::runtime_error("GUI error (computables =/= 1)");
 }
 
+GUISizing::GUISizing(GUIUnit u1, GUIUnit u2, GUIUnit u3, GUIUnit offset)
+    : u1(u1), u2(u2), u3(u3), offset(offset) {
+  if (u1.is_computable() + u2.is_computable() + u3.is_computable() != 1)
+    throw std::runtime_error("GUI error (computables =/= 1)");
+
+  if (u2.is_computable() && !offset.is_static())
+    throw std::runtime_error("GUI Error (u1/u3 => u2 => u1/u3 => ...)");
+}
+
 void GUISizing::calculate(float root_size, float *l, float *s) {
   int u1p = 0, u2p = 0;
 
@@ -26,6 +34,11 @@ void GUISizing::calculate(float root_size, float *l, float *s) {
     u2p = root_size - u1.to_pixels(root_size) - u3.to_pixels(root_size);
   else
     u2p = u2.to_pixels(root_size);
+
+  if (u1.is_computable())
+    u1p -= offset.to_pixels(u2p);
+  else
+    u1p += offset.to_pixels(u2p);
 
   *l = u1p;
   *s = u2p;
