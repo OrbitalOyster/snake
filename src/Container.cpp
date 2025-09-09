@@ -1,3 +1,4 @@
+#include "GUISizing.hpp"
 #include "GUIUnit.hpp"
 #include <Container.hpp>
 #include <iostream>
@@ -41,6 +42,10 @@ void Container::set_horizontal_sizing(GUIUnit left, GUIUnit width,
   u_right = right;
 
   u_offset_left = offset_left;
+}
+
+void Container::set_vertical_sizing(GUISizing sizing) {
+  vertical_sizing = sizing;
 }
 
 void Container::set_vertical_sizing(GUIUnit top, GUIUnit height,
@@ -90,24 +95,27 @@ void Container::update(float parent_width, float parent_height) {
   x += offset_left_p;
   std::cout << offset_left_p << std::endl;
 
+  /*
+    int u4 = -1, u5 = -1, u6 = -1;
+    if (!u_top.is_computable())
+      u4 = u_top.to_pixels(parent_height);
+    if (!u_height.is_computable())
+      u5 = u_height.to_pixels(parent_height);
+    if (!u_bottom.is_computable())
+      u6 = u_bottom.to_pixels(parent_height);
 
-  int u4 = -1, u5 = -1, u6 = -1;
-  if (!u_top.is_computable())
-    u4 = u_top.to_pixels(parent_height);
-  if (!u_height.is_computable())
-    u5 = u_height.to_pixels(parent_height);
-  if (!u_bottom.is_computable())
-    u6 = u_bottom.to_pixels(parent_height);
+    if (u_top.is_computable())
+      u4 = parent_height - u5 - u6;
+    if (u_height.is_computable())
+      u5 = parent_height - u4 - u6;
+    if (u_bottom.is_computable())
+      u6 = parent_height - u4 - u5;
 
-  if (u_top.is_computable())
-    u4 = parent_height - u5 - u6;
-  if (u_height.is_computable())
-    u5 = parent_height - u4 - u6;
-  if (u_bottom.is_computable())
-    u6 = parent_height - u4 - u5;
+    y = u4;
+    h = u5;
+  */
 
-  y = u4;
-  h = u5;
+  vertical_sizing.calculate(parent_height, &y, &h);
 
   for (Container *c : children) {
     c->update(w, h);

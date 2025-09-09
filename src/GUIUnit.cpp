@@ -24,7 +24,8 @@ bool GUIUnit::is_static() {
 unsigned int GUIUnit::to_pixels(unsigned int parent_length) {
   switch (type) {
   case Computable:
-    throw std::runtime_error("GUI Error 1");
+    return 0;
+    // throw std::runtime_error("GUI Error 1");
     break;
   case Pixels:
     return pixels;
@@ -33,4 +34,6 @@ unsigned int GUIUnit::to_pixels(unsigned int parent_length) {
     return parent_length * percent;
     break;
   }
+  /* Should not happen */
+  throw std::runtime_error("Wut?!");
 }
