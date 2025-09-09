@@ -3,56 +3,47 @@
 #include <iostream>
 #include <stdexcept>
 
-Container::Container(){}
+Container::Container() {}
 
-void Container::set_horizontal_sizing(GUIUnit left, GUIUnit width, GUIUnit right) {
-    unsigned computables = 0;
-    computables += left.is_computable();
-    computables += width.is_computable();
-    computables += right.is_computable();
-    if (computables != 1)
-        throw std::runtime_error("GUI error (computables =/= 1)");
+void Container::set_horizontal_sizing(GUIUnit left, GUIUnit width,
+                                      GUIUnit right) {
+  unsigned computables = 0;
+  computables += left.is_computable();
+  computables += width.is_computable();
+  computables += right.is_computable();
+  if (computables != 1)
+    throw std::runtime_error("GUI error (computables =/= 1)");
 
-    u_left = left;
-    u_width = width;
-    u_right = right;
+  u_left = left;
+  u_width = width;
+  u_right = right;
 }
 
-void Container::set_vertical_sizing(GUIUnit top, GUIUnit height, GUIUnit bottom) {
-    unsigned computables = 0;
-    computables += top.is_computable();
-    computables += height.is_computable();
-    computables += bottom.is_computable();
-    if (computables != 1)
-        throw std::runtime_error("GUI error (computables =/= 1)");
+void Container::set_vertical_sizing(GUIUnit top, GUIUnit height,
+                                    GUIUnit bottom) {
+  unsigned computables = 0;
+  computables += top.is_computable();
+  computables += height.is_computable();
+  computables += bottom.is_computable();
+  if (computables != 1)
+    throw std::runtime_error("GUI error (computables =/= 1)");
 
-    u_top = top;
-    u_height = height;
-    u_bottom = bottom;
+  u_top = top;
+  u_height = height;
+  u_bottom = bottom;
 }
 
 SDL_FRect Container::get_bounding_rect() const { return {x, y, w, h}; }
 
-float Container::get_width() const {
-    return w;
-}
+float Container::get_width() const { return w; }
 
-float Container::get_height() const {
-    return h;
-}
+float Container::get_height() const { return h; }
 
 void Container::update(float parent_width, float parent_height) {
 
-  /*
-  x = top;
-  y = left;
-  float x2 = parent_width - right;
-  float y2 = parent_height - bottom;
-  w = x2 - x;
-  h = y2 - y;
-  */
+  /* TODO: So much lunacy */
 
-  unsigned u1 = -1, u2 = -1, u3 = -1;
+  int u1 = -1, u2 = -1, u3 = -1;
   if (!u_left.is_computable())
     u1 = u_left.to_pixels(parent_width);
   if (!u_width.is_computable())
@@ -70,7 +61,7 @@ void Container::update(float parent_width, float parent_height) {
   x = u1;
   w = u2;
 
-  unsigned u4 = -1, u5 = -1, u6 = -1;
+  int u4 = -1, u5 = -1, u6 = -1;
   if (!u_top.is_computable())
     u4 = u_top.to_pixels(parent_height);
   if (!u_height.is_computable())

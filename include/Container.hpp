@@ -12,8 +12,6 @@ private:
   float x, y;
   float w, h;
 
-  float top, right, bottom, left;
-
   GUIUnit u_left, u_width, u_right;
   GUIUnit u_top, u_height, u_bottom;
 

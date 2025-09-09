@@ -24,9 +24,10 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     core->set_GUI(gui);
     gui->load_fonts(config.get_fonts());
 
-    // Container *test_container = new Container();
-    // test_container->set_horizontal_sizing(GUIUnit(16u), GUIUnit(), GUIUnit(16u));
-    // gui->add_container(test_container);
+    Container *test_container = new Container();
+    test_container->set_horizontal_sizing(GUIUnit(), GUIUnit(320u), GUIUnit(16u));
+    test_container->set_vertical_sizing(GUIUnit(), GUIUnit(240u), GUIUnit(16u));
+    gui->add_container(test_container);
 
     SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
     SDL_Color black = {0x44, 0x44, 0x44, 0xFF};

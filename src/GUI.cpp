@@ -4,8 +4,8 @@
 GUI::GUI(SDL_Renderer *renderer) : renderer(renderer) {
   TTF_Init();
   root_container = new Container();
-  root_container->set_horizontal_sizing(GUIUnit(16u), GUIUnit(), GUIUnit(16u));
-  root_container->set_vertical_sizing(GUIUnit(16u), GUIUnit(), GUIUnit(16u));
+  root_container->set_horizontal_sizing(GUIUnit(0u), GUIUnit(), GUIUnit(0u));
+  root_container->set_vertical_sizing(GUIUnit(0u), GUIUnit(), GUIUnit(0u));
 }
 
 void GUI::load_fonts(std::vector<struct FontConfig> font_configs) {
@@ -17,7 +17,7 @@ Font *GUI::get_font(std::string key) const { return fonts.at(key); }
 
 void GUI::add_container(Container *container) {
   root_container->add_container(container);
-  // container->update(root_container->get_width(), root_container->get_height());
+  container->update(root_container->get_width(), root_container->get_height());
 }
 
 void GUI::add_label(Label *label) { labels.push_back(label); }
