@@ -16,6 +16,9 @@ public:
   GUIUnit(unsigned int l);
   /* Relative, percents */
   GUIUnit(float l);
+
+  bool is_computable();
+
   unsigned int to_pixels(unsigned int parent_length);
 };
 

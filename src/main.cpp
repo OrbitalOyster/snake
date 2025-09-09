@@ -3,6 +3,7 @@
 #include <Core.hpp>
 #include <Font.hpp>
 #include <GUI.hpp>
+#include <GUIUnit.hpp>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_log.h>
@@ -23,8 +24,9 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     core->set_GUI(gui);
     gui->load_fonts(config.get_fonts());
 
-    Container *test_container = new Container(64, 64, 128, 128);
-    gui->add_container(test_container);
+    // Container *test_container = new Container();
+    // test_container->set_horizontal_sizing(GUIUnit(16u), GUIUnit(), GUIUnit(16u));
+    // gui->add_container(test_container);
 
     SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
     SDL_Color black = {0x44, 0x44, 0x44, 0xFF};

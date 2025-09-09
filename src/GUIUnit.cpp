@@ -13,6 +13,10 @@ GUIUnit::GUIUnit(float l) {
 
 GUIUnit::GUIUnit() {}
 
+bool GUIUnit::is_computable() {
+    return type == Computable;
+}
+
 unsigned int GUIUnit::to_pixels(unsigned int parent_length) {
   switch (type) {
   case Computable:
