@@ -10,22 +10,22 @@
 class Container {
 private:
   /* Actual dimensions */
-  float x, y;
-  float w, h;
+  int x, y;
+  int w, h;
   GUISizing horizontal_sizing, vertical_sizing;
   std::vector<Container *> children;
+
 public:
   Container();
-  void set_sizing(GUISizing horizontal_sizing, GUISizing vertical_sizing);
-
+  Container(GUISizing horizontal_sizing, GUISizing vertical_sizing);
   SDL_FRect get_bounding_rect() const;
-  float get_width() const;
-  float get_height() const;
-  void update(float parent_width, float parent_height);
-  void resize(float new_width, float new_height);
-  void on_parent_resize(float new_parent_width, float new_parent_height);
+  int get_width() const;
+  int get_height() const;
+  void update(int parent_width, int parent_height);
+  void resize(int new_width, int new_height);
+  void on_parent_resize(int new_parent_width, int new_parent_height);
   void add_container(Container *container);
-  void render(SDL_Renderer *renderer);
+  void render(SDL_Renderer *renderer, int parent_x, int parent_y);
 };
 
 #endif

@@ -22,24 +22,19 @@ GUISizing::GUISizing(GUIUnit u1, GUIUnit u2, GUIUnit u3, GUIUnit offset)
     throw std::runtime_error("GUI Error (u1/u3 => u2 => u1/u3 => ...)");
 }
 
-void GUISizing::calculate(float root_size, float *l, float *s) {
-  int u1p = 0, u2p = 0;
-
+void GUISizing::calculate(int root_size, int *l, int *s) {
   if (u1.is_computable())
-    u1p = root_size - u2.to_pixels(root_size) - u3.to_pixels(root_size);
+    *l = root_size - u2.to_pixels(root_size) - u3.to_pixels(root_size);
   else
-    u1p = u1.to_pixels(root_size);
+    *l = u1.to_pixels(root_size);
 
   if (u2.is_computable())
-    u2p = root_size - u1.to_pixels(root_size) - u3.to_pixels(root_size);
+    *s = root_size - u1.to_pixels(root_size) - u3.to_pixels(root_size);
   else
-    u2p = u2.to_pixels(root_size);
+    *s = u2.to_pixels(root_size);
 
   if (u1.is_computable())
-    u1p -= offset.to_pixels(u2p);
+    *l -= offset.to_pixels(*s);
   else
-    u1p += offset.to_pixels(u2p);
-
-  *l = u1p;
-  *s = u2p;
+    *l += offset.to_pixels(*s);
 }

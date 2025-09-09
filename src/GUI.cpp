@@ -25,7 +25,7 @@ void GUI::on_window_resize(int width, int height) {
 }
 
 void GUI::render() {
-  root_container->render(renderer);
+  root_container->render(renderer, 0, 0);
 
   for (const Label *l : labels) {
     SDL_FRect dst = l->get_bounding_rect();
