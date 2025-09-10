@@ -11,6 +11,10 @@ void GUI::load_fonts(std::vector<struct FontConfig> font_configs) {
     fonts[font_config.key] = new Font(font_config, renderer);
 }
 
+void GUI::add_skin(std::string key, GUISkin *skin) {
+    skins[key] = skin;
+}
+
 Font *GUI::get_font(std::string key) const { return fonts.at(key); }
 
 void GUI::add_container(Container *container) {

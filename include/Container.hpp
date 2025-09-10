@@ -2,6 +2,7 @@
 #define CONTAINER_HPP_
 
 #include <GUISizing.hpp>
+#include <GUISkin.hpp>
 #include <GUIUnit.hpp>
 #include <SDL3/SDL_rect.h>
 #include <SDL3/SDL_render.h>
@@ -13,11 +14,13 @@ private:
   int x, y;
   int w, h;
   GUISizing horizontal_sizing, vertical_sizing;
+  GUISkin *skin;
   std::vector<Container *> children;
 
 public:
   Container();
   Container(GUISizing horizontal_sizing, GUISizing vertical_sizing);
+  void set_skin(GUISkin *skin);
   SDL_FRect get_bounding_rect() const;
   int get_width() const;
   int get_height() const;

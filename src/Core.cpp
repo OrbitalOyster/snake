@@ -80,6 +80,10 @@ SDL_Texture *Core::load_png(std::string filename) {
   return texture;
 }
 
+SDL_Texture *Core::get_texture(std::string texture_key) {
+    return textures.at(texture_key);
+}
+
 const SpriteMap *Core::get_sprite_map(std::string key) const {
   if (sprite_maps.find(key) != sprite_maps.end())
     return sprite_maps.at(key);

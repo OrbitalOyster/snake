@@ -1,9 +1,11 @@
+#include "SDL3/SDL_rect.h"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
 #include <Font.hpp>
 #include <GUI.hpp>
 #include <GUISizing.hpp>
+#include <GUISkin.hpp>
 #include <GUIUnit.hpp>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_init.h>
@@ -25,13 +27,18 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     core->set_GUI(gui);
     gui->load_fonts(config.get_fonts());
 
-    Container *top_right_container = new Container(
-        GUISizing(GUIUnit(.5f), GUIUnit(), GUIUnit(4u)),
-        GUISizing(GUIUnit(4u), GUIUnit(), GUIUnit(.5f)));
+    GUISkin *skin =
+        new GUISkin(core->get_texture("gui_skin"), {48, 16, 16, 16},
+                    {48, 48, 16, 16}, {16, 48, 16, 16}, {16, 16, 16, 16});
+    gui->add_skin("test_skin", skin);
 
-    Container *bottom_container = new Container(
-        GUISizing(GUIUnit(32u), GUIUnit(), GUIUnit(32u)),
-        GUISizing(GUIUnit(), GUIUnit(.25f), GUIUnit(32u)));
+    Container *top_right_container =
+        new Container(GUISizing(GUIUnit(.5f), GUIUnit(), GUIUnit(4u)),
+                      GUISizing(GUIUnit(4u), GUIUnit(), GUIUnit(.5f)));
+
+    Container *bottom_container =
+        new Container(GUISizing(GUIUnit(32u), GUIUnit(), GUIUnit(32u)),
+                      GUISizing(GUIUnit(), GUIUnit(.25f), GUIUnit(32u)));
 
     bottom_container->add_container(top_right_container);
 

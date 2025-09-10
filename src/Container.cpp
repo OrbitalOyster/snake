@@ -1,9 +1,12 @@
+#include "GUISkin.hpp"
 #include <Container.hpp>
 
 Container::Container() {}
 
 Container::Container(GUISizing horizontal_sizing, GUISizing vertical_sizing)
     : horizontal_sizing(horizontal_sizing), vertical_sizing(vertical_sizing) {}
+
+void Container::set_skin(GUISkin *skin) { this->skin = skin; }
 
 SDL_FRect Container::get_bounding_rect() const {
   return {(float)x, (float)y, (float)w, (float)h};

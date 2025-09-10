@@ -1,6 +1,7 @@
 #ifndef CORE_HPP_
 #define CORE_HPP_
 
+#include "SDL3/SDL_render.h"
 #include <Config.hpp>
 #include <GUI.hpp>
 #include <SDL3/SDL.h>
@@ -29,6 +30,7 @@ public:
   void iterate();
   SDL_AppResult on_event(SDL_Event *event);
   SDL_Texture *load_png(std::string filename);
+  SDL_Texture *get_texture(std::string texture_key);
   const SpriteMap *get_sprite_map(std::string key) const;
   void add_sprite(Sprite *sprite);
   void render_sprites();

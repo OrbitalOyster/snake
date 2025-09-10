@@ -10,6 +10,7 @@ target_sources(main PRIVATE
     src/Font.cpp
     src/GUI.cpp
     src/GUISizing.cpp
+    src/GUISkin.cpp
     src/GUIUnit.cpp
     src/Label.cpp
     src/Sprite.cpp
