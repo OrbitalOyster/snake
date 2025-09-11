@@ -30,6 +30,11 @@ Core::Core(Config config) {
   for (struct ImageConfig image_config : config.get_images())
     textures[image_config.key] = load_png(image_config.filename);
 
+  /* Load textures */
+  for (struct ImageConfig image_config : config.get_images())
+    new_textures[image_config.key] =
+        new Texture(image_config.filename, renderer);
+
   /* Set sprite maps */
   for (struct SpriteMapConfig sprite_map_config : config.get_sprite_maps())
     sprite_maps[sprite_map_config.key] = new SpriteMap(
@@ -56,7 +61,7 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
   if (event->type == SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED) {
     int w, h;
     SDL_GetWindowSizeInPixels(window, &w, &h);
-    // SDL_Log("Window resize: %i %i", w, h);
+    SDL_Log("Window resize: %i %i", w, h);
     gui->on_window_resize(w, h);
   }
 
@@ -80,8 +85,8 @@ SDL_Texture *Core::load_png(std::string filename) {
   return texture;
 }
 
-SDL_Texture *Core::get_texture(std::string texture_key) {
-    return textures.at(texture_key);
+Texture *Core::get_texture(std::string texture_key) {
+  return new_textures.at(texture_key);
 }
 
 const SpriteMap *Core::get_sprite_map(std::string key) const {
@@ -96,7 +101,7 @@ void Core::add_sprite(Sprite *sprite) { sprites.push_back(sprite); }
 void Core::render_sprites() {
   unsigned long ticks = SDL_GetTicks();
   for (const Sprite *sprite : sprites)
-    sprite->render(ticks, renderer);
+    sprite->render(ticks);
 }
 
 Core::~Core() {

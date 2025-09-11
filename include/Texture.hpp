@@ -6,11 +6,13 @@
 
 class Texture {
 private:
+  std::string filename;
+  SDL_Renderer *renderer;
   SDL_Texture *texture;
 
 public:
   Texture(std::string filename, SDL_Renderer *renderer);
-  void render(SDL_Renderer *renderer, SDL_FRect *src, SDL_FRect *dst);
+  void render(const SDL_FRect *src, const SDL_FRect *dst) const;
   ~Texture();
 };
 

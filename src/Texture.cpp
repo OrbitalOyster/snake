@@ -1,8 +1,8 @@
-#include "SDL3_image/SDL_image.h"
 #include <Texture.hpp>
 #include <stdexcept>
 
-Texture::Texture(std::string filename, SDL_Renderer *renderer) {
+Texture::Texture(std::string filename, SDL_Renderer *renderer)
+    : filename(filename), renderer(renderer) {
   texture = IMG_LoadTexture(renderer, filename.c_str());
   if (!texture)
     throw std::runtime_error("Failed to load image" +
@@ -10,8 +10,11 @@ Texture::Texture(std::string filename, SDL_Renderer *renderer) {
   SDL_Log("Loaded texture %s", filename.c_str());
 }
 
-void Texture::render(SDL_Renderer *renderer, SDL_FRect *src, SDL_FRect *dst) {
+void Texture::render(const SDL_FRect *src, const SDL_FRect *dst) const {
   SDL_RenderTexture(renderer, texture, src, dst);
 }
 
-Texture::~Texture() { SDL_DestroyTexture(texture); }
+Texture::~Texture() {
+  SDL_DestroyTexture(texture);
+  SDL_Log("Freed texture %s", filename.c_str());
+}

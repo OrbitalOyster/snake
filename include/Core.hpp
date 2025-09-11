@@ -20,6 +20,7 @@ private:
   SDL_Renderer *renderer;
   GUI *gui;
   std::map<std::string, SDL_Texture *> textures;
+  std::map<std::string, Texture *> new_textures;
   std::map<std::string, SpriteMap *> sprite_maps;
   std::vector<Sprite *> sprites;
 
@@ -30,7 +31,7 @@ public:
   void iterate();
   SDL_AppResult on_event(SDL_Event *event);
   SDL_Texture *load_png(std::string filename);
-  SDL_Texture *get_texture(std::string texture_key);
+  Texture *get_texture(std::string texture_key);
   const SpriteMap *get_sprite_map(std::string key) const;
   void add_sprite(Sprite *sprite);
   void render_sprites();
