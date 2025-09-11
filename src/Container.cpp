@@ -1,4 +1,3 @@
-#include "GUISkin.hpp"
 #include <Container.hpp>
 
 Container::Container() {}
@@ -33,6 +32,10 @@ void Container::render(SDL_Renderer *renderer, int parent_x, int parent_y) {
   dst.y += parent_y;
   SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0, 0xFF);
   SDL_RenderRect(renderer, &dst);
+
+  if (skin != NULL) {
+    skin->render(dst);
+  }
 
   for (Container *c : children) {
     c->render(renderer, dst.x, dst.y);

@@ -14,7 +14,7 @@ private:
   int x, y;
   int w, h;
   GUISizing horizontal_sizing, vertical_sizing;
-  GUISkin *skin;
+  GUISkin *skin = NULL;
   std::vector<Container *> children;
 
 public:

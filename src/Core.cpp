@@ -45,8 +45,8 @@ void Core::iterate() {
   SDL_SetRenderDrawColor(renderer, background_color.r, background_color.g,
                          background_color.b, 0xFF);
   SDL_RenderClear(renderer);
-  gui->render();
   render_sprites();
+  gui->render();
   SDL_RenderPresent(renderer);
 }
 

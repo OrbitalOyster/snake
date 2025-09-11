@@ -46,6 +46,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     Container *centered_container = new Container(
         GUISizing(GUIUnit(.5f), GUIUnit(320u), GUIUnit(), GUIUnit(-.5f)),
         GUISizing(GUIUnit(.5f), GUIUnit(240u), GUIUnit(), GUIUnit(-.5f)));
+    centered_container->set_skin(skin);
     gui->add_container(centered_container);
 
     SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};

@@ -11,7 +11,7 @@ private:
   float x, y;
   float w, h;
   const Texture *texture;
-  const SpriteMap *sprite_map;
+  const SpriteMap *sprite_map = NULL;
   unsigned long animation_start_time;
 
 public:
