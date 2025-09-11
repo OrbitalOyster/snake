@@ -1,10 +1,10 @@
 #ifndef CORE_HPP_
 #define CORE_HPP_
 
-#include "SDL3/SDL_render.h"
 #include <Config.hpp>
 #include <GUI.hpp>
 #include <SDL3/SDL.h>
+#include <SDL3/SDL_render.h>
 #include <SDL3_image/SDL_image.h>
 #include <Sprite.hpp>
 #include <SpriteMap.hpp>
@@ -19,7 +19,7 @@ private:
   SDL_Color background_color;
   SDL_Renderer *renderer;
   GUI *gui;
-  std::map<std::string, SDL_Texture*> textures;
+  std::map<std::string, SDL_Texture *> textures;
   std::map<std::string, SpriteMap *> sprite_maps;
   std::vector<Sprite *> sprites;
 

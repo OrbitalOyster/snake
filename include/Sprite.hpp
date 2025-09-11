@@ -1,6 +1,7 @@
 #ifndef SPRITE_HPP_
 #define SPRITE_HPP_
 
+#include <SDL3/SDL_rect.h>
 #include <SDL3_image/SDL_image.h>
 #include <SpriteMap.hpp>
 
@@ -14,7 +15,7 @@ private:
 public:
   Sprite(float x, float y, float w, float h, const SpriteMap *sprite_map);
   SDL_FRect get_bounding_rect() const;
-  void render(unsigned long ticks, SDL_Renderer * renderer) const;
+  void render(unsigned long ticks, SDL_Renderer *renderer) const;
 };
 
 #endif

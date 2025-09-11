@@ -15,6 +15,7 @@ target_sources(main PRIVATE
     src/Label.cpp
     src/Sprite.cpp
     src/SpriteMap.cpp
+    src/Texture.cpp
     src/main.cpp
 )
 

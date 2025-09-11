@@ -50,8 +50,6 @@ SDL_Texture *Font::get_texture(const std::string text, SDL_Color color,
                                           SDL_TEXTUREACCESS_TARGET, bw, bh);
   SDL_SetTextureBlendMode(result, SDL_BLENDMODE_BLEND);
   SDL_SetRenderTarget(renderer, result);
-  // TODO: Need this?
-  // SDL_RenderClear(renderer);
   const SDL_FRect bg_rect = {0, 0, bw, bh};
   const SDL_FRect fg_rect = {outline_size, outline_size, fw, fh};
   /* Set width and height */
