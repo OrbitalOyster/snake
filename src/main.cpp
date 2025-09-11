@@ -26,10 +26,10 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     core->set_GUI(gui);
     gui->load_fonts(config.get_fonts());
 
-    //    GUISkin *skin =
-    //        new GUISkin(core->get_texture("gui_skin"), {48, 16, 16, 16},
-    //                    {48, 48, 16, 16}, {16, 48, 16, 16}, {16, 16, 16, 16});
-    //    gui->add_skin("test_skin", skin);
+    GUISkin *skin =
+        new GUISkin(core->get_texture("gui_skin"), {48, 16, 16, 16},
+                    {48, 48, 16, 16}, {16, 48, 16, 16}, {16, 16, 16, 16});
+    gui->add_skin("test_skin", skin);
 
     Container *top_right_container =
         new Container(GUISizing(GUIUnit(.5f), GUIUnit(), GUIUnit(4u)),
@@ -57,6 +57,9 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     Sprite *apple = new Sprite(64, 64, 128, 128, core->get_texture("apple"),
                                core->get_sprite_map("apple_default"));
     core->add_sprite(apple);
+
+    Sprite *goose = new Sprite(256, 64, 128, 128, core->get_texture("goose"));
+    core->add_sprite(goose);
 
     *appstate = core;
     return SDL_APP_CONTINUE;

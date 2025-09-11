@@ -7,8 +7,13 @@ Texture::Texture(std::string filename, SDL_Renderer *renderer)
   if (!texture)
     throw std::runtime_error("Failed to load image" +
                              std::string(SDL_GetError()));
-  SDL_Log("Loaded texture %s", filename.c_str());
+  SDL_GetTextureSize(texture, &w, &h);
+  SDL_Log("Loaded texture %s, size %.2f x %.2f", filename.c_str(), w, h);
 }
+
+float Texture::get_width() const { return w; }
+
+float Texture::get_height() const { return h; }
 
 void Texture::render(const SDL_FRect *src, const SDL_FRect *dst) const {
   SDL_RenderTexture(renderer, texture, src, dst);
