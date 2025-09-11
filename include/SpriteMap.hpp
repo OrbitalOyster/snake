@@ -15,7 +15,6 @@ struct SpriteMapConfig {
 
 class SpriteMap {
 private:
-  SDL_Texture * texture;
   float x, y;
   float w, h;
   unsigned n;
@@ -25,8 +24,8 @@ private:
   unsigned long frame_size;
 
 public:
-  SpriteMap(const struct SpriteMapConfig config, SDL_Texture * texture);
-  SDL_Texture * get_texture() const;
+  SpriteMap(const struct SpriteMapConfig config);
+  SDL_Texture *get_texture() const;
   SDL_FRect get_frame(unsigned long animation_start_time,
                       unsigned long ticks) const;
 };

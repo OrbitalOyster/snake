@@ -19,8 +19,7 @@ private:
   SDL_Color background_color;
   SDL_Renderer *renderer;
   GUI *gui;
-  std::map<std::string, SDL_Texture *> textures;
-  std::map<std::string, Texture *> new_textures;
+  std::map<std::string, Texture *> textures;
   std::map<std::string, SpriteMap *> sprite_maps;
   std::vector<Sprite *> sprites;
 

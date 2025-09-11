@@ -3,8 +3,7 @@
 
 #include <stdexcept>
 
-SpriteMap::SpriteMap(const struct SpriteMapConfig config, SDL_Texture *texture)
-    : texture(texture) {
+SpriteMap::SpriteMap(const struct SpriteMapConfig config) {
   x = (float)config.x;
   y = (float)config.y;
   w = (float)config.w;
@@ -18,8 +17,6 @@ SpriteMap::SpriteMap(const struct SpriteMapConfig config, SDL_Texture *texture)
 
   frame_size = 1000 / fps;
 }
-
-SDL_Texture *SpriteMap::get_texture() const { return texture; }
 
 SDL_FRect SpriteMap::get_frame(unsigned long animation_start_time,
                                unsigned long ticks) const {

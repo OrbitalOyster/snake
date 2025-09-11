@@ -26,19 +26,13 @@ Core::Core(Config config) {
   /* No ugly scaling */
   SDL_SetDefaultTextureScaleMode(renderer, SDL_SCALEMODE_NEAREST);
 
-  /* Load images */
-  for (struct ImageConfig image_config : config.get_images())
-    textures[image_config.key] = load_png(image_config.filename);
-
   /* Load textures */
   for (struct ImageConfig image_config : config.get_images())
-    new_textures[image_config.key] =
-        new Texture(image_config.filename, renderer);
+    textures[image_config.key] = new Texture(image_config.filename, renderer);
 
   /* Set sprite maps */
   for (struct SpriteMapConfig sprite_map_config : config.get_sprite_maps())
-    sprite_maps[sprite_map_config.key] = new SpriteMap(
-        sprite_map_config, textures.at(sprite_map_config.texture));
+    sprite_maps[sprite_map_config.key] = new SpriteMap(sprite_map_config);
 }
 
 SDL_Renderer *Core::get_renderer() { return renderer; }
@@ -86,7 +80,7 @@ SDL_Texture *Core::load_png(std::string filename) {
 }
 
 Texture *Core::get_texture(std::string texture_key) {
-  return new_textures.at(texture_key);
+  return textures.at(texture_key);
 }
 
 const SpriteMap *Core::get_sprite_map(std::string key) const {
@@ -108,7 +102,7 @@ Core::~Core() {
   if (gui)
     delete gui;
   for (const auto &it : textures)
-    SDL_DestroyTexture(textures[it.first]);
+    delete (textures[it.first]);
   if (renderer)
     SDL_DestroyRenderer(renderer);
   if (window)
