@@ -26,9 +26,22 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     core->set_GUI(gui);
     gui->load_fonts(config.get_fonts());
 
-    GUISkin *skin =
-        new GUISkin(core->get_texture("gui_skin"), {48, 16, 16, 16},
-                    {48, 48, 16, 16}, {16, 48, 16, 16}, {16, 16, 16, 16});
+    /*
+     * topLeft": [ 16, 16, 16, 16 ],
+     * top": [ 32, 16, 16, 16 ],
+     * topRight": [ 48, 16, 16, 16 ],
+     * right": [ 48, 32, 16, 16 ],
+     * bottomRight": [ 48, 48, 16, 16 ],
+     * bottom": [ 32, 48, 16, 16 ],
+     * bottomLeft": [ 16, 48, 16, 16 ]
+     * left": [ 16, 32, 16, 16 ],
+     * center": [ 32, 32, 16, 16 ],
+     */
+
+    GUISkin *skin = new GUISkin(
+        core->get_texture("gui_skin"), {16, 16, 16, 16}, {32, 16, 16, 16},
+        {48, 16, 16, 16}, {48, 32, 16, 16}, {48, 48, 16, 16}, {32, 48, 16, 16},
+        {16, 48, 16, 16}, {16, 32, 16, 16});
     gui->add_skin("test_skin", skin);
 
     Container *top_right_container =
@@ -40,13 +53,13 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                       GUISizing(GUIUnit(), GUIUnit(.25f), GUIUnit(32u)));
 
     bottom_container->add_container(top_right_container);
+    bottom_container->set_skin(skin);
 
     gui->add_container(bottom_container);
 
     Container *centered_container = new Container(
         GUISizing(GUIUnit(.5f), GUIUnit(320u), GUIUnit(), GUIUnit(-.5f)),
         GUISizing(GUIUnit(.5f), GUIUnit(240u), GUIUnit(), GUIUnit(-.5f)));
-    centered_container->set_skin(skin);
     gui->add_container(centered_container);
 
     SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};

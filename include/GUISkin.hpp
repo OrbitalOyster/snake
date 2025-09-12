@@ -7,18 +7,30 @@
 class GUISkin {
 private:
   Texture *texture;
-  SDL_FRect top_right;
-  SDL_FRect bottom_right;
-  SDL_FRect bottom_left;
   SDL_FRect top_left;
-  void render_top_right(SDL_FRect container);
-  void render_top_left(SDL_FRect container);
+  SDL_FRect top;
+  SDL_FRect top_right;
+  SDL_FRect right;
+  SDL_FRect bottom_right;
+  SDL_FRect bottom;
+  SDL_FRect bottom_left;
+  SDL_FRect left;
+
+  void render_top_left(SDL_FRect rect);
+  void render_top(SDL_FRect rect);
+  void render_top_right(SDL_FRect rect);
+  void render_right(SDL_FRect rect);
+  void render_bottom_right(SDL_FRect rect);
+  void render_bottom(SDL_FRect rect);
+  void render_bottom_left(SDL_FRect rect);
+  void render_left(SDL_FRect rect);
 
 public:
-  GUISkin(Texture *texture, SDL_FRect top_right, SDL_FRect bottom_right,
-          SDL_FRect bottom_left, SDL_FRect top_left);
+  GUISkin(Texture *texture, SDL_FRect top_left, SDL_FRect top,
+          SDL_FRect top_right, SDL_FRect right, SDL_FRect bottom_right,
+          SDL_FRect bottom, SDL_FRect bottom_left, SDL_FRect left);
 
-  void render(SDL_FRect container);
+  void render(SDL_FRect rect);
 };
 
 #endif
