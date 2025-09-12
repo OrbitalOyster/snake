@@ -27,6 +27,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     gui->load_fonts(config.get_fonts());
 
     /*
+     * center": [ 32, 32, 16, 16 ],
      * topLeft": [ 16, 16, 16, 16 ],
      * top": [ 32, 16, 16, 16 ],
      * topRight": [ 48, 16, 16, 16 ],
@@ -35,13 +36,12 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
      * bottom": [ 32, 48, 16, 16 ],
      * bottomLeft": [ 16, 48, 16, 16 ]
      * left": [ 16, 32, 16, 16 ],
-     * center": [ 32, 32, 16, 16 ],
      */
 
     GUISkin *skin = new GUISkin(
-        core->get_texture("gui_skin"), {16, 16, 16, 16}, {32, 16, 16, 16},
-        {48, 16, 16, 16}, {48, 32, 16, 16}, {48, 48, 16, 16}, {32, 48, 16, 16},
-        {16, 48, 16, 16}, {16, 32, 16, 16});
+        core->get_texture("gui_skin"), {32, 32, 16, 16}, {16, 16, 16, 16},
+        {32, 16, 16, 16}, {48, 16, 16, 16}, {48, 32, 16, 16}, {48, 48, 16, 16},
+        {32, 48, 16, 16}, {16, 48, 16, 16}, {16, 32, 16, 16});
     gui->add_skin("test_skin", skin);
 
     Container *top_right_container =

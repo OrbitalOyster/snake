@@ -1,12 +1,21 @@
 #include "SDL3/SDL_rect.h"
 #include <GUISkin.hpp>
 
-GUISkin::GUISkin(Texture *texture, SDL_FRect top_left, SDL_FRect top,
-                 SDL_FRect top_right, SDL_FRect right, SDL_FRect bottom_right,
-                 SDL_FRect bottom, SDL_FRect bottom_left, SDL_FRect left)
-    : texture(texture), top_left(top_left), top(top), top_right(top_right),
-      right(right), bottom_right(bottom_right), bottom(bottom),
-      bottom_left(bottom_left), left(left) {}
+GUISkin::GUISkin(Texture *texture, SDL_FRect center, SDL_FRect top_left,
+                 SDL_FRect top, SDL_FRect top_right, SDL_FRect right,
+                 SDL_FRect bottom_right, SDL_FRect bottom,
+                 SDL_FRect bottom_left, SDL_FRect left)
+    : texture(texture), center(center), top_left(top_left), top(top),
+      top_right(top_right), right(right), bottom_right(bottom_right),
+      bottom(bottom), bottom_left(bottom_left), left(left) {}
+
+void GUISkin::render_center(SDL_FRect rect) {
+  for (unsigned y = top.h; y < rect.h - bottom.h; y += center.h)
+    for (unsigned x = left.w; x < rect.w - right.w; x += center.w) {
+      SDL_FRect dst = {rect.x + x, rect.y + y, center.w, center.h};
+      texture->render(&center, &dst);
+    }
+}
 
 void GUISkin::render_top_left(SDL_FRect rect) {
   SDL_FRect dst = {rect.x, rect.y, top_left.w, top_left.h};
@@ -62,6 +71,7 @@ void GUISkin::render_bottom_left(SDL_FRect rect) {
 }
 
 void GUISkin::render(SDL_FRect rect) {
+  render_center(rect);
   render_top(rect);
   render_right(rect);
   render_bottom(rect);
