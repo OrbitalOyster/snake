@@ -1,4 +1,3 @@
-#include "SDL3/SDL_rect.h"
 #include <GUISkin.hpp>
 
 GUISkin::GUISkin(Texture *texture, SDL_FRect center, SDL_FRect top_left,

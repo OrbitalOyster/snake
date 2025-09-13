@@ -10,10 +10,11 @@
 
 class Container {
 private:
+  /* Alignment chicanery */
+  GUISizing horizontal_sizing, vertical_sizing;
   /* Actual dimensions */
   int x, y;
   int w, h;
-  GUISizing horizontal_sizing, vertical_sizing;
   GUISkin *skin = NULL;
   std::vector<Container *> children;
 
