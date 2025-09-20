@@ -2,32 +2,32 @@
 #include <stdexcept>
 
 GUIUnit::GUIUnit(unsigned int l) {
-  pixels = l;
+  number.pixels = l;
   type = Pixels;
 }
 
 GUIUnit::GUIUnit(float l) {
-  percent = l;
+  number.percent = l;
   type = Percent;
 }
 
 GUIUnit::GUIUnit() {}
 
-bool GUIUnit::is_computable() { return type == Computable; }
+bool GUIUnit::is_unset() { return type == Unset; }
 
 bool GUIUnit::is_static() { return type == Pixels; }
 
 unsigned int GUIUnit::to_pixels(unsigned int parent_length) {
   switch (type) {
-  case Computable:
+  case Unset:
     return 0;
     // throw std::runtime_error("GUI Error 1");
     break;
   case Pixels:
-    return pixels;
+    return number.pixels;
     break;
   case Percent:
-    return parent_length * percent;
+    return parent_length * number.percent;
     break;
   }
   /* Should not happen */

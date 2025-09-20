@@ -48,6 +48,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
         new Container(GUISizing(GUIUnit(.5f), GUIUnit(), GUIUnit(4u)),
                       GUISizing(GUIUnit(4u), GUIUnit(), GUIUnit(.5f)));
     top_right_container->set_skin(skin);
+    top_right_container->set_min_width(GUIUnit(200u));
 
     Container *bottom_container =
         new Container(GUISizing(GUIUnit(32u), GUIUnit(), GUIUnit(32u)),

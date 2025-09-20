@@ -12,6 +12,7 @@ class Container {
 private:
   /* Alignment chicanery */
   GUISizing horizontal_sizing, vertical_sizing;
+  GUIUnit min_width, min_height;
   /* Actual dimensions */
   int x, y;
   int w, h;
@@ -22,6 +23,8 @@ public:
   Container();
   Container(GUISizing horizontal_sizing, GUISizing vertical_sizing);
   void set_skin(GUISkin *skin);
+  void set_min_width(GUIUnit min_width);
+  void set_min_height(GUIUnit min_height);
   SDL_FRect get_bounding_rect() const;
   int get_width() const;
   int get_height() const;

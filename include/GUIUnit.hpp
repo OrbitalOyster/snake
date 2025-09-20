@@ -1,14 +1,16 @@
 #ifndef GUI_UNIT_HPP_
 #define GUI_UNIT_HPP_
 
-enum GUIUnitType { Pixels, Percent, Computable };
+enum GUIUnitType { Pixels, Percent, Unset };
+union GUIUnitNumber {
+  unsigned int pixels;
+  float percent;
+};
 
 class GUIUnit {
 private:
-  GUIUnitType type = Computable;
-  unsigned int pixels;
-  float percent;
-
+  GUIUnitType type = Unset;
+  GUIUnitNumber number;
 public:
   /* Computable */
   GUIUnit();
@@ -16,10 +18,8 @@ public:
   GUIUnit(unsigned int l);
   /* Relative, percents */
   GUIUnit(float l);
-
-  bool is_computable();
+  bool is_unset();
   bool is_static();
-
   unsigned int to_pixels(unsigned int parent_length);
 };
 
