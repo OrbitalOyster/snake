@@ -12,10 +12,12 @@ class Container {
 private:
   /* Alignment chicanery */
   GUISizing horizontal_sizing, vertical_sizing;
-  GUIUnit min_width, min_height;
   /* Actual dimensions */
   int x, y;
   int w, h;
+  GUIUnit min_width, min_height;
+  /* Cache, updating on resize */
+  SDL_Texture *cache;
   GUISkin *skin = NULL;
   std::vector<Container *> children;
 

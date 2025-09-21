@@ -37,4 +37,10 @@ void GUISizing::calculate(int root_size, int *l, int *s) {
     *l -= offset.to_pixels(*s);
   else
     *l += offset.to_pixels(*s);
+
+  /* No negative lengths */
+  if (*l < 0)
+    *l = 0;
+  if (*s < 0)
+    *s = 0;
 }

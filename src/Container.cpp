@@ -24,13 +24,13 @@ int Container::get_height() const { return h; }
 
 void Container::update(int parent_width, int parent_height) {
   int min_width_p = min_width.to_pixels(parent_width);
-  int min_height_p = min_width.to_pixels(parent_width);
+  int min_height_p = min_height.to_pixels(parent_height);
   horizontal_sizing.calculate(parent_width, &x, &w);
+  vertical_sizing.calculate(parent_height, &y, &h);
   if (w < min_width_p)
     w = min_width_p;
   if (h < min_height_p)
     h = min_height_p;
-  vertical_sizing.calculate(parent_height, &y, &h);
   for (Container *c : children)
     c->update(w, h);
 }
