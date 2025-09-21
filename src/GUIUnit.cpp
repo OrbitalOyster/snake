@@ -21,7 +21,6 @@ unsigned int GUIUnit::to_pixels(unsigned int parent_length) {
   switch (type) {
   case Unset:
     return 0;
-    // throw std::runtime_error("GUI Error 1");
     break;
   case Pixels:
     return number.pixels;
