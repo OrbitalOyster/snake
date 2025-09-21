@@ -42,19 +42,20 @@ void Container::add_container(Container *container) {
 
 void Container::render(SDL_Renderer *renderer, int parent_x, int parent_y) {
   SDL_FRect dst = get_bounding_rect();
+  dst.x += parent_x;
+  dst.y += parent_y;
   SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0, 0xFF);
   SDL_RenderRect(renderer, &dst);
 
   if (skin != NULL) {
     cache = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32,
                               SDL_TEXTUREACCESS_TARGET, w, h);
+    if (!cache)
+      return;
     SDL_SetRenderTarget(renderer, cache);
     skin->render({0, 0, (float)w, (float)h});
     SDL_SetRenderTarget(renderer, NULL);
-    dst.x += parent_x;
-    dst.y += parent_y;
     SDL_RenderTexture(renderer, cache, NULL, &dst);
-    SDL_Log("%f %f %f %f", dst.x, dst.y, dst.w, dst.h);
     SDL_DestroyTexture(cache);
   }
 
