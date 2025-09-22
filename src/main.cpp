@@ -3,9 +3,9 @@
 #include <Core.hpp>
 #include <Font.hpp>
 #include <GUI.hpp>
-#include <GUISizing.hpp>
-#include <GUISkin.hpp>
-#include <GUIUnit.hpp>
+#include <GUI/Sizing.hpp>
+#include <GUI/Skin.hpp>
+#include <GUI/Unit.hpp>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_log.h>
@@ -32,21 +32,21 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
         {32, 48, 16, 16}, {16, 48, 16, 16}, {16, 32, 16, 16});
     gui->add_skin("test_skin", skin);
 
-    Container *top_right_container =
-        new Container(GUISizing(GUIUnit(.5f), GUIUnit(), GUIUnit(4u)),
-                      GUISizing(GUIUnit(4u), GUIUnit(), GUIUnit(.5f)));
+    GUIContainer *top_right_container =
+        new GUIContainer(GUISizing(GUIUnit(.5f), GUIUnit(), GUIUnit(4u)),
+                         GUISizing(GUIUnit(4u), GUIUnit(), GUIUnit(.5f)));
     top_right_container->set_skin(skin);
     top_right_container->set_min_width(GUIUnit(200u));
 
-    Container *bottom_container =
-        new Container(GUISizing(GUIUnit(32u), GUIUnit(), GUIUnit(32u)),
-                      GUISizing(GUIUnit(), GUIUnit(.25f), GUIUnit(32u)));
+    GUIContainer *bottom_container =
+        new GUIContainer(GUISizing(GUIUnit(32u), GUIUnit(), GUIUnit(32u)),
+                         GUISizing(GUIUnit(), GUIUnit(.25f), GUIUnit(32u)));
     bottom_container->add_container(top_right_container);
     bottom_container->set_skin(skin);
 
     gui->add_container(bottom_container);
 
-    Container *centered_container = new Container(
+    GUIContainer *centered_container = new GUIContainer(
         GUISizing(GUIUnit(.5f), GUIUnit(320u), GUIUnit(), GUIUnit(-.5f)),
         GUISizing(GUIUnit(.5f), GUIUnit(240u), GUIUnit(), GUIUnit(-.5f)));
     gui->add_container(centered_container);

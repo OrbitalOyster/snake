@@ -1,31 +1,31 @@
-#include "GUIUnit.hpp"
-#include <Container.hpp>
+#include <GUI/Container.hpp>
 
-Container::Container() {}
+GUIContainer::GUIContainer() {}
 
-Container::Container(GUISizing horizontal_sizing, GUISizing vertical_sizing)
+GUIContainer::GUIContainer(GUISizing horizontal_sizing,
+                           GUISizing vertical_sizing)
     : horizontal_sizing(horizontal_sizing), vertical_sizing(vertical_sizing) {}
 
-void Container::set_skin(GUISkin *skin) {
+void GUIContainer::set_skin(GUISkin *skin) {
   this->skin = skin;
   cache_is_outdated = true;
 }
 
-void Container::set_min_width(GUIUnit min_width) {
+void GUIContainer::set_min_width(GUIUnit min_width) {
   this->min_width = min_width;
 }
 
-void Container::set_min_height(GUIUnit min_height) {
+void GUIContainer::set_min_height(GUIUnit min_height) {
   this->min_height = min_height;
 }
 
-SDL_FRect Container::get_bounding_rect() const {
+SDL_FRect GUIContainer::get_bounding_rect() const {
   return {(float)x, (float)y, (float)w, (float)h};
 }
-int Container::get_width() const { return w; }
-int Container::get_height() const { return h; }
+int GUIContainer::get_width() const { return w; }
+int GUIContainer::get_height() const { return h; }
 
-void Container::update(int parent_width, int parent_height) {
+void GUIContainer::update(int parent_width, int parent_height) {
   int old_w = w, old_h = h;
   horizontal_sizing.calculate(parent_width, &x, &w);
   vertical_sizing.calculate(parent_height, &y, &h);
@@ -37,16 +37,16 @@ void Container::update(int parent_width, int parent_height) {
     h = min_height_p;
   if (w != old_w || h != old_h)
     cache_is_outdated = true;
-  for (Container *c : children)
+  for (GUIContainer *c : children)
     c->update(w, h);
 }
 
-void Container::add_container(Container *container) {
+void GUIContainer::add_container(GUIContainer *container) {
   children.push_back(container);
   children.back()->update(w, h);
 }
 
-void Container::update_cache(SDL_Renderer *renderer) {
+void GUIContainer::update_cache(SDL_Renderer *renderer) {
   if (cache != NULL)
     SDL_DestroyTexture(cache);
   cache = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32,
@@ -57,7 +57,7 @@ void Container::update_cache(SDL_Renderer *renderer) {
   cache_is_outdated = false;
 }
 
-void Container::render(SDL_Renderer *renderer, int parent_x, int parent_y) {
+void GUIContainer::render(SDL_Renderer *renderer, int parent_x, int parent_y) {
   SDL_FRect dst = get_bounding_rect();
   if (!dst.w || !dst.h)
     return;
@@ -70,6 +70,6 @@ void Container::render(SDL_Renderer *renderer, int parent_x, int parent_y) {
       update_cache(renderer);
     SDL_RenderTexture(renderer, cache, NULL, &dst);
   }
-  for (Container *c : children)
+  for (GUIContainer *c : children)
     c->render(renderer, dst.x, dst.y);
 }

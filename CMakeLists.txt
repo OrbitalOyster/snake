@@ -4,14 +4,14 @@ project(snake LANGUAGES CXX)
 add_executable(main)
 
 target_sources(main PRIVATE
+    src/GUI/Container.cpp
+    src/GUI/Sizing.cpp
+    src/GUI/Skin.cpp
+    src/GUI/Unit.cpp
     src/Config.cpp
-    src/Container.cpp
     src/Core.cpp
     src/Font.cpp
     src/GUI.cpp
-    src/GUISizing.cpp
-    src/GUISkin.cpp
-    src/GUIUnit.cpp
     src/Label.cpp
     src/Sprite.cpp
     src/SpriteMap.cpp

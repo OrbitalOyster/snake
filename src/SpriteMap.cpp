@@ -1,6 +1,5 @@
 #include <SDL3/SDL_render.h>
 #include <SpriteMap.hpp>
-
 #include <stdexcept>
 
 SpriteMap::SpriteMap(const struct SpriteMapConfig config) {

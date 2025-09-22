@@ -1,4 +1,4 @@
-#include <GUIUnit.hpp>
+#include <GUI/Unit.hpp>
 #include <stdexcept>
 
 GUIUnit::GUIUnit(unsigned int l) {

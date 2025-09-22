@@ -1,7 +1,7 @@
 #ifndef GUI_SIZING_HPP
 #define GUI_SIZING_HPP
 
-#include <GUIUnit.hpp>
+#include <GUI/Unit.hpp>
 
 class GUISizing {
 private:

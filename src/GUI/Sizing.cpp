@@ -1,4 +1,4 @@
-#include <GUISizing.hpp>
+#include <GUI/Sizing.hpp>
 #include <stdexcept>
 
 GUISizing::GUISizing() {
