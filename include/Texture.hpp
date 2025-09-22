@@ -15,6 +15,7 @@ public:
   Texture(std::string filename, SDL_Renderer *renderer);
   float get_width() const;
   float get_height() const;
+  void render(const SDL_FRect *dst) const;
   void render(const SDL_FRect *src, const SDL_FRect *dst) const;
   ~Texture();
 };

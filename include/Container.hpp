@@ -17,7 +17,8 @@ private:
   int w, h;
   GUIUnit min_width, min_height;
   /* Cache, updating on resize */
-  SDL_Texture *cache;
+  SDL_Texture *cache = NULL;
+  bool cache_is_outdated = false;
   GUISkin *skin = NULL;
   std::vector<Container *> children;
 
@@ -34,6 +35,7 @@ public:
   void resize(int new_width, int new_height);
   void on_parent_resize(int new_parent_width, int new_parent_height);
   void add_container(Container *container);
+  void update_cache(SDL_Renderer* renderer);
   void render(SDL_Renderer *renderer, int parent_x, int parent_y);
 };
 

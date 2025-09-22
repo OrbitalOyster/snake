@@ -15,6 +15,10 @@ float Texture::get_width() const { return w; }
 
 float Texture::get_height() const { return h; }
 
+void Texture::render(const SDL_FRect *dst) const {
+  SDL_RenderTexture(renderer, texture, NULL, dst);
+}
+
 void Texture::render(const SDL_FRect *src, const SDL_FRect *dst) const {
   SDL_RenderTexture(renderer, texture, src, dst);
 }
