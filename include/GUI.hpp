@@ -4,6 +4,7 @@
 #include <Font.hpp>
 #include <GUI/Container.hpp>
 #include <GUI/Skin.hpp>
+#include <GUI/Text.hpp>
 #include <Label.hpp>
 #include <map>
 #include <string>
@@ -14,6 +15,7 @@ private:
   SDL_Renderer *renderer;
   std::map<std::string, Font *> fonts;
   std::vector<Label *> labels;
+  std::vector<GUIText *> texts;
   GUIContainer *root_container;
   std::map<std::string, GUISkin *> skins;
 
@@ -25,8 +27,9 @@ public:
   Font *get_font(std::string key) const;
   void add_container(GUIContainer *container);
   void add_label(Label *label);
+  void add_text(GUIText *text);
   void on_window_resize(int width, int height);
-  void render();
+  void render() const;
   ~GUI();
 };
 

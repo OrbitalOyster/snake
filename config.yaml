@@ -3,8 +3,8 @@
 window:
   title: "Snake"
   background-color: 0x2596be
-  width: 320
-  height: 240
+  width: 640
+  height: 480
   fullscreen: false
   resizeable: true
 

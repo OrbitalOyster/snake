@@ -1,3 +1,5 @@
+#include "GUI/Alignment.hpp"
+#include "GUI/Text.hpp"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
@@ -43,6 +45,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                          GUISizing(GUIUnit(), GUIUnit(.25f), GUIUnit(32u)));
     bottom_container->add_container(top_right_container);
     bottom_container->set_skin(skin);
+    bottom_container->set_min_width(GUIUnit(400u + 8u));
 
     gui->add_container(bottom_container);
 
@@ -53,9 +56,15 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
 
     SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
     SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
+    GUIText *hello =
+        new GUIText(std::string("Hello, World!"), gui->get_font("regular"),
+                    white, black, GUIAlignment(.5f, End, -.5f), GUIAlignment(GUIAlignment(.5f, End, -.5f)));
+    gui->add_text(hello);
+    /*
     Label *hello = new Label(std::string("Hello, World!"), 16, 16,
                              gui->get_font("regular"), white, black);
     gui->add_label(hello);
+    */
 
     Sprite *apple = new Sprite(64, 64, 128, 128, core->get_texture("apple"),
                                core->get_sprite_map("apple_default"));

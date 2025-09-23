@@ -1,3 +1,4 @@
+#include "GUI/Text.hpp"
 #include <GUI.hpp>
 #include <SDL3/SDL_render.h>
 
@@ -22,15 +23,24 @@ void GUI::add_container(GUIContainer *container) {
 
 void GUI::add_label(Label *label) { labels.push_back(label); }
 
+void GUI::add_text(GUIText *text) { texts.push_back(text); }
+
 void GUI::on_window_resize(int width, int height) {
   root_container->update(width, height);
 }
 
-void GUI::render() {
+void GUI::render() const {
   root_container->render(renderer, 0, 0);
+  /*
   for (const Label *l : labels) {
     SDL_FRect dst = l->get_bounding_rect();
     SDL_RenderTexture(renderer, l->get_texture(), NULL, &dst);
+  }
+  */
+  for (GUIText *t : texts) {
+    t->render(renderer, root_container);
+    // SDL_FRect dst = l->get_bounding_rect();
+    // SDL_RenderTexture(renderer, l->get_texture(), NULL, &dst);
   }
 }
 
