@@ -1,6 +1,8 @@
 #include <GUI/Unit.hpp>
 #include <stdexcept>
 
+GUIUnit::GUIUnit() {}
+
 GUIUnit::GUIUnit(unsigned int l) {
   number.pixels = l;
   type = Pixels;
@@ -10,8 +12,6 @@ GUIUnit::GUIUnit(float l) {
   number.percent = l;
   type = Percent;
 }
-
-GUIUnit::GUIUnit() {}
 
 bool GUIUnit::is_unset() { return type == Unset; }
 

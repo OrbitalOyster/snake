@@ -1,14 +1,4 @@
-#include "GUI/Unit.hpp"
 #include <GUI/Alignment.hpp>
-
-GUIAlignment::GUIAlignment() {}
-
-GUIAlignment::GUIAlignment(GUIUnit u) : u(u) {}
-
-GUIAlignment::GUIAlignment(GUIAlignmentType type) : type(type) {}
-
-GUIAlignment::GUIAlignment(GUIUnit u, GUIAlignmentType type)
-    : u(u), type(type) {}
 
 GUIAlignment::GUIAlignment(GUIUnit u, GUIAlignmentType type, GUIUnit offset)
     : u(u), type(type), offset(offset) {}

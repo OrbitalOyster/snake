@@ -58,7 +58,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
     GUIText *hello =
         new GUIText(std::string("Hello, World!"), gui->get_font("regular"),
-                    white, black, GUIAlignment(.5f, End, -.5f), GUIAlignment(GUIAlignment(.5f, End, -.5f)));
+                    white, black, GUIAlignment(.5f, Start, -.5f), GUIAlignment(.5f, End, -.5f));
     gui->add_text(hello);
     /*
     Label *hello = new Label(std::string("Hello, World!"), 16, 16,
