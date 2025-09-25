@@ -20,6 +20,7 @@ public:
   GUIUnit(float l);
   bool is_unset();
   bool is_static();
+  unsigned int to_pixels();
   unsigned int to_pixels(unsigned int parent_length);
 };
 

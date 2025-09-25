@@ -1,9 +1,18 @@
-#ifndef GUI_ALIGNMENT_HPP
-#define GUI_ALIGNMENT_HPP
+#ifndef GUI_ALIGNMENT_HPP_
+#define GUI_ALIGNMENT_HPP_
 
 #include <GUI/Unit.hpp>
 
 enum GUIAlignmentType { Start, End };
+
+/*
+ *         u
+ *  |-------------->
+ *  /----------|-------|------------/
+ *  Start       <--s-->           End
+ *
+ *  <----------root_size------------>
+ */
 
 class GUIAlignment {
 private:

@@ -1,6 +1,88 @@
+#include "GUI/Unit.hpp"
 #include <GUI/Container.hpp>
 
+#include <iostream>
+#include <stdexcept>
+
 GUIContainer::GUIContainer() {}
+
+GUIContainer::GUIContainer(std::optional<GUIUnit> width,
+                           std::optional<GUIUnit> height,
+                           std::optional<GUISegment> top,
+                           std::optional<GUISegment> left,
+                           std::optional<GUISegment> bottom,
+                           std::optional<GUISegment> right)
+    : width(width), height(height), top(top), left(left), bottom(bottom),
+      right(right) {}
+
+void GUIContainer::update(int parent_width, int parent_height) {
+  /* Width is set */
+  if (width.has_value()) {
+    w = width->to_pixels(parent_width);
+    // std::cout << "w: " << w << std::endl;
+    if (left.has_value()) {
+      if (right.has_value())
+        throw std::runtime_error("Redundant right value");
+      x = left->calculate_offset(parent_width, w);
+      // std::cout << "x: " << x << std::endl;
+    } else if (right.has_value()) {
+      if (left.has_value())
+        throw std::runtime_error("Redundant left value");
+      int right_p = right->calculate_offset(parent_width, w);
+      x = parent_width - w - right_p;
+      // std::cout << "Parent width: " << parent_width << std::endl;
+      // std::cout << "Right: " << right_p << std::endl;
+      // std::cout << "x: " << x << std::endl;
+    } else {
+      throw std::runtime_error(
+          "Invalid horizontal sizing (left and right empty)");
+    }
+  } else /* Dynamic width */
+  {
+    if (!left.has_value() || !right.has_value())
+      throw std::runtime_error(
+          "Invalid horizontal sizing (left or right empty)");
+    x = left->calculate_size(parent_width);
+    // std::cout << "x " << x << std::endl;
+    int right_p = right->calculate_size(parent_width);
+    w = parent_width - x - right_p;
+    // std::cout << "w " << w << std::endl;
+  }
+
+  /* Height is set */
+  if (height.has_value()) {
+    h = height->to_pixels(parent_height);
+    if (top.has_value()) {
+      if (bottom.has_value())
+        throw std::runtime_error("Redundant bottom value");
+      y = top->calculate_offset(parent_height, h);
+      // std::cout << "y: " << y << std::endl;
+    } else if (bottom.has_value()) {
+      if (top.has_value())
+        throw std::runtime_error("Redundant top value");
+      int bottom_p = bottom->calculate_offset(parent_height, h);
+      y = parent_height - h - bottom_p;
+      // std::cout << "Bottom: " << bottom_p << std::endl;
+      // std::cout << "y: " << y << std::endl;
+    } else {
+      throw std::runtime_error("Invalid vertical sizing");
+    }
+  } else /* Dynamic height */
+  {
+    if (!top.has_value() || !bottom.has_value())
+      throw std::runtime_error("Invalid vertical sizing");
+    y = top->calculate_size(parent_height);
+    // std::cout << "y " << y << std::endl;
+    int bottom_p = bottom->calculate_size(parent_height);
+    h = parent_height - y - bottom_p;
+    // std::cout << "h " << h << std::endl;
+  }
+
+  // std::cout << x << " " << y << " " << w << " " << h << std::endl;
+
+  for (GUIContainer *c : children)
+    c->update(w, h);
+}
 
 GUIContainer::GUIContainer(GUISizing horizontal_sizing,
                            GUISizing vertical_sizing)
@@ -22,9 +104,11 @@ void GUIContainer::set_min_height(GUIUnit min_height) {
 SDL_FRect GUIContainer::get_bounding_rect() const {
   return {(float)x, (float)y, (float)w, (float)h};
 }
+
 int GUIContainer::get_width() const { return w; }
 int GUIContainer::get_height() const { return h; }
 
+/*
 void GUIContainer::update(int parent_width, int parent_height) {
   int old_w = w, old_h = h;
   horizontal_sizing.calculate(parent_width, &x, &w);
@@ -40,6 +124,7 @@ void GUIContainer::update(int parent_width, int parent_height) {
   for (GUIContainer *c : children)
     c->update(w, h);
 }
+*/
 
 void GUIContainer::add_container(GUIContainer *container) {
   children.push_back(container);
@@ -59,6 +144,12 @@ void GUIContainer::update_cache(SDL_Renderer *renderer) {
 
 void GUIContainer::render(SDL_Renderer *renderer, int parent_x, int parent_y) {
   SDL_FRect dst = get_bounding_rect();
+
+  // std::cout << dst.x << " " << dst.y << " " << dst.w << " " << dst.h <<
+  // std::endl;
+  if (!dst.w || dst.w > 30000)
+    throw std::runtime_error("Ooops");
+
   if (!dst.w || !dst.h)
     return;
   dst.x += parent_x;

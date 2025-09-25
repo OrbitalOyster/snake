@@ -1,10 +1,17 @@
+#include "GUI/Segment.hpp"
 #include "GUI/Text.hpp"
+#include "GUI/Unit.hpp"
 #include <GUI.hpp>
 #include <SDL3/SDL_render.h>
 
 GUI::GUI(SDL_Renderer *renderer) : renderer(renderer) {
   TTF_Init();
-  root_container = new GUIContainer();
+  root_container = new GUIContainer(
+    GUIUnit(1.0f),
+    GUIUnit(1.0f),
+    GUISegment(),
+    GUISegment()
+  );
 }
 
 void GUI::load_fonts(std::vector<struct FontConfig> font_configs) {

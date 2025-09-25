@@ -1,5 +1,5 @@
-#include "GUI/Alignment.hpp"
-#include "GUI/Text.hpp"
+#include "GUI/Container.hpp"
+#include "GUI/Segment.hpp"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
@@ -12,11 +12,13 @@
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_log.h>
 #include <SDL3/SDL_main.h>
+#include <iostream>
 #include <stdexcept>
 #include <stdlib.h>
 
 SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                           [[maybe_unused]] char *argv[]) {
+
   try {
     /* Get config */
     SDL_Log("Loading config...");
@@ -34,6 +36,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
         {32, 48, 16, 16}, {16, 48, 16, 16}, {16, 32, 16, 16});
     gui->add_skin("test_skin", skin);
 
+    /*
     GUIContainer *top_right_container =
         new GUIContainer(GUISizing(GUIUnit(.5f), GUIUnit(), GUIUnit(4u)),
                          GUISizing(GUIUnit(4u), GUIUnit(), GUIUnit(.5f)));
@@ -56,15 +59,14 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
 
     SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
     SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
-    GUIText *hello =
-        new GUIText(std::string("Hello, World!"), gui->get_font("regular"),
-                    white, black, GUIAlignment(.5f, Start, -.5f), GUIAlignment(.5f, End, -.5f));
+    GUIText *hello = new GUIText(
+        std::string("Hello, World!"), gui->get_font("regular"), white, black,
+        GUIAlignment(.5f, Start, -.5f), GUIAlignment(.5f, End, -.5f));
     gui->add_text(hello);
-    /*
+
     Label *hello = new Label(std::string("Hello, World!"), 16, 16,
                              gui->get_font("regular"), white, black);
     gui->add_label(hello);
-    */
 
     Sprite *apple = new Sprite(64, 64, 128, 128, core->get_texture("apple"),
                                core->get_sprite_map("apple_default"));
@@ -72,8 +74,19 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
 
     Sprite *goose = new Sprite(256, 64, 128, 128, core->get_texture("goose"));
     core->add_sprite(goose);
+    */
 
     *appstate = core;
+
+    GUIContainer *container = new GUIContainer(
+      {}, .5f,
+      GUISegment(0u, 0u, 16u), // Top
+      GUISegment(0u, 0u, 16u), // Left
+      {}, // Bottom
+      GUISegment(0u, 0u, 16u) // Right
+    );
+    gui->add_container(container);
+
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {
     SDL_LogError(1, "Unable to init engine -> %s", err.what());
