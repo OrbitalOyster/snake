@@ -3,7 +3,6 @@
 
 #include <GUI/Alignment.hpp>
 #include <GUI/Segment.hpp>
-#include <GUI/Sizing.hpp>
 #include <GUI/Skin.hpp>
 #include <GUI/Unit.hpp>
 #include <SDL3/SDL_rect.h>
@@ -20,7 +19,6 @@ private:
   std::optional<GUISegment> top, left;
   std::optional<GUISegment> bottom, right;
 
-  GUISizing horizontal_sizing, vertical_sizing;
   /* Actual dimensions */
   int x, y;
   int w, h;
@@ -38,7 +36,6 @@ public:
                std::optional<GUISegment> top, std::optional<GUISegment> left,
                std::optional<GUISegment> bottom = {}, std::optional<GUISegment> right = {});
 
-  GUIContainer(GUISizing horizontal_sizing, GUISizing vertical_sizing);
   void set_skin(GUISkin *skin);
   void set_min_width(GUIUnit min_width);
   void set_min_height(GUIUnit min_height);

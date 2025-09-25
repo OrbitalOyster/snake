@@ -13,7 +13,7 @@ GUIUnit::GUIUnit(float l) {
   type = Percent;
 }
 
-bool GUIUnit::is_unset() { return type == Unset; }
+// bool GUIUnit::is_unset() { return type == Unset; }
 
 bool GUIUnit::is_static() { return type == Pixels; }
 
@@ -26,9 +26,6 @@ unsigned int GUIUnit::to_pixels() {
 
 unsigned int GUIUnit::to_pixels(unsigned int parent_length) {
   switch (type) {
-  case Unset:
-    return 0;
-    break;
   case Pixels:
     return number.pixels;
     break;

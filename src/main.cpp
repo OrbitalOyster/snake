@@ -1,11 +1,8 @@
-#include "GUI/Container.hpp"
-#include "GUI/Segment.hpp"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
 #include <Font.hpp>
 #include <GUI.hpp>
-#include <GUI/Sizing.hpp>
 #include <GUI/Skin.hpp>
 #include <GUI/Unit.hpp>
 #include <SDL3/SDL.h>
@@ -37,11 +34,6 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     gui->add_skin("test_skin", skin);
 
     /*
-    GUIContainer *top_right_container =
-        new GUIContainer(GUISizing(GUIUnit(.5f), GUIUnit(), GUIUnit(4u)),
-                         GUISizing(GUIUnit(4u), GUIUnit(), GUIUnit(.5f)));
-    top_right_container->set_skin(skin);
-    top_right_container->set_min_width(GUIUnit(200u));
 
     GUIContainer *bottom_container =
         new GUIContainer(GUISizing(GUIUnit(32u), GUIUnit(), GUIUnit(32u)),
@@ -80,12 +72,23 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
 
     GUIContainer *container = new GUIContainer(
       {}, .5f,
-      GUISegment(0u, 0u, 16u), // Top
-      GUISegment(0u, 0u, 16u), // Left
+      GUISegment(16u, 0u, 0u), // Top
+      GUISegment(16u, 0u, 0u), // Left
       {}, // Bottom
-      GUISegment(0u, 0u, 16u) // Right
+      GUISegment(16u, 0u, 0u) // Right
     );
+    container->set_skin(skin);
     gui->add_container(container);
+
+    GUIContainer *top_right_container = new GUIContainer(
+      .5f, .5f,
+      GUISegment(8u, 0u, 0u), // Top
+      {}, // Left
+      {}, // Bottom
+      GUISegment(8u, 0u, 0u) // Right
+    );
+    top_right_container->set_skin(skin);
+    container->add_container(top_right_container);
 
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {

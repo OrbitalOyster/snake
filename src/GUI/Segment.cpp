@@ -2,8 +2,8 @@
 #include <stdexcept>
 #include <iostream>
 
-GUISegment::GUISegment(GUIUnit u1, GUIUnit u2, GUIUnit size)
-    : u1(u1), u2(u2), size(size) {}
+GUISegment::GUISegment(GUIUnit size, GUIUnit u1, GUIUnit u2)
+    : size(size), u1(u1), u2(u2) {}
 
 int GUISegment::calculate_offset(int root_size, int child_size) {
   int u1_p = u1.to_pixels(root_size);

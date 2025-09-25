@@ -10,9 +10,7 @@ target_sources(main PRIVATE
     src/GUI.cpp
     src/GUI/Alignment.cpp
     src/GUI/Container.cpp
-    src/GUI/Sizing.cpp
     src/GUI/Segment.cpp
-    src/GUI/Foo.cpp
     src/GUI/Skin.cpp
     src/GUI/Text.cpp
     src/GUI/Unit.cpp

@@ -16,6 +16,7 @@ GUIContainer::GUIContainer(std::optional<GUIUnit> width,
       right(right) {}
 
 void GUIContainer::update(int parent_width, int parent_height) {
+  int old_w = w, old_h = h;
   /* Width is set */
   if (width.has_value()) {
     w = width->to_pixels(parent_width);
@@ -80,13 +81,12 @@ void GUIContainer::update(int parent_width, int parent_height) {
 
   // std::cout << x << " " << y << " " << w << " " << h << std::endl;
 
+  if (w != old_w || h != old_h)
+    cache_is_outdated = true;
+
   for (GUIContainer *c : children)
     c->update(w, h);
 }
-
-GUIContainer::GUIContainer(GUISizing horizontal_sizing,
-                           GUISizing vertical_sizing)
-    : horizontal_sizing(horizontal_sizing), vertical_sizing(vertical_sizing) {}
 
 void GUIContainer::set_skin(GUISkin *skin) {
   this->skin = skin;
@@ -147,8 +147,6 @@ void GUIContainer::render(SDL_Renderer *renderer, int parent_x, int parent_y) {
 
   // std::cout << dst.x << " " << dst.y << " " << dst.w << " " << dst.h <<
   // std::endl;
-  if (!dst.w || dst.w > 30000)
-    throw std::runtime_error("Ooops");
 
   if (!dst.w || !dst.h)
     return;
