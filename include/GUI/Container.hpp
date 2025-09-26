@@ -10,12 +10,9 @@
 #include <vector>
 
 struct ContainerLayout {
-  std::optional<GUIUnit> width;
-  std::optional<GUIUnit> height;
-  std::optional<GUISegment> top;
-  std::optional<GUISegment> left;
-  std::optional<GUISegment> bottom;
-  std::optional<GUISegment> right;
+  std::optional<GUIUnit> width, height;
+  std::optional<GUISegment> top, left;
+  std::optional<GUISegment> bottom, right;
 };
 
 class GUIContainer {
@@ -42,10 +39,11 @@ public:
   void set_min_width(GUIUnit min_width);
   void set_min_height(GUIUnit min_height);
   SDL_FRect get_bounding_rect() const;
+  int get_x() const;
+  int get_y() const;
   int get_width() const;
   int get_height() const;
   void update(int parent_width, int parent_height);
-  // void resize(int new_width, int new_height);
   void on_parent_resize(int new_parent_width, int new_parent_height);
   void add_container(GUIContainer *container);
   void update_cache(SDL_Renderer *renderer);

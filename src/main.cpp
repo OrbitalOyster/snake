@@ -50,14 +50,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
         GUISizing(GUIUnit(.5f), GUIUnit(240u), GUIUnit(), GUIUnit(-.5f)));
     gui->add_container(centered_container);
 
-    SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
-    SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
-    GUIText *hello = new GUIText(
-        std::string("Hello, World!"), gui->get_font("regular"), white, black,
-        GUIAlignment(.5f, Start, -.5f), GUIAlignment(.5f, End, -.5f));
-    gui->add_text(hello);
-
-    Label *hello = new Label(std::string("Hello, World!"), 16, 16,
+   Label *hello = new Label(std::string("Hello, World!"), 16, 16,
                              gui->get_font("regular"), white, black);
     gui->add_label(hello);
 
@@ -71,35 +64,39 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
 
     *appstate = core;
 
-    GUIContainer *container = new GUIContainer({
-        .height = .5f,
-        .top = GUISegment(0u, 0u, 0u),
-        .left = GUISegment(0u, 0u, 0u),
-        .right = GUISegment(0u, 0u, 0u)
-    });
+    GUIContainer *container =
+        new GUIContainer({.height = .5f,
+                          .top = GUISegment(0u, 0u, 0u),
+                          .left = GUISegment(0u, 0u, 0u),
+                          .right = GUISegment(0u, 0u, 0u)});
     container->set_skin(skin);
     gui->add_container(container);
 
-    GUIContainer *top_right_container = new GUIContainer({
-        .width = .5f,
-        .height = .5f,
-        .top = GUISegment(8u),
-        .right = GUISegment(8u)
-    });
+    GUIContainer *top_right_container =
+        new GUIContainer({.width = .5f,
+                          .height = .5f,
+                          .top = GUISegment(8u),
+                          .right = GUISegment(8u)});
     top_right_container->set_skin(skin);
     container->add_container(top_right_container);
 
-    GUIContainer *stoopid_container = new GUIContainer({
-        .top = GUISegment(.5f, 0u, 0u),
-        .left = GUISegment(.25f),
-        .bottom = GUISegment(32u),
-        .right = GUISegment(100u)
-    });
+    GUIContainer *stoopid_container =
+        new GUIContainer({.top = GUISegment(.5f, 0u, 0u),
+                          .left = GUISegment(.25f),
+                          .bottom = GUISegment(32u),
+                          .right = GUISegment(100u)});
 
     gui->add_container(stoopid_container);
     stoopid_container->set_skin(skin);
     stoopid_container->set_min_width(48u);
     stoopid_container->set_min_height(48u);
+
+    SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
+    SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
+    GUIText *hello = new GUIText(
+        std::string("Hello, World!"), gui->get_font("regular"), white, black,
+        {.top = GUISegment(.5f, 0u, .5f), .left = GUISegment(.5f, 0u, .5f)});
+    gui->add_text(hello);
 
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {

@@ -112,6 +112,8 @@ SDL_FRect GUIContainer::get_bounding_rect() const {
   return {(float)x, (float)y, (float)w, (float)h};
 }
 
+int GUIContainer::get_x() const { return x; }
+int GUIContainer::get_y() const { return y; }
 int GUIContainer::get_width() const { return w; }
 int GUIContainer::get_height() const { return h; }
 
@@ -133,10 +135,6 @@ void GUIContainer::update_cache(SDL_Renderer *renderer) {
 
 void GUIContainer::render(SDL_Renderer *renderer, int parent_x, int parent_y) {
   SDL_FRect dst = get_bounding_rect();
-
-  // std::cout << dst.x << " " << dst.y << " " << dst.w << " " << dst.h <<
-  // std::endl;
-
   if (!dst.w || !dst.h)
     return;
   dst.x += parent_x;

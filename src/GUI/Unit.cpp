@@ -1,5 +1,6 @@
 #include <GUI/Unit.hpp>
 #include <stdexcept>
+#include <iostream>
 
 GUIUnit::GUIUnit(unsigned int l) {
   number.pixels = l;

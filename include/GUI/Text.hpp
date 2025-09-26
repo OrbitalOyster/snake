@@ -5,6 +5,11 @@
 #include <GUI/Container.hpp>
 #include <string>
 
+struct TextLayout {
+  std::optional<GUISegment> top, left;
+  std::optional<GUISegment> bottom, right;
+};
+
 class GUIText {
 private:
   std::string text = "";
@@ -12,17 +17,16 @@ private:
   SDL_Texture *texture;
   SDL_Color color;
   SDL_Color outline_color;
+
+  GUIContainer container;
+
   // GUIAlignment horizontal_alignment, vertical_alignment;
-  int x, y;
+  // int x, y;
   /* Texture size */
   float w, h;
 
 public:
-  /*
-    GUIText(std::string text, Font *font, SDL_Color color,
-            SDL_Color outline_color, GUIAlignment horizontal_alignment,
-            GUIAlignment vertical_alignment);
-    */
+  GUIText(std::string text, Font *font, SDL_Color color, SDL_Color outline_color, TextLayout layout);
   void update(std::string text);
   void render(SDL_Renderer *renderer, GUIContainer *parent);
 };
