@@ -10,6 +10,7 @@
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_log.h>
 #include <SDL3/SDL_main.h>
+#include <iostream>
 #include <stdexcept>
 #include <stdlib.h>
 
@@ -70,31 +71,31 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
 
     *appstate = core;
 
-    GUIContainer *container = new GUIContainer({}, .5f,                // Size
-                                               GUISegment(0u, 0u, 0u), // Top
-                                               GUISegment(0u, 0u, 0u), // Left
-                                               {},                     // Bottom
-                                               GUISegment(0u, 0u, 0u)  // Right
-    );
+    GUIContainer *container = new GUIContainer({
+        .height = .5f,
+        .top = GUISegment(0u, 0u, 0u),
+        .left = GUISegment(0u, 0u, 0u),
+        .right = GUISegment(0u, 0u, 0u)
+    });
     container->set_skin(skin);
     gui->add_container(container);
 
-    GUIContainer *top_right_container = new GUIContainer(.5f, .5f,       // Size
-                                                         GUISegment(8u), // Top
-                                                         {},             // Left
-                                                         {}, // Bottom
-                                                         GUISegment(8u) // Right
-    );
+    GUIContainer *top_right_container = new GUIContainer({
+        .width = .5f,
+        .height = .5f,
+        .top = GUISegment(8u),
+        .right = GUISegment(8u)
+    });
     top_right_container->set_skin(skin);
     container->add_container(top_right_container);
 
-    GUIContainer *stoopid_container =
-        new GUIContainer({}, {},                  // Size
-                         GUISegment(.5f, 0u, 0u), // Top
-                         GUISegment(.25f),        // Left
-                         GUISegment(32u),         // Bottom
-                         GUISegment(100u)         // Right
-        );
+    GUIContainer *stoopid_container = new GUIContainer({
+        .top = GUISegment(.5f, 0u, 0u),
+        .left = GUISegment(.25f),
+        .bottom = GUISegment(32u),
+        .right = GUISegment(100u)
+    });
+
     gui->add_container(stoopid_container);
     stoopid_container->set_skin(skin);
     stoopid_container->set_min_width(48u);

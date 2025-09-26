@@ -9,11 +9,20 @@
 #include <optional>
 #include <vector>
 
+struct ContainerLayout {
+  std::optional<GUIUnit> width;
+  std::optional<GUIUnit> height;
+  std::optional<GUISegment> top;
+  std::optional<GUISegment> left;
+  std::optional<GUISegment> bottom;
+  std::optional<GUISegment> right;
+};
+
 class GUIContainer {
 private:
   std::optional<GUIUnit> width = GUIUnit(1.0f), height = GUIUnit(1.0f);
-  std::optional<GUISegment> top, left;
-  std::optional<GUISegment> bottom, right;
+  std::optional<GUISegment> top = GUIUnit(), left = GUIUnit();
+  std::optional<GUISegment> bottom = {}, right = {};
 
   /* Actual dimensions */
   int x, y;
@@ -27,11 +36,7 @@ private:
 
 public:
   GUIContainer();
-
-  GUIContainer(std::optional<GUIUnit> width, std::optional<GUIUnit> height,
-               std::optional<GUISegment> top, std::optional<GUISegment> left,
-               std::optional<GUISegment> bottom = {},
-               std::optional<GUISegment> right = {});
+  GUIContainer(ContainerLayout layout);
 
   void set_skin(GUISkin *skin);
   void set_min_width(GUIUnit min_width);

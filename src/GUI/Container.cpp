@@ -1,18 +1,20 @@
 #include <GUI/Container.hpp>
 
 #include <iostream>
+#include <optional>
 #include <stdexcept>
 
 GUIContainer::GUIContainer() {}
 
-GUIContainer::GUIContainer(std::optional<GUIUnit> width,
-                           std::optional<GUIUnit> height,
-                           std::optional<GUISegment> top,
-                           std::optional<GUISegment> left,
-                           std::optional<GUISegment> bottom,
-                           std::optional<GUISegment> right)
-    : width(width), height(height), top(top), left(left), bottom(bottom),
-      right(right) {}
+GUIContainer::GUIContainer(ContainerLayout layout) {
+  /* Actual lunacy */
+  width = layout.width.has_value() ? layout.width : std::nullopt;
+  height = layout.height.has_value() ? layout.height : std::nullopt;
+  top = layout.top.has_value() ? layout.top : std::nullopt;
+  left = layout.left.has_value() ? layout.left : std::nullopt;
+  bottom = layout.bottom.has_value() ? layout.bottom : std::nullopt;
+  right = layout.right.has_value() ? layout.right : std::nullopt;
+}
 
 void GUIContainer::update(int parent_width, int parent_height) {
   int old_w = w, old_h = h;

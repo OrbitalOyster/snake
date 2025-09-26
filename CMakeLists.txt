@@ -2,6 +2,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(snake LANGUAGES CXX)
 add_executable(main)
+set_property(TARGET main PROPERTY CXX_STANDARD 20)
 
 target_sources(main PRIVATE
     src/Config.cpp

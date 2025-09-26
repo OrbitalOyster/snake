@@ -3,8 +3,7 @@
 
 GUI::GUI(SDL_Renderer *renderer) : renderer(renderer) {
   TTF_Init();
-  root_container = new GUIContainer(GUIUnit(1.0f), GUIUnit(1.0f), GUISegment(),
-                                    GUISegment());
+  root_container = new GUIContainer();
 }
 
 void GUI::load_fonts(std::vector<struct FontConfig> font_configs) {
