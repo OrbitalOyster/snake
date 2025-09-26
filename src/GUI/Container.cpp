@@ -107,24 +107,6 @@ SDL_FRect GUIContainer::get_bounding_rect() const {
 int GUIContainer::get_width() const { return w; }
 int GUIContainer::get_height() const { return h; }
 
-/*
-void GUIContainer::update(int parent_width, int parent_height) {
-  int old_w = w, old_h = h;
-  horizontal_sizing.calculate(parent_width, &x, &w);
-  vertical_sizing.calculate(parent_height, &y, &h);
-  int min_width_p = min_width.to_pixels(parent_width);
-  int min_height_p = min_height.to_pixels(parent_height);
-  if (w < min_width_p)
-    w = min_width_p;
-  if (h < min_height_p)
-    h = min_height_p;
-  if (w != old_w || h != old_h)
-    cache_is_outdated = true;
-  for (GUIContainer *c : children)
-    c->update(w, h);
-}
-*/
-
 void GUIContainer::add_container(GUIContainer *container) {
   children.push_back(container);
   children.back()->update(w, h);

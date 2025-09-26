@@ -1,15 +1,14 @@
 #ifndef GUI_UNIT_HPP_
 #define GUI_UNIT_HPP_
 
-enum GUIUnitType { Pixels, Percent };
-union GUIUnitNumber {
-  unsigned int pixels;
-  float percent;
-};
-
 class GUIUnit {
 private:
+  enum GUIUnitType { Absolute, Relative };
   GUIUnitType type;
+  union GUIUnitNumber {
+    unsigned int pixels;
+    float percent;
+  };
   GUIUnitNumber number;
 
 public:

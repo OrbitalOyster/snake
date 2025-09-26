@@ -3,22 +3,22 @@
 
 GUIUnit::GUIUnit(unsigned int l) {
   number.pixels = l;
-  type = Pixels;
+  type = Absolute;
 }
 
 GUIUnit::GUIUnit(float l) {
   number.percent = l;
-  type = Percent;
+  type = Relative;
 }
 
-bool GUIUnit::is_absolute() { return type == Pixels; }
+bool GUIUnit::is_absolute() { return type == Absolute; }
 
 unsigned int GUIUnit::to_pixels(unsigned int parent_length) {
   switch (type) {
-  case Pixels:
+  case Absolute:
     return number.pixels;
     break;
-  case Percent:
+  case Relative:
     return parent_length * number.percent;
     break;
   }
