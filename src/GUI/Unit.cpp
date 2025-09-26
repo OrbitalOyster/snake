@@ -13,7 +13,7 @@ GUIUnit::GUIUnit(float l) {
 
 bool GUIUnit::is_absolute() { return type == Absolute; }
 
-unsigned int GUIUnit::to_pixels(unsigned int parent_length) {
+int GUIUnit::to_pixels(unsigned int parent_length) {
   switch (type) {
   case Absolute:
     return number.pixels;

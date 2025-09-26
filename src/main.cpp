@@ -97,6 +97,8 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
         );
     gui->add_container(stoopid_container);
     stoopid_container->set_skin(skin);
+    stoopid_container->set_min_width(48u);
+    stoopid_container->set_min_height(48u);
 
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {

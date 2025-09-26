@@ -80,6 +80,12 @@ void GUIContainer::update(int parent_width, int parent_height) {
 
   // std::cout << x << " " << y << " " << w << " " << h << std::endl;
 
+  if (w < min_width.to_pixels(parent_width))
+    w = min_width.to_pixels(parent_width);
+
+  if (h < min_height.to_pixels(parent_height))
+    h = min_height.to_pixels(parent_height);
+
   if (w != old_w || h != old_h)
     cache_is_outdated = true;
 

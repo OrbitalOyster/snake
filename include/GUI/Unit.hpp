@@ -17,7 +17,7 @@ public:
   /* Relative, percents */
   GUIUnit(float l);
   bool is_absolute();
-  unsigned int to_pixels(unsigned int parent_length);
+  int to_pixels(unsigned int parent_length);
 };
 
 #endif
