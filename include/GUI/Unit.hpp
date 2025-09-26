@@ -11,6 +11,7 @@ class GUIUnit {
 private:
   GUIUnitType type;
   GUIUnitNumber number;
+
 public:
   /* Absolute, pixels */
   GUIUnit(unsigned int l = 0u);
