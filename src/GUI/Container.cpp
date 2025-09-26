@@ -1,4 +1,3 @@
-#include "GUI/Unit.hpp"
 #include <GUI/Container.hpp>
 
 #include <iostream>
@@ -24,12 +23,12 @@ void GUIContainer::update(int parent_width, int parent_height) {
     if (left.has_value()) {
       if (right.has_value())
         throw std::runtime_error("Redundant right value");
-      x = left->calculate_offset(parent_width, w);
+      x = left->calculate(parent_width, w);
       // std::cout << "x: " << x << std::endl;
     } else if (right.has_value()) {
       if (left.has_value())
         throw std::runtime_error("Redundant left value");
-      int right_p = right->calculate_offset(parent_width, w);
+      int right_p = right->calculate(parent_width, w);
       x = parent_width - w - right_p;
       // std::cout << "Parent width: " << parent_width << std::endl;
       // std::cout << "Right: " << right_p << std::endl;
@@ -43,9 +42,9 @@ void GUIContainer::update(int parent_width, int parent_height) {
     if (!left.has_value() || !right.has_value())
       throw std::runtime_error(
           "Invalid horizontal sizing (left or right empty)");
-    x = left->calculate_size(parent_width);
+    x = left->calculate(parent_width);
     // std::cout << "x " << x << std::endl;
-    int right_p = right->calculate_size(parent_width);
+    int right_p = right->calculate(parent_width);
     w = parent_width - x - right_p;
     // std::cout << "w " << w << std::endl;
   }
@@ -56,12 +55,12 @@ void GUIContainer::update(int parent_width, int parent_height) {
     if (top.has_value()) {
       if (bottom.has_value())
         throw std::runtime_error("Redundant bottom value");
-      y = top->calculate_offset(parent_height, h);
+      y = top->calculate(parent_height, h);
       // std::cout << "y: " << y << std::endl;
     } else if (bottom.has_value()) {
       if (top.has_value())
         throw std::runtime_error("Redundant top value");
-      int bottom_p = bottom->calculate_offset(parent_height, h);
+      int bottom_p = bottom->calculate(parent_height, h);
       y = parent_height - h - bottom_p;
       // std::cout << "Bottom: " << bottom_p << std::endl;
       // std::cout << "y: " << y << std::endl;
@@ -72,9 +71,9 @@ void GUIContainer::update(int parent_width, int parent_height) {
   {
     if (!top.has_value() || !bottom.has_value())
       throw std::runtime_error("Invalid vertical sizing");
-    y = top->calculate_size(parent_height);
+    y = top->calculate(parent_height);
     // std::cout << "y " << y << std::endl;
-    int bottom_p = bottom->calculate_size(parent_height);
+    int bottom_p = bottom->calculate(parent_height);
     h = parent_height - y - bottom_p;
     // std::cout << "h " << h << std::endl;
   }

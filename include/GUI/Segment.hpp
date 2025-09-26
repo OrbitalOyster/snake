@@ -3,16 +3,22 @@
 
 #include <GUI/Unit.hpp>
 
+/*
+ * |<--------------------root_size----------------->|
+ *                   |<-child_size->|
+ * |-----------------|==============|---------------|
+ * |-----size------->|
+ */
+
 class GUISegment {
 private:
-  GUIUnit size;
-  GUIUnit u1;
-  GUIUnit u2;
+  GUIUnit size, start, end;
 
 public:
-  GUISegment(GUIUnit size = GUIUnit(0.0f), GUIUnit u1 = GUIUnit(0.0f), GUIUnit u2 = GUIUnit(0.0f));
-  int calculate_offset(int root_size, int child_size);
-  int calculate_size(int root_size);
+  GUISegment(GUIUnit size = GUIUnit(0.0f), GUIUnit start = GUIUnit(),
+             GUIUnit end = GUIUnit());
+  int calculate(int parent_size, int child_size);
+  int calculate(int parent_size);
 };
 
 #endif

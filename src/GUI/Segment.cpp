@@ -1,26 +1,22 @@
 #include <GUI/Segment.hpp>
 #include <stdexcept>
-#include <iostream>
 
 GUISegment::GUISegment(GUIUnit size, GUIUnit u1, GUIUnit u2)
-    : size(size), u1(u1), u2(u2) {}
+    : size(size), start(u1), end(u2) {}
 
-int GUISegment::calculate_offset(int root_size, int child_size) {
-  int u1_p = u1.to_pixels(root_size);
-  int target_size = size.to_pixels(root_size);
-  int u2_p = u2.to_pixels(child_size);
-  return u1_p + target_size - u2_p;
+/*
+ * |-start-|----------------|=========> end
+ * |<-------offset--------->|
+ */
+int GUISegment::calculate(int parent_size, int child_size) {
+  return start.to_pixels(parent_size) + size.to_pixels(parent_size) -
+         end.to_pixels(child_size);
 }
 
-int GUISegment::calculate_size(int root_size) {
-  int u1_p = u1.to_pixels(root_size);
-
-  /* Unknown child width */
-  if (!u2.is_static())
+int GUISegment::calculate(int parent_size) {
+  /* Unknown child size */
+  if (!end.is_absolute())
     throw std::runtime_error("Circular dependency");
-
-  int u2_p = u2.to_pixels();
-
-  return size.to_pixels(root_size) - u1_p + u2_p;
-
+  return calculate(parent_size,
+                   800865); /* "child size" is irrelevant for absolute units */
 }

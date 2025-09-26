@@ -8,7 +8,6 @@ target_sources(main PRIVATE
     src/Core.cpp
     src/Font.cpp
     src/GUI.cpp
-    src/GUI/Alignment.cpp
     src/GUI/Container.cpp
     src/GUI/Segment.cpp
     src/GUI/Skin.cpp

@@ -1,3 +1,4 @@
+#include "GUI/Segment.hpp"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
@@ -9,7 +10,6 @@
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_log.h>
 #include <SDL3/SDL_main.h>
-#include <iostream>
 #include <stdexcept>
 #include <stdlib.h>
 
@@ -70,25 +70,33 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
 
     *appstate = core;
 
-    GUIContainer *container = new GUIContainer(
-      {}, .5f,
-      GUISegment(16u, 0u, 0u), // Top
-      GUISegment(16u, 0u, 0u), // Left
-      {}, // Bottom
-      GUISegment(16u, 0u, 0u) // Right
+    GUIContainer *container = new GUIContainer({}, .5f,                // Size
+                                               GUISegment(0u, 0u, 0u), // Top
+                                               GUISegment(0u, 0u, 0u), // Left
+                                               {},                     // Bottom
+                                               GUISegment(0u, 0u, 0u)  // Right
     );
     container->set_skin(skin);
     gui->add_container(container);
 
-    GUIContainer *top_right_container = new GUIContainer(
-      .5f, .5f,
-      GUISegment(8u, 0u, 0u), // Top
-      {}, // Left
-      {}, // Bottom
-      GUISegment(8u, 0u, 0u) // Right
+    GUIContainer *top_right_container = new GUIContainer(.5f, .5f,       // Size
+                                                         GUISegment(8u), // Top
+                                                         {},             // Left
+                                                         {}, // Bottom
+                                                         GUISegment(8u) // Right
     );
     top_right_container->set_skin(skin);
     container->add_container(top_right_container);
+
+    GUIContainer *stoopid_container =
+        new GUIContainer({}, {},                  // Size
+                         GUISegment(.5f, 0u, 0u), // Top
+                         GUISegment(.25f),        // Left
+                         GUISegment(32u),         // Bottom
+                         GUISegment(100u)         // Right
+        );
+    gui->add_container(stoopid_container);
+    stoopid_container->set_skin(skin);
 
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {
