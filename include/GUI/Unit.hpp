@@ -3,13 +3,11 @@
 
 class GUIUnit {
 private:
-  enum GUIUnitType { Absolute, Relative };
-  GUIUnitType type;
+  enum GUIUnitType { Absolute, Relative } type;
   union GUIUnitNumber {
     unsigned int pixels;
     float percent;
-  };
-  GUIUnitNumber number;
+  } number;
 
 public:
   /* Absolute, pixels */

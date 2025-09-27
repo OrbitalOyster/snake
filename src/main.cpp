@@ -29,9 +29,9 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     gui->load_fonts(config.get_fonts());
 
     GUISkin *skin = new GUISkin(
-        core->get_texture("gui_skin"), {32, 32, 16, 16}, {16, 16, 16, 16},
-        {32, 16, 16, 16}, {48, 16, 16, 16}, {48, 32, 16, 16}, {48, 48, 16, 16},
-        {32, 48, 16, 16}, {16, 48, 16, 16}, {16, 32, 16, 16});
+        core->get_texture("gui_skin"), {96, 32, 16, 16}, {80, 16, 16, 16},
+        {96, 16, 16, 16}, {112, 16, 16, 16}, {112, 32, 16, 16}, {112, 48, 16, 16},
+        {96, 48, 16, 16}, {80, 48, 16, 16}, {80, 32, 16, 16});
     gui->add_skin("test_skin", skin);
 
     /*

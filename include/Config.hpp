@@ -1,6 +1,7 @@
 #ifndef CONFIG_HPP_
 #define CONFIG_HPP_
 
+#include "GUI/Skin.hpp"
 #include <Font.hpp>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_pixels.h>
@@ -33,9 +34,10 @@ public:
   SDL_Color get_background_color() const;
   bool get_fullscreen() const;
   bool get_resizeable() const;
-  std::vector<struct FontConfig> get_fonts() const;
-  std::vector<struct ImageConfig> get_images() const;
-  std::vector<struct SpriteMapConfig> get_sprite_maps() const;
+  std::vector<FontConfig> get_fonts() const;
+  std::vector<ImageConfig> get_images() const;
+  std::vector<SpriteMapConfig> get_sprite_maps() const;
+  std::vector<GUISkin> get_skin_configs() const;
 };
 
 #endif

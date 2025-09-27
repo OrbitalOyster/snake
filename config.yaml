@@ -34,3 +34,16 @@ sprite_maps:
     h: 32
     n: 17
     fps: 25
+
+skins:
+  button:
+    texture: "gui_skin"
+    center: [32, 32, 16, 16]
+    top_left: [16, 16, 16, 16]
+    top: [32, 16, 16, 16]
+    top_right: [48, 16, 16, 16]
+    right: [48, 32, 16, 16]
+    bottom_right: [48, 48, 16, 16]
+    bottom: [32, 48, 16, 16]
+    bottom_left: [16, 48, 16, 16]
+    left: [16, 32, 16, 16]

@@ -1,6 +1,7 @@
 #include <Config.hpp>
 #include <stdexcept>
 #include <yaml-cpp/yaml.h>
+#include <iostream>
 
 SDL_Color hex_to_color(unsigned hex) {
   Uint8 r = hex >> 16 & 0xff;
@@ -58,6 +59,22 @@ Config::Config(std::string filename) {
       const unsigned n = value["n"].as<unsigned>();
       const unsigned fps = value["fps"].as<unsigned>();
       sprite_map_configs.push_back({key, texture, x, y, w, h, n, fps});
+    }
+    /* Skins */
+    YAML::Node skins_yaml = yaml["skins"];
+    for (YAML::const_iterator s = skins_yaml.begin(); s != skins_yaml.end(); s++) {
+        const std::string key = s->first.as<YAML::Node>().as<std::string>();
+        const auto value = s->second.as<YAML::Node>();
+        const std::string texture = value["texture"].as<std::string>();
+        const YAML::Node center = value["center"].as<YAML::Node>();
+        const YAML::Node top_left = value["top_left"].as<YAML::Node>();
+        const YAML::Node top = value["top"].as<YAML::Node>();
+        const YAML::Node top_right = value["top_right"].as<YAML::Node>();
+        const YAML::Node bottom_right = value["bottom_right"].as<YAML::Node>();
+        const YAML::Node bottom = value["bottom"].as<YAML::Node>();
+        const YAML::Node bottom_left = value["bottom_left"].as<YAML::Node>();
+        const YAML::Node left = value["left"].as<YAML::Node>();
+        std::cout << key << " " << texture << " " << center << std::endl;
     }
 
   } catch (const std::runtime_error err) {
