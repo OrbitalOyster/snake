@@ -36,15 +36,19 @@ SDL_Renderer *Core::get_renderer() { return renderer; }
 
 void Core::set_GUI(GUI *new_gui) { gui = new_gui; }
 
+void Core::render() {
+    /* Clear screen with background color */
+    SDL_SetRenderDrawColor(renderer, background_color.r, background_color.g,
+                            background_color.b, 0xFF);
+    SDL_RenderClear(renderer);
+    render_sprites();
+    gui->render();
+    SDL_RenderPresent(renderer);
+}
+
 void Core::iterate() {
   SDL_Delay(10);
-  /* Clear screen with background color */
-  SDL_SetRenderDrawColor(renderer, background_color.r, background_color.g,
-                         background_color.b, 0xFF);
-  SDL_RenderClear(renderer);
-  render_sprites();
-  gui->render();
-  SDL_RenderPresent(renderer);
+  render();
 }
 
 SDL_AppResult Core::on_event(SDL_Event *event) {
@@ -53,6 +57,7 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
     int w, h;
     SDL_GetWindowSizeInPixels(window, &w, &h);
     gui->on_window_resize(w, h);
+    render();
   }
 
   /* Esc key */

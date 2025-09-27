@@ -22,6 +22,7 @@ private:
   std::map<std::string, Texture *> textures;
   std::map<std::string, SpriteMap *> sprite_maps;
   std::vector<Sprite *> sprites;
+  void render();
 
 public:
   Core(Config config);
