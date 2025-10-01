@@ -1,8 +1,8 @@
 #ifndef CONFIG_HPP_
 #define CONFIG_HPP_
 
-#include "GUI/Skin.hpp"
 #include <Font.hpp>
+#include <GUI/Skin.hpp>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_pixels.h>
 #include <SpriteMap.hpp>
@@ -25,6 +25,7 @@ private:
   std::vector<struct FontConfig> font_configs;
   std::vector<struct ImageConfig> image_configs;
   std::vector<struct SpriteMapConfig> sprite_map_configs;
+  std::vector<struct SkinConfig> skin_configs;
 
 public:
   Config(std::string filename);
@@ -37,7 +38,7 @@ public:
   std::vector<FontConfig> get_fonts() const;
   std::vector<ImageConfig> get_images() const;
   std::vector<SpriteMapConfig> get_sprite_maps() const;
-  std::vector<GUISkin> get_skin_configs() const;
+  std::vector<SkinConfig> get_skin_configs() const;
 };
 
 #endif

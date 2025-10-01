@@ -11,6 +11,23 @@ void GUI::load_fonts(std::vector<struct FontConfig> font_configs) {
     fonts[font_config.key] = new Font(font_config, renderer);
 }
 
+/*
+void GUI::load_skins(std::vector<struct SkinConfig> skin_configs) {
+  for (struct SkinConfig skin_config : skin_configs)
+    fonts[skin_config.key] = new GUISkin(skin_config.texture,
+      skin_config.center,
+      skin_config.top,
+      skin_config.top_left,
+      skin_config.top_right,
+      skin_config.right,
+      skin_config.bottom_right,
+      skin_config.bottom,
+      skin_config.bottom_left,
+      skin_config.left
+    );
+}
+*/
+
 void GUI::add_skin(std::string key, GUISkin *skin) { skins[key] = skin; }
 
 Font *GUI::get_font(std::string key) const { return fonts.at(key); }

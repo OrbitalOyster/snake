@@ -38,12 +38,48 @@ sprite_maps:
 skins:
   button:
     texture: "gui_skin"
-    center: [32, 32, 16, 16]
-    top_left: [16, 16, 16, 16]
-    top: [32, 16, 16, 16]
-    top_right: [48, 16, 16, 16]
-    right: [48, 32, 16, 16]
-    bottom_right: [48, 48, 16, 16]
-    bottom: [32, 48, 16, 16]
-    bottom_left: [16, 48, 16, 16]
-    left: [16, 32, 16, 16]
+    center:
+      x: 32
+      y: 32
+      w: 16
+      h: 16
+    top_left:
+      x: 16
+      y: 16
+      w: 16
+      h: 16
+    top:
+      x: 32
+      y: 16
+      w: 16
+      h: 16
+    top_right:
+      x: 48
+      y: 16
+      w: 16
+      h: 16
+    right:
+      x: 48
+      y: 32
+      w: 16
+      h: 16
+    bottom_right:
+      x: 48
+      y: 48
+      w: 16
+      h: 16
+    bottom:
+      x: 32
+      y: 48
+      w: 16
+      h: 16
+    bottom_left:
+      x: 16
+      y: 48
+      w: 16
+      h: 16
+    left:
+      x: 16
+      y: 32
+      w: 16
+      h: 16

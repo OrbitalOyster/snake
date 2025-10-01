@@ -22,6 +22,7 @@ private:
 public:
   GUI(SDL_Renderer *renderer);
   void load_fonts(std::vector<struct FontConfig> configs);
+  void load_skins(std::vector<struct SkinConfig> skin_configs);
   void add_skin(std::string key, GUISkin *skin);
   GUIContainer *get_root_container() const;
   Font *get_font(std::string key) const;

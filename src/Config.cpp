@@ -1,7 +1,8 @@
+#include "SDL3/SDL_rect.h"
 #include <Config.hpp>
+#include <iostream>
 #include <stdexcept>
 #include <yaml-cpp/yaml.h>
-#include <iostream>
 
 SDL_Color hex_to_color(unsigned hex) {
   Uint8 r = hex >> 16 & 0xff;
@@ -62,19 +63,42 @@ Config::Config(std::string filename) {
     }
     /* Skins */
     YAML::Node skins_yaml = yaml["skins"];
-    for (YAML::const_iterator s = skins_yaml.begin(); s != skins_yaml.end(); s++) {
-        const std::string key = s->first.as<YAML::Node>().as<std::string>();
-        const auto value = s->second.as<YAML::Node>();
-        const std::string texture = value["texture"].as<std::string>();
-        const YAML::Node center = value["center"].as<YAML::Node>();
-        const YAML::Node top_left = value["top_left"].as<YAML::Node>();
-        const YAML::Node top = value["top"].as<YAML::Node>();
-        const YAML::Node top_right = value["top_right"].as<YAML::Node>();
-        const YAML::Node bottom_right = value["bottom_right"].as<YAML::Node>();
-        const YAML::Node bottom = value["bottom"].as<YAML::Node>();
-        const YAML::Node bottom_left = value["bottom_left"].as<YAML::Node>();
-        const YAML::Node left = value["left"].as<YAML::Node>();
-        std::cout << key << " " << texture << " " << center << std::endl;
+    for (YAML::const_iterator s = skins_yaml.begin(); s != skins_yaml.end();
+         s++) {
+      const std::string key = s->first.as<YAML::Node>().as<std::string>();
+      const auto value = s->second.as<YAML::Node>();
+      const std::string texture = value["texture"].as<std::string>();
+      const YAML::Node center = value["center"].as<YAML::Node>();
+      const YAML::Node top_left = value["top_left"].as<YAML::Node>();
+      const YAML::Node top = value["top"].as<YAML::Node>();
+      const YAML::Node top_right = value["top_right"].as<YAML::Node>();
+      const YAML::Node right = value["right"].as<YAML::Node>();
+      const YAML::Node bottom_right = value["bottom_right"].as<YAML::Node>();
+      const YAML::Node bottom = value["bottom"].as<YAML::Node>();
+      const YAML::Node bottom_left = value["bottom_left"].as<YAML::Node>();
+      const YAML::Node left = value["left"].as<YAML::Node>();
+      skin_configs.push_back(
+          {key, texture,
+           SDL_FRect(center["x"].as<float>(), center["y"].as<float>(),
+                     center["w"].as<float>(), center["h"].as<float>()),
+           SDL_FRect(top_left["x"].as<float>(), top_left["y"].as<float>(),
+                     top_left["w"].as<float>(), top_left["h"].as<float>()),
+           SDL_FRect(top["x"].as<float>(), top["y"].as<float>(),
+                     top["w"].as<float>(), top["h"].as<float>()),
+           SDL_FRect(top_right["x"].as<float>(), top_right["y"].as<float>(),
+                     top_right["w"].as<float>(), top_right["h"].as<float>()),
+           SDL_FRect(right["x"].as<float>(), right["y"].as<float>(),
+                     right["w"].as<float>(), right["h"].as<float>()),
+           SDL_FRect(
+               bottom_right["x"].as<float>(), bottom_right["y"].as<float>(),
+               bottom_right["w"].as<float>(), bottom_right["h"].as<float>()),
+           SDL_FRect(bottom["x"].as<float>(), bottom["y"].as<float>(),
+                     bottom["w"].as<float>(), bottom["h"].as<float>()),
+           SDL_FRect(bottom_left["x"].as<float>(), bottom_left["y"].as<float>(),
+                     bottom_left["w"].as<float>(),
+                     bottom_left["h"].as<float>()),
+           SDL_FRect(left["x"].as<float>(), left["y"].as<float>(),
+                     left["w"].as<float>(), left["h"].as<float>())});
     }
 
   } catch (const std::runtime_error err) {
