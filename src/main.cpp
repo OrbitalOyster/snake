@@ -1,4 +1,5 @@
 #include "GUI/Segment.hpp"
+#include "Library.hpp"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
@@ -23,6 +24,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     Config config("config.yaml");
     /* Create core */
     Core *core = new Core(config);
+
     /* Create GUI */
     GUI *gui = new GUI(core->get_renderer());
     core->set_GUI(gui);
@@ -61,6 +63,12 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     Sprite *goose = new Sprite(256, 64, 128, 128, core->get_texture("goose"));
     core->add_sprite(goose);
     */
+
+    /* Library */
+    Library *library = new Library(core->get_renderer());
+    config.load_images_to_library(library);
+    config.load_fonts_to_library(library, core->get_renderer());
+    config.load_sprite_maps_to_library(library);
 
     *appstate = core;
 

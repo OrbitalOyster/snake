@@ -8,15 +8,6 @@ window:
   fullscreen: false
   resizeable: true
 
-fonts:
-  regular:
-    filename: "assets/fonts/MartianMono-Regular.ttf"
-    size: 32
-    outline: 4
-  bold:
-    filename: "assets/fonts/MartianMono-Bold.ttf"
-    size: 32
-
 images:
   goose:
     filename: "assets/sprites/goose.png"
@@ -24,6 +15,15 @@ images:
     filename: "assets/sprites/Apple.png"
   gui_skin:
     filename: "assets/sprites/gui.png"
+
+fonts:
+  regular:
+    filename: "assets/fonts/MartianMono-Regular.ttf"
+    size: 32
+    outline_size: 4
+  bold:
+    filename: "assets/fonts/MartianMono-Bold.ttf"
+    size: 32
 
 sprite_maps:
   apple_default:

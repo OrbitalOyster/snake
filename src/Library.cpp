@@ -7,7 +7,7 @@ Library::Library(SDL_Renderer *renderer) : renderer(renderer) {}
 void Library::add_texture(std::string key, std::string filename) {
   if (textures.contains(key))
     throw std::runtime_error("Duplicate texture: " + key);
-  textures.at(key) = new Texture(filename, renderer);
+  textures[key] = new Texture(filename, renderer);
 }
 
 Texture *Library::get_texture(std::string key) {
@@ -20,7 +20,7 @@ void Library::add_font(std::string key, std::string filename, float size,
                        float outline_size, SDL_Renderer *renderer) {
   if (fonts.contains(key))
     throw std::runtime_error("Duplicate font: " + key);
-  fonts.at(key) = new Font(filename, size, outline_size, renderer);
+  fonts[key] = new Font(filename, size, outline_size, renderer);
 }
 
 Font *Library::get_font(std::string key) {
@@ -33,7 +33,7 @@ void Library::add_sprite_map(std::string key, float x, float y, float w,
                              float h, unsigned n, unsigned fps) {
   if (sprite_maps.contains(key))
     throw std::runtime_error("Duplicate sprite map: " + key);
-  sprite_maps.at(key) = new SpriteMap(x, y, w, h, n, fps);
+  sprite_maps[key] = new SpriteMap(x, y, w, h, n, fps);
 }
 
 SpriteMap *Library::get_sprite_map(std::string key) {

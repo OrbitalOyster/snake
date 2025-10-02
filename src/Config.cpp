@@ -1,8 +1,7 @@
-#include "SDL3/SDL_rect.h"
+#include "SDL3/SDL_log.h"
 #include <Config.hpp>
 #include <iostream>
 #include <stdexcept>
-#include <yaml-cpp/yaml.h>
 
 SDL_Color hex_to_color(unsigned hex) {
   Uint8 r = hex >> 16 & 0xff;
@@ -13,7 +12,7 @@ SDL_Color hex_to_color(unsigned hex) {
 
 Config::Config(std::string filename) {
   try {
-    YAML::Node yaml = YAML::LoadFile(filename);
+    yaml = YAML::LoadFile(filename);
     /* Window section */
     YAML::Node window_yaml = yaml["window"];
     if (!window_yaml)
@@ -34,8 +33,8 @@ Config::Config(std::string filename) {
       const std::string filename = value["filename"].as<std::string>();
       const float size = value["size"].as<float>();
       /* Outline is optional */
-      const float outline = value["outline"] ? value["outline"].as<float>() : 0;
-      font_configs.push_back({key, filename, size, outline});
+      const float outline_size = value["outline_size"] ? value["outline_size"].as<float>() : 0;
+      font_configs.push_back({key, filename, size, outline_size});
     }
     /* Images */
     YAML::Node images_yaml = yaml["images"];
@@ -105,6 +104,53 @@ Config::Config(std::string filename) {
     throw std::runtime_error(
         std::string("Unable to load config '" + filename + "' -> ") +
         err.what());
+  }
+}
+
+void Config::load_images_to_library(Library *library) const {
+  try {
+    YAML::Node images_yaml = yaml["images"];
+    for (YAML::const_iterator i = images_yaml.begin(); i != images_yaml.end();
+         ++i) {
+      const std::string key = i->first.as<YAML::Node>().as<std::string>();
+      const auto value = i->second.as<YAML::Node>();
+      const std::string filename = value["filename"].as<std::string>();
+      library->add_texture(key, filename);
+    }
+  } catch (const std::runtime_error err) {
+    throw std::runtime_error(std::string("Unable to load textures: ") +
+                             err.what());
+  }
+}
+
+void Config::load_fonts_to_library(Library *library, SDL_Renderer *renderer) const {
+  YAML::Node fonts_yaml = yaml["fonts"];
+  for (YAML::const_iterator i = fonts_yaml.begin(); i != fonts_yaml.end();
+       ++i) {
+    const std::string key = i->first.as<YAML::Node>().as<std::string>();
+    const auto value = i->second.as<YAML::Node>();
+    const std::string filename = value["filename"].as<std::string>();
+    const float size = value["size"].as<float>();
+    /* Outline is optional */
+    const float outline_size =
+        value["outline_size"] ? value["outline_size"].as<float>() : 0;
+    library->add_font(key, filename, size, outline_size, renderer);
+  }
+}
+
+void Config::load_sprite_maps_to_library(Library *library) const {
+  YAML::Node sprite_maps_yaml = yaml["sprite_maps"];
+  for (YAML::const_iterator i = sprite_maps_yaml.begin();
+       i != sprite_maps_yaml.end(); i++) {
+    const std::string key = i->first.as<YAML::Node>().as<std::string>();
+    const auto value = i->second.as<YAML::Node>();
+    const float x = value["x"].as<unsigned>();
+    const float y = value["y"].as<unsigned>();
+    const float w = value["w"].as<unsigned>();
+    const float h = value["h"].as<unsigned>();
+    const float n = value["n"].as<unsigned>();
+    const float fps = value["fps"].as<unsigned>();
+    library->add_sprite_map(key, x, y, w, h, n, fps);
   }
 }
 
