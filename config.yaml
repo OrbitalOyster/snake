@@ -36,7 +36,7 @@ sprite_maps:
     fps: 25
 
 skins:
-  button:
+  window:
     texture: "gui_skin"
     center:
       x: 32
@@ -80,6 +80,53 @@ skins:
       h: 16
     left:
       x: 16
+      y: 32
+      w: 16
+      h: 16
+  button:
+    texture: "gui_skin"
+    center:
+      x: 96
+      y: 32
+      w: 16
+      h: 16
+    top_left:
+      x: 80
+      y: 16
+      w: 16
+      h: 16
+    top:
+      x: 96
+      y: 16
+      w: 16
+      h: 16
+    top_right:
+      x: 112
+      y: 16
+      w: 16
+      h: 16
+    right:
+      x: 112
+      y: 32
+      w: 16
+      h: 16
+    bottom_right:
+      x: 112
+      y: 48
+      w: 16
+      h: 16
+    bottom:
+      x: 96
+      y: 48
+      w: 16
+      h: 16
+    bottom_left:
+      x: 80
+      y: 48
+      w: 16
+      h: 16
+    left:
+      x: 80
       y: 32
       w: 16
       h: 16

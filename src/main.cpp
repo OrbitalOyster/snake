@@ -27,33 +27,6 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     GUI *gui = new GUI(core->get_renderer());
     core->set_GUI(gui);
 
-    /*
-    gui->load_fonts(config.get_fonts());
-
-    GUISkin *skin = new GUISkin(
-        core->get_texture("gui_skin"), {96, 32, 16, 16}, {80, 16, 16, 16},
-        {96, 16, 16, 16}, {112, 16, 16, 16}, {112, 32, 16, 16}, {112, 48, 16,
-   16}, {96, 48, 16, 16}, {80, 48, 16, 16}, {80, 32, 16, 16});
-    gui->add_skin("test_skin", skin);
-
-    GUIContainer *bottom_container =
-        new GUIContainer(GUISizing(GUIUnit(32u), GUIUnit(), GUIUnit(32u)),
-                         GUISizing(GUIUnit(), GUIUnit(.25f), GUIUnit(32u)));
-    bottom_container->add_container(top_right_container);
-    bottom_container->set_skin(skin);
-    bottom_container->set_min_width(GUIUnit(400u + 8u));
-
-    gui->add_container(bottom_container);
-
-    GUIContainer *centered_container = new GUIContainer(
-        GUISizing(GUIUnit(.5f), GUIUnit(320u), GUIUnit(), GUIUnit(-.5f)),
-        GUISizing(GUIUnit(.5f), GUIUnit(240u), GUIUnit(), GUIUnit(-.5f)));
-    gui->add_container(centered_container);
-
-    Sprite *goose = new Sprite(256, 64, 128, 128, core->get_texture("goose"));
-    core->add_sprite(goose);
-    */
-
     /* Library */
     Library *library = new Library(core->get_renderer());
     config.load_images_to_library(library);
@@ -61,17 +34,19 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     config.load_sprite_maps_to_library(library);
     config.load_skins_to_library(library);
 
-    Sprite *apple = new Sprite(0, 0, 128, 128, library->get_texture("apple"),
+    Sprite *apple = new Sprite(0, 320, 128, 128, library->get_texture("apple"),
                                library->get_sprite_map("apple_default"));
     core->add_sprite(apple);
 
-    /*
+    GUISkin *button_skin = library->get_skin("button");
+    GUISkin *window_skin = library->get_skin("window");
+
     GUIContainer *container =
         new GUIContainer({.height = .5f,
                           .top = GUISegment(0u, 0u, 0u),
                           .left = GUISegment(0u, 0u, 0u),
                           .right = GUISegment(0u, 0u, 0u)});
-    container->set_skin(skin);
+    container->set_skin(window_skin);
     gui->add_container(container);
 
     GUIContainer *top_right_container =
@@ -79,10 +54,8 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                           .height = .5f,
                           .top = GUISegment(8u),
                           .right = GUISegment(8u)});
-    top_right_container->set_skin(skin);
+    top_right_container->set_skin(window_skin);
     container->add_container(top_right_container);
-    */
-    GUISkin *button_skin = library->get_skin("button");
 
     GUIContainer *stoopid_container =
         new GUIContainer({.top = GUISegment(.5f, 0u, 0u),
@@ -95,14 +68,13 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     stoopid_container->set_min_width(48u);
     stoopid_container->set_min_height(48u);
 
-    /*
     SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
     SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
+    Font *regular_font = library->get_font("regular");
     GUIText *hello = new GUIText(
-        std::string("Hello, World!"), gui->get_font("regular"), white, black,
-        {.top = GUISegment(.5f, 0u, .5f), .left = GUISegment(.5f, 0u, .5f)});
+        std::string("Hello, World!"), regular_font, white, black,
+        {.top = GUISegment(100u, 0u, .25f), .left = GUISegment(.5f, 0u, .5f)});
     gui->add_text(hello);
-    */
 
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {

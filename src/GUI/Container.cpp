@@ -140,7 +140,7 @@ void GUIContainer::render(SDL_Renderer *renderer, int parent_x, int parent_y) {
   dst.x += parent_x;
   dst.y += parent_y;
   SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0, 0xFF);
-  SDL_RenderRect(renderer, &dst);
+  // SDL_RenderRect(renderer, &dst);
   if (skin != NULL) {
     if (cache_is_outdated)
       update_cache(renderer);
