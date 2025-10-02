@@ -1,5 +1,6 @@
-#include <GUI/Text.hpp>
+#include "GUI/Unit.hpp"
 #include <GUI/Container.hpp>
+#include <GUI/Text.hpp>
 
 GUIText::GUIText(std::string text, Font *font, SDL_Color color,
                  SDL_Color outline_color, TextLayout layout)
@@ -21,15 +22,15 @@ void GUIText::update(std::string text) {
   texture = font->get_texture(text, color, outline_color, &w, &h);
 }
 
-void GUIText::render(SDL_Renderer *renderer, float parent_width, float parent_height) {
-  GUIContainer container = GUIContainer({.width = (unsigned)w,
-                            .height = (unsigned)h,
-                            .top = top,
-                            .left = left,
-                            .bottom = bottom,
-                            .right = right});
-  container.update(parent_width, parent_height);
-  SDL_FRect dst = container.get_bounding_rect();
+void GUIText::render(SDL_Renderer *renderer, float parent_width,
+                     float parent_height) {
+  SDL_FRect dst = GUIContainer::calculate({.width = GUIUnit((unsigned)w),
+                                           .height = GUIUnit((unsigned)h),
+                                           .top = top,
+                                           .left = left,
+                                           .bottom = bottom,
+                                           .right = right},
+                                          parent_width, parent_height);
   SDL_RenderTexture(renderer, texture, NULL, &dst);
   // container.render(renderer, parent->get_x(), parent->get_y());
 }

@@ -1,3 +1,4 @@
+#include "SDL3/SDL_log.h"
 #include <GUI/Container.hpp>
 #include <optional>
 #include <stdexcept>
@@ -27,7 +28,7 @@ SDL_FRect GUIContainer::calculate(ContainerLayout layout, float parent_width,
     } else if (layout.right.has_value()) {
       if (layout.left.has_value())
         throw std::runtime_error("Redundant left value");
-      int right_p = layout.right->calculate(parent_width, w);
+      float right_p = layout.right->calculate(parent_width, w);
       x = parent_width - w - right_p;
     } else {
       throw std::runtime_error(
@@ -39,7 +40,7 @@ SDL_FRect GUIContainer::calculate(ContainerLayout layout, float parent_width,
       throw std::runtime_error(
           "Invalid horizontal sizing (left or right empty)");
     x = layout.left->calculate(parent_width);
-    int right_p = layout.right->calculate(parent_width);
+    float right_p = layout.right->calculate(parent_width);
     w = parent_width - x - right_p;
   }
 
@@ -53,7 +54,7 @@ SDL_FRect GUIContainer::calculate(ContainerLayout layout, float parent_width,
     } else if (layout.bottom.has_value()) {
       if (layout.top.has_value())
         throw std::runtime_error("Redundant top value");
-      int bottom_p = layout.bottom->calculate(parent_height, h);
+      float bottom_p = layout.bottom->calculate(parent_height, h);
       y = parent_height - h - bottom_p;
     } else {
       throw std::runtime_error("Invalid vertical sizing");
@@ -63,7 +64,7 @@ SDL_FRect GUIContainer::calculate(ContainerLayout layout, float parent_width,
     if (!layout.top.has_value() || !layout.bottom.has_value())
       throw std::runtime_error("Invalid vertical sizing");
     y = layout.top->calculate(parent_height);
-    int bottom_p = layout.bottom->calculate(parent_height);
+    float bottom_p = layout.bottom->calculate(parent_height);
     h = parent_height - y - bottom_p;
   }
 
@@ -103,10 +104,6 @@ void GUIContainer::set_min_height(GUIUnit min_height) {
 
 SDL_FRect GUIContainer::get_bounding_rect() const { return rect; }
 
-/*
-int GUIContainer::get_x() const { return x; }
-int GUIContainer::get_y() const { return y; }
-*/
 int GUIContainer::get_width() const { return rect.w; }
 int GUIContainer::get_height() const { return rect.h; }
 
