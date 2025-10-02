@@ -1,8 +1,6 @@
 #include <Core.hpp>
 #include <SDL3/SDL_log.h>
-#include <SDL3/SDL_render.h>
 #include <stdexcept>
-#include <string>
 
 Core::Core(Config config) {
   if (!SDL_Init(SDL_INIT_VIDEO)) {
@@ -71,6 +69,7 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
   return SDL_APP_CONTINUE;
 }
 
+/*
 SDL_Texture *Core::load_png(std::string filename) {
   SDL_Texture *texture = IMG_LoadTexture(renderer, filename.c_str());
   if (!texture)
@@ -79,6 +78,7 @@ SDL_Texture *Core::load_png(std::string filename) {
   SDL_Log("Loaded texture %s", filename.c_str());
   return texture;
 }
+*/
 
 Texture *Core::get_texture(std::string texture_key) {
   return textures.at(texture_key);

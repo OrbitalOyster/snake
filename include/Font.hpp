@@ -23,6 +23,8 @@ private:
                            SDL_Color color);
 
 public:
+  Font(std::string filename, float size, float outline_size,
+       SDL_Renderer *renderer);
   Font(const struct FontConfig config, SDL_Renderer *renderer);
   SDL_Texture *get_texture(const std::string text, SDL_Color color,
                            SDL_Color outline_color, float *w, float *h);

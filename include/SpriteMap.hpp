@@ -24,8 +24,8 @@ private:
   unsigned long frame_size;
 
 public:
+  SpriteMap(float x, float y, float w, float h, unsigned n, unsigned fps);
   SpriteMap(const struct SpriteMapConfig config);
-  SDL_Texture *get_texture() const;
   SDL_FRect get_frame(unsigned long animation_start_time,
                       unsigned long ticks) const;
 };

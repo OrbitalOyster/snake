@@ -1,6 +1,19 @@
 #include <Font.hpp>
 #include <stdexcept>
 
+Font::Font(std::string filename, float size, float outline_size, SDL_Renderer *renderer)
+    : filename(filename), size(size),
+      outline_size(outline_size), renderer(renderer) {
+  ttf = TTF_OpenFont(filename.c_str(), size);
+  outline = TTF_OpenFont(filename.c_str(), size);
+  if (!ttf || !outline)
+    throw std::runtime_error("Unable to open font '" + filename + "' -> " +
+                             SDL_GetError());
+  TTF_SetFontOutline(outline, outline_size);
+  SDL_Log("Loaded font \"%s\", size %.2f, outline %.2f", filename.c_str(), size,
+          outline_size);
+}
+
 Font::Font(const struct FontConfig config, SDL_Renderer *renderer)
     : filename(config.filename), size(config.size),
       outline_size(config.outline), renderer(renderer) {

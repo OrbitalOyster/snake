@@ -30,7 +30,7 @@ public:
   void set_GUI(GUI *new_gui);
   void iterate();
   SDL_AppResult on_event(SDL_Event *event);
-  SDL_Texture *load_png(std::string filename);
+  // SDL_Texture *load_png(std::string filename);
   Texture *get_texture(std::string texture_key);
   const SpriteMap *get_sprite_map(std::string key) const;
   void add_sprite(Sprite *sprite);
