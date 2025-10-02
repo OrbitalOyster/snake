@@ -27,26 +27,19 @@ private:
   SDL_Color background_color;
   bool fullscreen;
   bool resizeable;
-  std::vector<struct FontConfig> font_configs;
-  std::vector<struct ImageConfig> image_configs;
-  std::vector<struct SpriteMapConfig> sprite_map_configs;
-  std::vector<struct SkinConfig> skin_configs;
 
 public:
   Config(std::string filename);
   void load_images_to_library(Library *library) const;
   void load_fonts_to_library(Library *library, SDL_Renderer *renderer) const;
   void load_sprite_maps_to_library(Library *library) const;
+  void load_skins_to_library(Library *library) const;
   std::string get_title() const;
   int get_window_width() const;
   int get_window_height() const;
   SDL_Color get_background_color() const;
   bool get_fullscreen() const;
   bool get_resizeable() const;
-  std::vector<FontConfig> get_fonts() const;
-  std::vector<ImageConfig> get_images() const;
-  std::vector<SpriteMapConfig> get_sprite_maps() const;
-  std::vector<SkinConfig> get_skin_configs() const;
 };
 
 #endif

@@ -1,5 +1,3 @@
-#include "GUI/Segment.hpp"
-#include "Library.hpp"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
@@ -7,6 +5,7 @@
 #include <GUI.hpp>
 #include <GUI/Skin.hpp>
 #include <GUI/Unit.hpp>
+#include <Library.hpp>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_log.h>
@@ -24,19 +23,20 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     Config config("config.yaml");
     /* Create core */
     Core *core = new Core(config);
+    *appstate = core;
 
     /* Create GUI */
     GUI *gui = new GUI(core->get_renderer());
     core->set_GUI(gui);
+
+    /*
     gui->load_fonts(config.get_fonts());
 
     GUISkin *skin = new GUISkin(
         core->get_texture("gui_skin"), {96, 32, 16, 16}, {80, 16, 16, 16},
-        {96, 16, 16, 16}, {112, 16, 16, 16}, {112, 32, 16, 16}, {112, 48, 16, 16},
-        {96, 48, 16, 16}, {80, 48, 16, 16}, {80, 32, 16, 16});
+        {96, 16, 16, 16}, {112, 16, 16, 16}, {112, 32, 16, 16}, {112, 48, 16,
+   16}, {96, 48, 16, 16}, {80, 48, 16, 16}, {80, 32, 16, 16});
     gui->add_skin("test_skin", skin);
-
-    /*
 
     GUIContainer *bottom_container =
         new GUIContainer(GUISizing(GUIUnit(32u), GUIUnit(), GUIUnit(32u)),
@@ -69,9 +69,13 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     config.load_images_to_library(library);
     config.load_fonts_to_library(library, core->get_renderer());
     config.load_sprite_maps_to_library(library);
+    config.load_skins_to_library(library);
 
-    *appstate = core;
+    Sprite *apple = new Sprite(0, 0, 128, 128, library->get_texture("apple"),
+                               library->get_sprite_map("apple_default"));
+    core->add_sprite(apple);
 
+    /*
     GUIContainer *container =
         new GUIContainer({.height = .5f,
                           .top = GUISegment(0u, 0u, 0u),
@@ -105,6 +109,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
         std::string("Hello, World!"), gui->get_font("regular"), white, black,
         {.top = GUISegment(.5f, 0u, .5f), .left = GUISegment(.5f, 0u, .5f)});
     gui->add_text(hello);
+    */
 
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {

@@ -1,3 +1,4 @@
+#include "GUI/Skin.hpp"
 #include "SpriteMap.hpp"
 #include <Library.hpp>
 #include <stdexcept>
@@ -40,6 +41,24 @@ SpriteMap *Library::get_sprite_map(std::string key) {
   if (!sprite_maps.contains(key))
     throw std::runtime_error("Sprite map not found: " + key);
   return sprite_maps.at(key);
+}
+
+void Library::add_skin(std::string key, std::string texture_key,
+                       SDL_FRect center, SDL_FRect top_left, SDL_FRect top,
+                       SDL_FRect top_right, SDL_FRect right,
+                       SDL_FRect bottom_right, SDL_FRect bottom,
+                       SDL_FRect bottom_left, SDL_FRect left) {
+  if (skins.contains(key))
+    throw std::runtime_error("Duplicate GUI skin: " + key);
+  Texture *texture = get_texture(texture_key);
+  skins[key] = new GUISkin(texture, center, top_left, top, top_right, right,
+                           bottom_right, bottom, bottom_left, left);
+}
+
+GUISkin *Library::get_skin(std::string key) {
+  if (!skins.contains(key))
+    throw std::runtime_error("GUI skin not found: " + key);
+  return skins.at(key);
 }
 
 Library::~Library() {

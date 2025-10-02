@@ -22,12 +22,12 @@ Core::Core(Config config) {
   SDL_SetDefaultTextureScaleMode(renderer, SDL_SCALEMODE_NEAREST);
 
   /* Load textures */
-  for (struct ImageConfig image_config : config.get_images())
-    textures[image_config.key] = new Texture(image_config.filename, renderer);
+  // for (struct ImageConfig image_config : config.get_images())
+  //   textures[image_config.key] = new Texture(image_config.filename, renderer);
 
   /* Set sprite maps */
-  for (struct SpriteMapConfig sprite_map_config : config.get_sprite_maps())
-    sprite_maps[sprite_map_config.key] = new SpriteMap(sprite_map_config);
+  // for (struct SpriteMapConfig sprite_map_config : config.get_sprite_maps())
+  //   sprite_maps[sprite_map_config.key] = new SpriteMap(sprite_map_config);
 }
 
 SDL_Renderer *Core::get_renderer() { return renderer; }
@@ -80,6 +80,7 @@ SDL_Texture *Core::load_png(std::string filename) {
 }
 */
 
+/*
 Texture *Core::get_texture(std::string texture_key) {
   return textures.at(texture_key);
 }
@@ -90,6 +91,7 @@ const SpriteMap *Core::get_sprite_map(std::string key) const {
   else
     throw std::runtime_error("Invalid sprite map: " + key);
 }
+*/
 
 void Core::add_sprite(Sprite *sprite) { sprites.push_back(sprite); }
 
@@ -102,8 +104,6 @@ void Core::render_sprites() {
 Core::~Core() {
   if (gui)
     delete gui;
-  for (const auto &it : textures)
-    delete (textures[it.first]);
   if (renderer)
     SDL_DestroyRenderer(renderer);
   if (window)
