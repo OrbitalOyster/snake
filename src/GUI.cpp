@@ -20,5 +20,5 @@ void GUI::on_window_resize(int width, int height) {
 void GUI::render() const {
   root_container->render(renderer, 0, 0);
   for (GUIText *t : texts)
-    t->render(renderer, root_container);
+    t->render(renderer, root_container->get_width(), root_container->get_height());
 }

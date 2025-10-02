@@ -4,8 +4,6 @@
 #include <GUI/Segment.hpp>
 #include <GUI/Skin.hpp>
 #include <GUI/Unit.hpp>
-#include <SDL3/SDL_rect.h>
-#include <SDL3/SDL_render.h>
 #include <optional>
 #include <vector>
 
@@ -17,13 +15,12 @@ struct ContainerLayout {
 
 class GUIContainer {
 private:
+  /* Layout */
   std::optional<GUIUnit> width = GUIUnit(1.0f), height = GUIUnit(1.0f);
   std::optional<GUISegment> top = GUIUnit(), left = GUIUnit();
   std::optional<GUISegment> bottom = {}, right = {};
-
   /* Actual dimensions */
-  int x, y;
-  int w, h;
+  SDL_FRect rect;
   GUIUnit min_width, min_height;
   /* Cache, updating on resize */
   SDL_Texture *cache = NULL;
@@ -34,12 +31,11 @@ private:
 public:
   GUIContainer();
   GUIContainer(ContainerLayout layout);
+  static SDL_FRect calculate(ContainerLayout layout, float parent_width, float parent_height);
   void set_skin(GUISkin *skin);
   void set_min_width(GUIUnit min_width);
   void set_min_height(GUIUnit min_height);
   SDL_FRect get_bounding_rect() const;
-  int get_x() const;
-  int get_y() const;
   int get_width() const;
   int get_height() const;
   void update(int parent_width, int parent_height);
