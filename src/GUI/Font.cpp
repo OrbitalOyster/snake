@@ -1,9 +1,10 @@
-#include <Font.hpp>
+#include <GUI/Font.hpp>
 #include <stdexcept>
 
-Font::Font(std::string filename, float size, float outline_size, SDL_Renderer *renderer)
-    : filename(filename), size(size),
-      outline_size(outline_size), renderer(renderer) {
+Font::Font(std::string filename, float size, float outline_size,
+           SDL_Renderer *renderer)
+    : filename(filename), size(size), outline_size(outline_size),
+      renderer(renderer) {
   ttf = TTF_OpenFont(filename.c_str(), size);
   outline = TTF_OpenFont(filename.c_str(), size);
   if (!ttf || !outline)

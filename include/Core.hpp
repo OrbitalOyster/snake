@@ -8,7 +8,6 @@
 #include <SDL3_image/SDL_image.h>
 #include <Sprite.hpp>
 #include <SpriteMap.hpp>
-#include <map>
 #include <string>
 #include <vector>
 
@@ -19,8 +18,6 @@ private:
   SDL_Color background_color;
   SDL_Renderer *renderer;
   GUI *gui;
-  // std::map<std::string, Texture *> textures;
-  // std::map<std::string, SpriteMap *> sprite_maps;
   std::vector<Sprite *> sprites;
   void render();
 
@@ -30,9 +27,6 @@ public:
   void set_GUI(GUI *new_gui);
   void iterate();
   SDL_AppResult on_event(SDL_Event *event);
-  // SDL_Texture *load_png(std::string filename);
-  // Texture *get_texture(std::string texture_key);
-  // const SpriteMap *get_sprite_map(std::string key) const;
   void add_sprite(Sprite *sprite);
   void render_sprites();
   ~Core();

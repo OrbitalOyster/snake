@@ -34,7 +34,6 @@ private:
 public:
   GUIContainer();
   GUIContainer(ContainerLayout layout);
-
   void set_skin(GUISkin *skin);
   void set_min_width(GUIUnit min_width);
   void set_min_height(GUIUnit min_height);

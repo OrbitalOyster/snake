@@ -1,5 +1,3 @@
-#include "GUI/Skin.hpp"
-#include "SpriteMap.hpp"
 #include <Library.hpp>
 #include <stdexcept>
 

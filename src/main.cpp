@@ -1,7 +1,6 @@
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
-#include <Font.hpp>
 #include <GUI.hpp>
 #include <GUI/Skin.hpp>
 #include <GUI/Unit.hpp>
@@ -10,7 +9,6 @@
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_log.h>
 #include <SDL3/SDL_main.h>
-#include <iostream>
 #include <stdexcept>
 #include <stdlib.h>
 
@@ -51,14 +49,6 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
         GUISizing(GUIUnit(.5f), GUIUnit(320u), GUIUnit(), GUIUnit(-.5f)),
         GUISizing(GUIUnit(.5f), GUIUnit(240u), GUIUnit(), GUIUnit(-.5f)));
     gui->add_container(centered_container);
-
-   Label *hello = new Label(std::string("Hello, World!"), 16, 16,
-                             gui->get_font("regular"), white, black);
-    gui->add_label(hello);
-
-    Sprite *apple = new Sprite(64, 64, 128, 128, core->get_texture("apple"),
-                               core->get_sprite_map("apple_default"));
-    core->add_sprite(apple);
 
     Sprite *goose = new Sprite(256, 64, 128, 128, core->get_texture("goose"));
     core->add_sprite(goose);

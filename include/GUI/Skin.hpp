@@ -4,32 +4,6 @@
 #include <SDL3/SDL_rect.h>
 #include <Texture.hpp>
 
-struct GUISkinLayout {
-    SDL_FRect center;
-    SDL_FRect top_left;
-    SDL_FRect top;
-    SDL_FRect top_right;
-    SDL_FRect right;
-    SDL_FRect bottom_right;
-    SDL_FRect bottom;
-    SDL_FRect bottom_left;
-    SDL_FRect left;
-};
-
-struct SkinConfig {
-  std::string key;
-  std::string texture;
-  SDL_FRect center;
-  SDL_FRect top_left;
-  SDL_FRect top;
-  SDL_FRect top_right;
-  SDL_FRect right;
-  SDL_FRect bottom_right;
-  SDL_FRect bottom;
-  SDL_FRect bottom_left;
-  SDL_FRect left;
-};
-
 class GUISkin {
 private:
   Texture *texture;
@@ -57,8 +31,6 @@ public:
   GUISkin(Texture *texture, SDL_FRect center, SDL_FRect top_left, SDL_FRect top,
           SDL_FRect top_right, SDL_FRect right, SDL_FRect bottom_right,
           SDL_FRect bottom, SDL_FRect bottom_left, SDL_FRect left);
-
-  GUISkin(Texture *texture, GUISkinLayout layout);
 
   void render(SDL_FRect rect);
 };

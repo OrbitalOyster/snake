@@ -1,5 +1,4 @@
 #include <GUI/Text.hpp>
-#include <iostream>
 
 GUIText::GUIText(std::string text, Font *font, SDL_Color color,
                  SDL_Color outline_color, TextLayout layout)

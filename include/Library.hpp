@@ -1,7 +1,7 @@
 #ifndef LIBRARY_HPP_
 #define LIBRARY_HPP_
 
-#include <Font.hpp>
+#include <GUI/Font.hpp>
 #include <GUI/Skin.hpp>
 #include <SpriteMap.hpp>
 #include <Texture.hpp>

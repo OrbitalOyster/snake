@@ -20,14 +20,6 @@ Core::Core(Config config) {
 
   /* No ugly scaling */
   SDL_SetDefaultTextureScaleMode(renderer, SDL_SCALEMODE_NEAREST);
-
-  /* Load textures */
-  // for (struct ImageConfig image_config : config.get_images())
-  //   textures[image_config.key] = new Texture(image_config.filename, renderer);
-
-  /* Set sprite maps */
-  // for (struct SpriteMapConfig sprite_map_config : config.get_sprite_maps())
-  //   sprite_maps[sprite_map_config.key] = new SpriteMap(sprite_map_config);
 }
 
 SDL_Renderer *Core::get_renderer() { return renderer; }
@@ -35,13 +27,13 @@ SDL_Renderer *Core::get_renderer() { return renderer; }
 void Core::set_GUI(GUI *new_gui) { gui = new_gui; }
 
 void Core::render() {
-    /* Clear screen with background color */
-    SDL_SetRenderDrawColor(renderer, background_color.r, background_color.g,
-                            background_color.b, 0xFF);
-    SDL_RenderClear(renderer);
-    render_sprites();
-    gui->render();
-    SDL_RenderPresent(renderer);
+  /* Clear screen with background color */
+  SDL_SetRenderDrawColor(renderer, background_color.r, background_color.g,
+                         background_color.b, 0xFF);
+  SDL_RenderClear(renderer);
+  render_sprites();
+  gui->render();
+  SDL_RenderPresent(renderer);
 }
 
 void Core::iterate() {
@@ -69,30 +61,6 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
   return SDL_APP_CONTINUE;
 }
 
-/*
-SDL_Texture *Core::load_png(std::string filename) {
-  SDL_Texture *texture = IMG_LoadTexture(renderer, filename.c_str());
-  if (!texture)
-    throw std::runtime_error("Failed to load image" +
-                             std::string(SDL_GetError()));
-  SDL_Log("Loaded texture %s", filename.c_str());
-  return texture;
-}
-*/
-
-/*
-Texture *Core::get_texture(std::string texture_key) {
-  return textures.at(texture_key);
-}
-
-const SpriteMap *Core::get_sprite_map(std::string key) const {
-  if (sprite_maps.find(key) != sprite_maps.end())
-    return sprite_maps.at(key);
-  else
-    throw std::runtime_error("Invalid sprite map: " + key);
-}
-*/
-
 void Core::add_sprite(Sprite *sprite) { sprites.push_back(sprite); }
 
 void Core::render_sprites() {
@@ -102,8 +70,6 @@ void Core::render_sprites() {
 }
 
 Core::~Core() {
-  if (gui)
-    delete gui;
   if (renderer)
     SDL_DestroyRenderer(renderer);
   if (window)
