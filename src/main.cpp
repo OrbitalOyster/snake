@@ -91,6 +91,8 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                           .right = GUISegment(8u)});
     top_right_container->set_skin(skin);
     container->add_container(top_right_container);
+    */
+    GUISkin *button_skin = library->get_skin("button");
 
     GUIContainer *stoopid_container =
         new GUIContainer({.top = GUISegment(.5f, 0u, 0u),
@@ -99,10 +101,11 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                           .right = GUISegment(100u)});
 
     gui->add_container(stoopid_container);
-    stoopid_container->set_skin(skin);
+    stoopid_container->set_skin(button_skin);
     stoopid_container->set_min_width(48u);
     stoopid_container->set_min_height(48u);
 
+    /*
     SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
     SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
     GUIText *hello = new GUIText(
