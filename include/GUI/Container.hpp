@@ -1,24 +1,16 @@
 #ifndef GUI_CONTAINER_HPP_
 #define GUI_CONTAINER_HPP_
 
+#include <GUI/Layout.hpp>
 #include <GUI/Segment.hpp>
 #include <GUI/Skin.hpp>
 #include <GUI/Unit.hpp>
-#include <optional>
 #include <vector>
-
-struct ContainerLayout {
-  std::optional<GUIUnit> width, height;
-  std::optional<GUISegment> top, left;
-  std::optional<GUISegment> bottom, right;
-};
 
 class GUIContainer {
 private:
   /* Layout */
-  std::optional<GUIUnit> width = GUIUnit(1.0f), height = GUIUnit(1.0f);
-  std::optional<GUISegment> top = GUIUnit(), left = GUIUnit();
-  std::optional<GUISegment> bottom = {}, right = {};
+  GUILayout layout;
   /* Actual dimensions */
   SDL_FRect rect;
   GUIUnit min_width, min_height;
@@ -30,8 +22,7 @@ private:
 
 public:
   GUIContainer();
-  GUIContainer(ContainerLayout layout);
-  static SDL_FRect calculate(ContainerLayout layout, float parent_width, float parent_height);
+  GUIContainer(GUILayout layout);
   void set_skin(GUISkin *skin);
   void set_min_width(GUIUnit min_width);
   void set_min_height(GUIUnit min_height);

@@ -1,3 +1,4 @@
+#include "GUI/Layout.hpp"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
@@ -41,14 +42,15 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     GUISkin *button_skin = library->get_skin("button");
     GUISkin *window_skin = library->get_skin("window");
 
-    GUIContainer *container =
-        new GUIContainer({.height = .5f,
-                          .top = GUISegment(0u, 0u, 0u),
-                          .left = GUISegment(0u, 0u, 0u),
-                          .right = GUISegment(0u, 0u, 0u)});
+    GUILayout l1 =
+        GUILayout({}, GUIUnit(.5f), GUISegment(0u, 0u, 0u),
+                  GUISegment(0u, 0u, 0u), {}, GUISegment(0u, 0u, 0u));
+
+    GUIContainer *container = new GUIContainer(l1);
     container->set_skin(window_skin);
     gui->add_container(container);
 
+    /*
     GUIContainer *top_right_container =
         new GUIContainer({.width = .5f,
                           .height = .5f,
@@ -56,12 +58,12 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                           .right = GUISegment(8u)});
     top_right_container->set_skin(window_skin);
     container->add_container(top_right_container);
+    */
 
-    GUIContainer *stoopid_container =
-        new GUIContainer({.top = GUISegment(.5f, 0u, 0u),
-                          .left = GUISegment(.25f),
-                          .bottom = GUISegment(32u),
-                          .right = GUISegment(100u)});
+    GUILayout stoopid_layout =
+        GUILayout(GUISegment(.5f, 0u, 0u), GUISegment(.25f),
+                  GUISegment(32u), GUISegment(100u));
+    GUIContainer *stoopid_container = new GUIContainer(stoopid_layout);
 
     gui->add_container(stoopid_container);
     stoopid_container->set_skin(button_skin);

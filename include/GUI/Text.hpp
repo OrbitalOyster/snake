@@ -1,8 +1,9 @@
 #ifndef GUI_TEXT_HPP
 #define GUI_TEXT_HPP
 
-#include <GUI/Segment.hpp>
 #include <GUI/Font.hpp>
+#include <GUI/Layout.hpp>
+#include <GUI/Segment.hpp>
 #include <optional>
 #include <string>
 
@@ -16,10 +17,9 @@ private:
   std::string text = "";
   Font *font;
   SDL_Texture *texture;
-  SDL_Color color;
-  SDL_Color outline_color;
-  std::optional<GUISegment> top = {}, left = {};
-  std::optional<GUISegment> bottom = {}, right = {};
+  SDL_Color color, outline_color;
+  GUILayout layout;
+  /* Texture size */
   float w, h;
 
 public:
