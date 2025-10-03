@@ -1,5 +1,3 @@
-#include "GUI/Segment.hpp"
-#include "GUI/Unit.hpp"
 #include <GUI/Layout.hpp>
 #include <stdexcept>
 
@@ -19,52 +17,42 @@ GUILayout::GUILayout(std::optional<GUIUnit> width,
     : width(width), height(height), top(top), left(left), bottom(bottom),
       right(right) {
   /* Horizontal axis */
-  if (this->width.has_value()) { /* Known width */
-    if (this->left.has_value() && this->right.has_value())
+  if (width.has_value()) { /* Known width */
+    if (left.has_value() && right.has_value())
       throw std::runtime_error("Redundant horizontal axis values");
-
-    if (!this->left.has_value() && !this->right.has_value())
+    if (!left.has_value() && !right.has_value())
       throw std::runtime_error("Missing left and right alignments");
   } else { /* Unknown width */
-    if (!this->left.has_value())
+    if (!left.has_value())
       throw std::runtime_error("Missing left alignment");
-
-    if (!this->right.has_value())
+    if (!right.has_value())
       throw std::runtime_error("Missing right alignment");
-
-    if (this->left.value().depends_on_child_size())
+    if (left.value().depends_on_child_size())
       throw std::runtime_error("Circular dependency (left)");
-
-    if (this->right.value().depends_on_child_size())
+    if (right.value().depends_on_child_size())
       throw std::runtime_error("Circular dependency (right)");
   }
   /* Vertical axis */
-  if (this->height.has_value()) { /* Known width */
-    if (this->top.has_value() && this->bottom.has_value())
+  if (height.has_value()) { /* Known width */
+    if (top.has_value() && bottom.has_value())
       throw std::runtime_error("Redundant vertical axis values");
-
-    if (!this->top.has_value() && !this->bottom.has_value())
+    if (!top.has_value() && !bottom.has_value())
       throw std::runtime_error("Missing top and bottom alignments");
   } else { /* Unknown height */
-    if (!this->top.has_value())
+    if (!top.has_value())
       throw std::runtime_error("Missing top alignment");
-
-    if (!this->bottom.has_value())
+    if (!bottom.has_value())
       throw std::runtime_error("Missing bottom alignment");
-
-    if (this->top.value().depends_on_child_size())
+    if (top.value().depends_on_child_size())
       throw std::runtime_error("Circular dependency (top)");
-
-    if (this->bottom.value().depends_on_child_size())
+    if (bottom.value().depends_on_child_size())
       throw std::runtime_error("Circular dependency (bottom)");
   }
 }
 
 /* Unknown size */
-GUILayout::GUILayout(std::optional<GUISegment> top,
-                     std::optional<GUISegment> left,
-                     std::optional<GUISegment> bottom,
-                     std::optional<GUISegment> right)
+GUILayout::GUILayout(GUISegment top, GUISegment left, GUISegment bottom,
+                     GUISegment right)
     : GUILayout({}, {}, top, left, bottom, right) {}
 
 SDL_FRect GUILayout::calculate(float parent_width, float parent_height) {
@@ -98,5 +86,5 @@ SDL_FRect GUILayout::calculate(float parent_width, float parent_height) {
     h = parent_height - y - bottom_p;
   }
   /* Done */
-  return {.x = x, .y = y, .w = w, .h = h};
+  return {x, y, w, h};
 }

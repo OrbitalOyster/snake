@@ -1,5 +1,5 @@
-#ifndef GUI_TEXT_HPP
-#define GUI_TEXT_HPP
+#ifndef GUI_TEXT_HPP_
+#define GUI_TEXT_HPP_
 
 #include <GUI/Font.hpp>
 #include <GUI/Layout.hpp>

@@ -1,4 +1,3 @@
-#include "GUI/Layout.hpp"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
@@ -50,19 +49,15 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     container->set_skin(window_skin);
     gui->add_container(container);
 
-    /*
-    GUIContainer *top_right_container =
-        new GUIContainer({.width = .5f,
-                          .height = .5f,
-                          .top = GUISegment(8u),
-                          .right = GUISegment(8u)});
+    GUILayout l2 = GUILayout(GUIUnit(.5f), GUIUnit(.5f), GUISegment(8u), {},
+                             {}, GUISegment(8u));
+
+    GUIContainer *top_right_container = new GUIContainer(l2);
     top_right_container->set_skin(window_skin);
     container->add_container(top_right_container);
-    */
 
-    GUILayout stoopid_layout =
-        GUILayout(GUISegment(.5f, 0u, 0u), GUISegment(.25f),
-                  GUISegment(32u), GUISegment(100u));
+    GUILayout stoopid_layout = GUILayout(GUISegment(.5f), GUISegment(.25f),
+                                         GUISegment(32u), GUISegment(100u));
     GUIContainer *stoopid_container = new GUIContainer(stoopid_layout);
 
     gui->add_container(stoopid_container);
