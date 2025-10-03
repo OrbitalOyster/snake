@@ -1,4 +1,3 @@
-#include "SDL3/SDL_log.h"
 #include <GUI/Container.hpp>
 #include <optional>
 #include <stdexcept>

@@ -4,6 +4,10 @@
 GUISegment::GUISegment(GUIUnit size, GUIUnit start, GUIUnit end)
     : size(size), start(start), end(end) {}
 
+bool GUISegment::depends_on_child_size() {
+  return !end.is_absolute();
+}
+
 /*
  * |                      |
  * |<--start-->|          |<---end-->|
@@ -19,7 +23,7 @@ int GUISegment::calculate(int parent_size, int child_size) {
 
 int GUISegment::calculate(int parent_size) {
   /* Unknown child size */
-  if (!end.is_absolute())
+  if (depends_on_child_size())
     throw std::runtime_error("Circular dependency");
   /* "child_size" is irrelevant for absolute units */
   return calculate(parent_size, 800865);

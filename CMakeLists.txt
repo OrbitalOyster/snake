@@ -10,6 +10,7 @@ target_sources(main PRIVATE
     src/GUI.cpp
     src/GUI/Container.cpp
     src/GUI/Font.cpp
+    src/GUI/Layout.cpp
     src/GUI/Segment.cpp
     src/GUI/Skin.cpp
     src/GUI/Text.cpp
