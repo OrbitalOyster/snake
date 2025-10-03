@@ -53,7 +53,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                              {}, GUISegment(8u));
 
     GUIContainer *top_right_container = new GUIContainer(l2);
-    top_right_container->set_skin(window_skin);
+    top_right_container->set_skin(button_skin);
     container->add_container(top_right_container);
 
     GUILayout stoopid_layout = GUILayout(GUISegment(.5f), GUISegment(.25f),
@@ -61,7 +61,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     GUIContainer *stoopid_container = new GUIContainer(stoopid_layout);
 
     gui->add_container(stoopid_container);
-    stoopid_container->set_skin(button_skin);
+    stoopid_container->set_skin(window_skin);
     stoopid_container->set_min_width(48u);
     stoopid_container->set_min_height(48u);
 
@@ -70,8 +70,8 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     Font *regular_font = library->get_font("regular");
     GUIText *hello = new GUIText(
         std::string("Hello, World!"), regular_font, white, black,
-        {.top = GUISegment(100u, 0u, .25f), .left = GUISegment(.5f, 0u, .5f)});
-    gui->add_text(hello);
+        {.top = GUISegment(.5f, 0u, .5f), .left = GUISegment(.5f, 0u, .5f)});
+    top_right_container->add_text(hello);
 
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {

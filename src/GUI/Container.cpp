@@ -1,3 +1,4 @@
+#include "GUI/Text.hpp"
 #include <GUI/Container.hpp>
 
 GUIContainer::GUIContainer() {}
@@ -44,6 +45,10 @@ void GUIContainer::add_container(GUIContainer *container) {
   children.back()->update(rect.w, rect.h);
 }
 
+void GUIContainer::add_text(GUIText *text) {
+  texts.push_back(text);
+}
+
 void GUIContainer::update_cache(SDL_Renderer *renderer) {
   if (cache != NULL)
     SDL_DestroyTexture(cache);
@@ -51,11 +56,15 @@ void GUIContainer::update_cache(SDL_Renderer *renderer) {
                             SDL_TEXTUREACCESS_TARGET, rect.w, rect.h);
   SDL_SetRenderTarget(renderer, cache);
   skin->render({0, 0, rect.w, rect.h});
+
+  for (GUIText *t : texts)
+    t->render(renderer, rect.w, rect.h);
+
   SDL_SetRenderTarget(renderer, NULL);
   cache_is_outdated = false;
 }
 
-void GUIContainer::render(SDL_Renderer *renderer, int parent_x, int parent_y) {
+void GUIContainer::render(SDL_Renderer *renderer, float parent_x, float parent_y) {
   SDL_FRect dst = get_bounding_rect();
   if (!dst.w || !dst.h)
     return;
@@ -68,6 +77,7 @@ void GUIContainer::render(SDL_Renderer *renderer, int parent_x, int parent_y) {
       update_cache(renderer);
     SDL_RenderTexture(renderer, cache, NULL, &dst);
   }
+
   for (GUIContainer *c : children)
     c->render(renderer, dst.x, dst.y);
 }

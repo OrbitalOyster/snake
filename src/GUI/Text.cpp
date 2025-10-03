@@ -1,3 +1,4 @@
+#include "SDL3/SDL_log.h"
 #include <GUI/Text.hpp>
 
 GUIText::GUIText(std::string text, Font *font, SDL_Color color,
@@ -18,6 +19,7 @@ void GUIText::update(std::string text) {
 void GUIText::render(SDL_Renderer *renderer, float parent_width,
                      float parent_height) {
   SDL_FRect dst = layout.calculate(parent_width, parent_height);
+  // SDL_Log("%f %f %f %f %f %f", dst.x, dst.y, dst.w, dst.h, parent_width,
+  // parent_height);
   SDL_RenderTexture(renderer, texture, NULL, &dst);
-  // container.render(renderer, parent->get_x(), parent->get_y());
 }

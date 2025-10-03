@@ -1,5 +1,5 @@
-#ifndef GUI_SEGMENT_HPP
-#define GUI_SEGMENT_HPP
+#ifndef GUI_SEGMENT_HPP_
+#define GUI_SEGMENT_HPP_
 
 #include <GUI/Unit.hpp>
 

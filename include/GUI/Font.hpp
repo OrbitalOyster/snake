@@ -1,5 +1,5 @@
-#ifndef FONT_HPP_
-#define FONT_HPP_
+#ifndef GUI_FONT_HPP_
+#define GUI_FONT_HPP_
 
 #include <SDL3_ttf/SDL_ttf.h>
 #include <string>

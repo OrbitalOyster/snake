@@ -11,14 +11,10 @@ void GUI::add_container(GUIContainer *container) {
   container->update(root_container->get_width(), root_container->get_height());
 }
 
-void GUI::add_text(GUIText *text) { texts.push_back(text); }
+void GUI::add_text(GUIText *text) { root_container->add_text(text); }
 
 void GUI::on_window_resize(int width, int height) {
   root_container->update(width, height);
 }
 
-void GUI::render() const {
-  root_container->render(renderer, 0, 0);
-  for (GUIText *t : texts)
-    t->render(renderer, root_container->get_width(), root_container->get_height());
-}
+void GUI::render() const { root_container->render(renderer, 0, 0); }

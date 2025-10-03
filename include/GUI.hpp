@@ -5,12 +5,10 @@
 #include <GUI/Font.hpp>
 #include <GUI/Skin.hpp>
 #include <GUI/Text.hpp>
-#include <vector>
 
 class GUI {
 private:
   SDL_Renderer *renderer;
-  std::vector<GUIText *> texts;
   GUIContainer *root_container;
 
 public:

@@ -1,3 +1,4 @@
+#include "SDL3/SDL_events.h"
 #include <Core.hpp>
 #include <SDL3/SDL_log.h>
 #include <stdexcept>
@@ -57,6 +58,12 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
   /* Quit event */
   if (event->type == SDL_EVENT_QUIT)
     return SDL_APP_SUCCESS;
+
+  /* Mouse events */
+  if (event->type == SDL_EVENT_MOUSE_MOTION) {
+    SDL_Log("Mouse moved to %f %f (%f %f)", event->motion.x, event->motion.y,
+            event->motion.xrel, event->motion.yrel);
+  }
 
   return SDL_APP_CONTINUE;
 }

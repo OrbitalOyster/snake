@@ -4,6 +4,7 @@
 #include <GUI/Layout.hpp>
 #include <GUI/Segment.hpp>
 #include <GUI/Skin.hpp>
+#include <GUI/Text.hpp>
 #include <GUI/Unit.hpp>
 #include <vector>
 
@@ -19,6 +20,7 @@ private:
   bool cache_is_outdated = false;
   GUISkin *skin = NULL;
   std::vector<GUIContainer *> children;
+  std::vector<GUIText *> texts;
 
 public:
   GUIContainer();
@@ -32,8 +34,9 @@ public:
   void update(int parent_width, int parent_height);
   void on_parent_resize(int new_parent_width, int new_parent_height);
   void add_container(GUIContainer *container);
+  void add_text(GUIText *text);
   void update_cache(SDL_Renderer *renderer);
-  void render(SDL_Renderer *renderer, int parent_x, int parent_y);
+  void render(SDL_Renderer *renderer, float parent_x, float parent_y);
 };
 
 #endif
