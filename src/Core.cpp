@@ -61,8 +61,7 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
 
   /* Mouse events */
   if (event->type == SDL_EVENT_MOUSE_MOTION) {
-    SDL_Log("Mouse moved to %f %f (%f %f)", event->motion.x, event->motion.y,
-            event->motion.xrel, event->motion.yrel);
+    gui->on_mouse_move(event->motion.x, event->motion.y);
   }
 
   return SDL_APP_CONTINUE;

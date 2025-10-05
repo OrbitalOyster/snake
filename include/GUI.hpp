@@ -17,6 +17,7 @@ public:
   void add_container(GUIContainer *container);
   void add_text(GUIText *text);
   void on_window_resize(int width, int height);
+  void on_mouse_move(float x, float y);
   void render() const;
   ~GUI();
 };

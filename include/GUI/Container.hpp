@@ -36,6 +36,7 @@ public:
   void add_container(GUIContainer *container);
   void add_text(GUIText *text);
   void update_cache(SDL_Renderer *renderer);
+  bool on_mouse_over(float x, float y);
   void render(SDL_Renderer *renderer, float parent_x, float parent_y);
 };
 

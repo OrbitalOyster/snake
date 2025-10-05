@@ -17,4 +17,8 @@ void GUI::on_window_resize(int width, int height) {
   root_container->update(width, height);
 }
 
+void GUI::on_mouse_move(float x, float y) {
+  root_container->on_mouse_over(x, y);
+}
+
 void GUI::render() const { root_container->render(renderer, 0, 0); }

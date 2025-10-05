@@ -1,9 +1,11 @@
-#include "GUI/Text.hpp"
+#include "GUI.hpp"
+#include "SDL3/SDL_log.h"
 #include <GUI/Container.hpp>
+#include <cmath>
 
 GUIContainer::GUIContainer() {}
 
-GUIContainer::GUIContainer(GUILayout layout):layout(layout) {}
+GUIContainer::GUIContainer(GUILayout layout) : layout(layout) {}
 
 void GUIContainer::update(int parent_width, int parent_height) {
   int old_w = rect.w, old_h = rect.h;
@@ -45,9 +47,7 @@ void GUIContainer::add_container(GUIContainer *container) {
   children.back()->update(rect.w, rect.h);
 }
 
-void GUIContainer::add_text(GUIText *text) {
-  texts.push_back(text);
-}
+void GUIContainer::add_text(GUIText *text) { texts.push_back(text); }
 
 void GUIContainer::update_cache(SDL_Renderer *renderer) {
   if (cache != NULL)
@@ -56,15 +56,26 @@ void GUIContainer::update_cache(SDL_Renderer *renderer) {
                             SDL_TEXTUREACCESS_TARGET, rect.w, rect.h);
   SDL_SetRenderTarget(renderer, cache);
   skin->render({0, 0, rect.w, rect.h});
-
   for (GUIText *t : texts)
     t->render(renderer, rect.w, rect.h);
-
   SDL_SetRenderTarget(renderer, NULL);
   cache_is_outdated = false;
 }
 
-void GUIContainer::render(SDL_Renderer *renderer, float parent_x, float parent_y) {
+bool GUIContainer::on_mouse_over(float x, float y) {
+  for (GUIContainer *child : children) {
+    const SDL_FRect rect = child->get_bounding_rect();
+    if (x > rect.x && x < rect.x + rect.w && y > rect.y && y < rect.y + rect.h) {
+      child->on_mouse_over(x, y);
+      return false;
+    }
+  }
+  SDL_Log("%f %f", rect.x, rect.y);
+  return true;
+}
+
+void GUIContainer::render(SDL_Renderer *renderer, float parent_x,
+                          float parent_y) {
   SDL_FRect dst = get_bounding_rect();
   if (!dst.w || !dst.h)
     return;
