@@ -49,8 +49,8 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     container->set_skin(window_skin);
     gui->add_container(container);
 
-    GUILayout l2 = GUILayout(GUIUnit(.5f), GUIUnit(.5f), GUISegment(8u), {},
-                             {}, GUISegment(8u));
+    GUILayout l2 = GUILayout(GUIUnit(.5f), GUIUnit(.5f), GUISegment(8u), {}, {},
+                             GUISegment(8u));
 
     GUIContainer *top_right_container = new GUIContainer(l2);
     top_right_container->set_skin(button_skin);

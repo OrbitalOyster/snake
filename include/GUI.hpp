@@ -18,6 +18,7 @@ public:
   void add_text(GUIText *text);
   void on_window_resize(int width, int height);
   void on_mouse_move(float x, float y);
+  void on_mouse_down(float x, float y);
   void render() const;
   ~GUI();
 };

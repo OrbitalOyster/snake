@@ -38,95 +38,34 @@ sprite_maps:
 skins:
   window:
     texture: "gui_skin"
-    center:
-      x: 32
-      y: 32
-      w: 16
-      h: 16
-    top_left:
-      x: 16
-      y: 16
-      w: 16
-      h: 16
-    top:
-      x: 32
-      y: 16
-      w: 16
-      h: 16
-    top_right:
-      x: 48
-      y: 16
-      w: 16
-      h: 16
-    right:
-      x: 48
-      y: 32
-      w: 16
-      h: 16
-    bottom_right:
-      x: 48
-      y: 48
-      w: 16
-      h: 16
-    bottom:
-      x: 32
-      y: 48
-      w: 16
-      h: 16
-    bottom_left:
-      x: 16
-      y: 48
-      w: 16
-      h: 16
-    left:
-      x: 16
-      y: 32
-      w: 16
-      h: 16
+    center: { x: 32, y: 32, w: 16, h: 16 }
+    top_left: { x: 16, y: 16, w: 16, h: 16 }
+    top: { x: 32, y: 16, w: 16, h: 16 }
+    top_right: { x: 48, y: 16, w: 16, h: 16 }
+    right: { x: 48, y: 32, w: 16, h: 16 }
+    bottom_right: { x: 48, y: 48, w: 16, h: 16 }
+    bottom: { x: 32, y: 48, w: 16, h: 16 }
+    bottom_left: { x: 16, y: 48, w: 16, h: 16 }
+    left: { x: 16, y: 32, w: 16, h: 16 }
   button:
     texture: "gui_skin"
-    center:
-      x: 96
-      y: 32
-      w: 16
-      h: 16
-    top_left:
-      x: 80
-      y: 16
-      w: 16
-      h: 16
-    top:
-      x: 96
-      y: 16
-      w: 16
-      h: 16
-    top_right:
-      x: 112
-      y: 16
-      w: 16
-      h: 16
-    right:
-      x: 112
-      y: 32
-      w: 16
-      h: 16
-    bottom_right:
-      x: 112
-      y: 48
-      w: 16
-      h: 16
-    bottom:
-      x: 96
-      y: 48
-      w: 16
-      h: 16
-    bottom_left:
-      x: 80
-      y: 48
-      w: 16
-      h: 16
-    left:
-      x: 80
-      y: 32
-      w: 16
-      h: 16
+    center: { x: 96, y: 32, w: 16, h: 16 }
+    top_left: { x: 80, y: 16, w: 16, h: 16 }
+    top: { x: 96, y: 16, w: 16, h: 16 }
+    top_right: { x: 112, y: 16, w: 16, h: 16 }
+    right: { x: 112, y: 32, w: 16, h: 16 }
+    bottom_right: { x: 112, y: 48, w: 16, h: 16 }
+    bottom: { x: 96, y: 48, w: 16, h: 16 }
+    bottom_left: { x: 80, y: 48, w: 16, h: 16 }
+    left: { x: 80, y: 32, w: 16, h: 16 }
+  button_mouse_over:
+    texture: "gui_skin"
+    center: { x: 96, y: 96, w: 16, h: 16 }
+    top_left: { x: 80, y: 80, w: 16, h: 16 }
+    top: { x: 96, y: 80, w: 16, h: 16 }
+    top_right: { x: 112, y: 80, w: 16, h: 16 }
+    right: { x: 112, y: 96, w: 16, h: 16 }
+    bottom_right: { x: 112, y: 112, w: 16, h: 16 }
+    bottom: { x: 96, y: 112, w: 16, h: 16 }
+    bottom_left: { x: 80, y: 112, w: 16, h: 16 }
+    left: { x: 80, y: 96, w: 16, h: 16 }

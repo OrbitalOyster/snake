@@ -67,9 +67,11 @@ bool GUIContainer::on_mouse_over(float x, float y) {
       return false;
     }
   }
-  SDL_Log("%f %f", rect.x, rect.y);
+  // SDL_Log("%f %f", rect.x, rect.y);
   return true;
 }
+
+bool GUIContainer::on_mouse_down(float x, float y) {}
 
 void GUIContainer::render(SDL_Renderer *renderer, float parent_x,
                           float parent_y) {
