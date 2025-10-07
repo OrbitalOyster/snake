@@ -26,6 +26,11 @@ void GUIContainer::set_skin(GUISkin *skin) {
   cache_is_outdated = true;
 }
 
+void GUIContainer::set_mouse_over_skin(GUISkin *skin) {
+  this->mouse_over_skin = skin;
+  cache_is_outdated = true;
+}
+
 void GUIContainer::set_min_width(GUIUnit min_width) {
   this->min_width = min_width;
 }
@@ -62,7 +67,8 @@ void GUIContainer::update_cache(SDL_Renderer *renderer) {
 bool GUIContainer::on_mouse_over(float x, float y) {
   for (GUIContainer *child : children) {
     const SDL_FRect rect = child->get_bounding_rect();
-    if (x > rect.x && x < rect.x + rect.w && y > rect.y && y < rect.y + rect.h) {
+    if (x > rect.x && x < rect.x + rect.w && y > rect.y &&
+        y < rect.y + rect.h) {
       child->on_mouse_over(x, y);
       return false;
     }

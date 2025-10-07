@@ -1,10 +1,10 @@
 CompileFlags:
   Add:
-    - "-I/home/user/snake/SDL/include"
-    - "-I/home/user/snake/SDL_ttf/include"
-    - "-I/home/user/snake/SDL_image/include"
-    - "-I/home/user/snake/include"
-    - "-I/home/user/snake/yaml-cpp/include"
+    - "-I/home/oyster/snake/SDL/include"
+    - "-I/home/oyster/snake/SDL_ttf/include"
+    - "-I/home/oyster/snake/SDL_image/include"
+    - "-I/home/oyster/snake/include"
+    - "-I/home/oyster/snake/yaml-cpp/include"
     - "-std=c++20"
     - "-Wall"
     - "-Wextra"

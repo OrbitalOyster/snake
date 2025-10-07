@@ -19,6 +19,8 @@ private:
   SDL_Texture *cache = NULL;
   bool cache_is_outdated = false;
   GUISkin *skin = NULL;
+  GUISkin *mouse_over_skin = NULL;
+  GUISkin *mouse_down_skin = NULL;
   std::vector<GUIContainer *> children;
   std::vector<GUIText *> texts;
 
@@ -26,6 +28,7 @@ public:
   GUIContainer();
   GUIContainer(GUILayout layout);
   void set_skin(GUISkin *skin);
+  void set_mouse_over_skin(GUISkin *skin);
   void set_min_width(GUIUnit min_width);
   void set_min_height(GUIUnit min_height);
   SDL_FRect get_bounding_rect() const;
