@@ -4,13 +4,6 @@
 #include <SDL3_ttf/SDL_ttf.h>
 #include <string>
 
-struct FontConfig {
-  std::string key;
-  std::string filename;
-  float size;
-  float outline;
-};
-
 class Font {
 private:
   const std::string filename;
@@ -25,7 +18,6 @@ private:
 public:
   Font(std::string filename, float size, float outline_size,
        SDL_Renderer *renderer);
-  Font(const struct FontConfig config, SDL_Renderer *renderer);
   SDL_Texture *get_texture(const std::string text, SDL_Color color,
                            SDL_Color outline_color, float *w, float *h);
   ~Font();

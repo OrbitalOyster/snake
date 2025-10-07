@@ -1,7 +1,4 @@
-#include "GUI.hpp"
-#include "SDL3/SDL_log.h"
 #include <GUI/Container.hpp>
-#include <cmath>
 
 GUIContainer::GUIContainer() {}
 
