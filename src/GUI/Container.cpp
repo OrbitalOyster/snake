@@ -21,8 +21,9 @@ void GUIContainer::update(int parent_width, int parent_height) {
     c->update(rect.w, rect.h);
 }
 
-void GUIContainer::set_skin(GUISkin *skin) {
-  this->skin = skin;
+void GUIContainer::set_default_skin(GUISkin *skin) {
+  this->default_skin = skin;
+  this->skin = this->default_skin;
   cache_is_outdated = true;
 }
 
@@ -43,6 +44,7 @@ SDL_FRect GUIContainer::get_bounding_rect() const { return rect; }
 
 int GUIContainer::get_width() const { return rect.w; }
 int GUIContainer::get_height() const { return rect.h; }
+bool GUIContainer::get_is_mouse_over() const { return is_mouse_over; };
 
 void GUIContainer::add_container(GUIContainer *container) {
   children.push_back(container);
@@ -64,20 +66,41 @@ void GUIContainer::update_cache(SDL_Renderer *renderer) {
   cache_is_outdated = false;
 }
 
-bool GUIContainer::on_mouse_over(float x, float y) {
+void GUIContainer::on_mouse_enter() {
+  is_mouse_over = true;
+  if (mouse_over_skin) {
+    skin = mouse_over_skin;
+    cache_is_outdated = true;
+  }
+  // SDL_Log("Mouse enter %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+}
+void GUIContainer::on_mouse_leave() {
+  is_mouse_over = false;
+  if (mouse_over_skin) {
+    skin = default_skin;
+    cache_is_outdated = true;
+  }
+  // SDL_Log("Mouse leave %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+}
+
+void GUIContainer::on_mouse_over(float x, float y) {
   for (GUIContainer *child : children) {
     const SDL_FRect rect = child->get_bounding_rect();
     if (x > rect.x && x < rect.x + rect.w && y > rect.y &&
         y < rect.y + rect.h) {
       child->on_mouse_over(x, y);
-      return false;
-    }
+      if (is_mouse_over)
+        on_mouse_leave();
+      return;
+    } else if (child->get_is_mouse_over())
+      child->on_mouse_leave();
   }
-  // SDL_Log("%f %f", rect.x, rect.y);
-  return true;
+  if (!is_mouse_over)
+    on_mouse_enter();
 }
 
-bool GUIContainer::on_mouse_down(float x, float y) {}
+void GUIContainer::on_mouse_down(float x, float y) {}
+void GUIContainer::on_mouse_up(float x, float y) {}
 
 void GUIContainer::render(SDL_Renderer *renderer, float parent_x,
                           float parent_y) {

@@ -47,14 +47,14 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                   GUISegment(0u, 0u, 0u), {}, GUISegment(0u, 0u, 0u));
 
     GUIContainer *container = new GUIContainer(l1);
-    container->set_skin(window_skin);
+    container->set_default_skin(window_skin);
     gui->add_container(container);
 
     GUILayout l2 = GUILayout(GUIUnit(.5f), GUIUnit(.5f), GUISegment(8u), {}, {},
                              GUISegment(8u));
 
     GUIContainer *top_right_container = new GUIContainer(l2);
-    top_right_container->set_skin(button_skin);
+    top_right_container->set_default_skin(button_skin);
     top_right_container->set_mouse_over_skin(button_mouse_over_skin);
     container->add_container(top_right_container);
 
@@ -63,7 +63,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     GUIContainer *stoopid_container = new GUIContainer(stoopid_layout);
 
     gui->add_container(stoopid_container);
-    stoopid_container->set_skin(window_skin);
+    stoopid_container->set_default_skin(window_skin);
     stoopid_container->set_min_width(48u);
     stoopid_container->set_min_height(48u);
 
