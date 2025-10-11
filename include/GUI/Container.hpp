@@ -26,18 +26,21 @@ private:
   GUISkin *mouse_down_skin = NULL;
   std::vector<GUIContainer *> children;
   std::vector<GUIText *> texts;
+  GUIContainer *get_child(float x, float y);
 
 public:
   GUIContainer();
   GUIContainer(GUILayout layout);
   void set_default_skin(GUISkin *skin);
   void set_mouse_over_skin(GUISkin *skin);
+  void set_mouse_down_skin(GUISkin *skin);
   void set_min_width(GUIUnit min_width);
   void set_min_height(GUIUnit min_height);
   SDL_FRect get_bounding_rect() const;
   int get_width() const;
   int get_height() const;
   bool get_is_mouse_over() const;
+  bool get_is_mouse_down() const;
   void update(int parent_width, int parent_height);
   void on_parent_resize(int new_parent_width, int new_parent_height);
   void add_container(GUIContainer *container);

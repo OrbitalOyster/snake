@@ -69,3 +69,14 @@ skins:
     bottom: { x: 96, y: 112, w: 16, h: 16 }
     bottom_left: { x: 80, y: 112, w: 16, h: 16 }
     left: { x: 80, y: 96, w: 16, h: 16 }
+  button_mouse_down:
+    texture: "gui_skin"
+    center: { x: 96, y: 160, w: 16, h: 16 }
+    top_left: { x: 80, y: 144, w: 16, h: 16 }
+    top: { x: 96, y: 144, w: 16, h: 16 }
+    top_right: { x: 112, y: 144, w: 16, h: 16 }
+    right: { x: 112, y: 160, w: 16, h: 16 }
+    bottom_right: { x: 112, y: 176, w: 16, h: 16 }
+    bottom: { x: 96, y: 176, w: 16, h: 16 }
+    bottom_left: { x: 80, y: 176, w: 16, h: 16 }
+    left: { x: 80, y: 160, w: 16, h: 16 }

@@ -25,4 +25,6 @@ void GUI::on_mouse_down(float x, float y) {
   root_container->on_mouse_down(x, y);
 }
 
+void GUI::on_mouse_up(float x, float y) { root_container->on_mouse_up(x, y); }
+
 void GUI::render() const { root_container->render(renderer, 0, 0); }

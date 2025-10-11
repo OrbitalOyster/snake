@@ -32,6 +32,11 @@ void GUIContainer::set_mouse_over_skin(GUISkin *skin) {
   cache_is_outdated = true;
 }
 
+void GUIContainer::set_mouse_down_skin(GUISkin *skin) {
+  this->mouse_down_skin = skin;
+  cache_is_outdated = true;
+}
+
 void GUIContainer::set_min_width(GUIUnit min_width) {
   this->min_width = min_width;
 }
@@ -45,6 +50,7 @@ SDL_FRect GUIContainer::get_bounding_rect() const { return rect; }
 int GUIContainer::get_width() const { return rect.w; }
 int GUIContainer::get_height() const { return rect.h; }
 bool GUIContainer::get_is_mouse_over() const { return is_mouse_over; };
+bool GUIContainer::get_is_mouse_down() const { return is_mouse_down; };
 
 void GUIContainer::add_container(GUIContainer *container) {
   children.push_back(container);
@@ -66,6 +72,15 @@ void GUIContainer::update_cache(SDL_Renderer *renderer) {
   cache_is_outdated = false;
 }
 
+GUIContainer *GUIContainer::get_child(float x, float y) {
+  for (GUIContainer *child : children) {
+    const SDL_FRect rect = child->get_bounding_rect();
+    if (x > rect.x && x < rect.x + rect.w && y > rect.y && y < rect.y + rect.h)
+      return child;
+  }
+  return NULL;
+}
+
 void GUIContainer::on_mouse_enter() {
   is_mouse_over = true;
   if (mouse_over_skin) {
@@ -83,6 +98,34 @@ void GUIContainer::on_mouse_leave() {
   // SDL_Log("Mouse leave %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
 }
 
+void GUIContainer::on_mouse_down(float x, float y) {
+  SDL_Log("Mouse down %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+  for (GUIContainer *child : children) {
+    const SDL_FRect rect = child->get_bounding_rect();
+    if (x > rect.x && x < rect.x + rect.w && y > rect.y &&
+        y < rect.y + rect.h) {
+      child->on_mouse_down(x, y);
+      is_mouse_down = true;
+      return;
+    } else if (child->get_is_mouse_down())
+      child->on_mouse_up(x, y);
+  }
+  is_mouse_down = true;
+  if (mouse_down_skin) {
+    skin = mouse_down_skin;
+    cache_is_outdated = true;
+  }
+}
+
+void GUIContainer::on_mouse_up(float x, float y) {
+  SDL_Log("Mouse up %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+  is_mouse_down = false;
+  if (mouse_down_skin) {
+    skin = default_skin;
+    cache_is_outdated = true;
+  }
+}
+
 void GUIContainer::on_mouse_over(float x, float y) {
   for (GUIContainer *child : children) {
     const SDL_FRect rect = child->get_bounding_rect();
@@ -98,9 +141,6 @@ void GUIContainer::on_mouse_over(float x, float y) {
   if (!is_mouse_over)
     on_mouse_enter();
 }
-
-void GUIContainer::on_mouse_down(float x, float y) {}
-void GUIContainer::on_mouse_up(float x, float y) {}
 
 void GUIContainer::render(SDL_Renderer *renderer, float parent_x,
                           float parent_y) {

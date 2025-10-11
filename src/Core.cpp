@@ -60,9 +60,12 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
     return SDL_APP_SUCCESS;
 
   /* Mouse events */
-  if (event->type == SDL_EVENT_MOUSE_MOTION) {
+  if (event->type == SDL_EVENT_MOUSE_MOTION)
     gui->on_mouse_move(event->motion.x, event->motion.y);
-  }
+  if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN)
+    gui->on_mouse_down(event->motion.x, event->motion.y);
+  if (event->type == SDL_EVENT_MOUSE_BUTTON_UP)
+    gui->on_mouse_up(event->motion.x, event->motion.y);
 
   return SDL_APP_CONTINUE;
 }

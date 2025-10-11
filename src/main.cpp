@@ -40,6 +40,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
 
     GUISkin *button_skin = library->get_skin("button");
     GUISkin *button_mouse_over_skin = library->get_skin("button_mouse_over");
+    GUISkin *button_mouse_down_skin = library->get_skin("button_mouse_down");
     GUISkin *window_skin = library->get_skin("window");
 
     GUILayout l1 =
@@ -56,6 +57,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     GUIContainer *top_right_container = new GUIContainer(l2);
     top_right_container->set_default_skin(button_skin);
     top_right_container->set_mouse_over_skin(button_mouse_over_skin);
+    top_right_container->set_mouse_down_skin(button_mouse_down_skin);
     container->add_container(top_right_container);
 
     GUILayout stoopid_layout = GUILayout(GUISegment(.5f), GUISegment(.25f),
