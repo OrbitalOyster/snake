@@ -100,29 +100,29 @@ void GUIContainer::on_mouse_leave() {
 
 void GUIContainer::on_mouse_down(float x, float y) {
   SDL_Log("Mouse down %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
-  for (GUIContainer *child : children) {
-    const SDL_FRect rect = child->get_bounding_rect();
-    if (x > rect.x && x < rect.x + rect.w && y > rect.y &&
-        y < rect.y + rect.h) {
-      child->on_mouse_down(x, y);
-      is_mouse_down = true;
-      return;
-    } else if (child->get_is_mouse_down())
-      child->on_mouse_up(x, y);
-  }
-  is_mouse_down = true;
-  if (mouse_down_skin) {
-    skin = mouse_down_skin;
-    cache_is_outdated = true;
+  GUIContainer *child = get_child(x, y);
+  if (child)
+    child->on_mouse_down(x, y);
+  else {
+    is_mouse_down = true;
+    if (mouse_down_skin) {
+      skin = mouse_down_skin;
+      cache_is_outdated = true;
+    }
   }
 }
 
 void GUIContainer::on_mouse_up(float x, float y) {
-  SDL_Log("Mouse up %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
-  is_mouse_down = false;
-  if (mouse_down_skin) {
-    skin = default_skin;
-    cache_is_outdated = true;
+  // SDL_Log("Mouse up %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+  GUIContainer *child = get_child(x, y);
+  if (child)
+    child->on_mouse_up(x, y);
+  else {
+    is_mouse_down = false;
+    if (mouse_down_skin) {
+      skin = mouse_over_skin;
+      cache_is_outdated = true;
+    }
   }
 }
 
