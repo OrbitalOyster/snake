@@ -8,6 +8,8 @@ GUI::GUI(SDL_Renderer *renderer) : renderer(renderer) {
 
 void GUI::add_container(GUIContainer *container) {
   root_container->add_container(container);
+  SDL_Cursor *defaultCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_DEFAULT);
+  root_container->set_cursor(defaultCursor);
   container->update(root_container->get_width(), root_container->get_height());
 }
 
@@ -27,6 +29,6 @@ void GUI::on_mouse_down(float x, float y) {
 
 void GUI::on_mouse_up(float x, float y) { root_container->on_mouse_up(x, y); }
 
-void GUI::on_focus_lost() { root_container->on_focus_lost(); }
+void GUI::reset_focus() { root_container->reset_focus(); }
 
 void GUI::render() const { root_container->render(renderer, 0, 0); }

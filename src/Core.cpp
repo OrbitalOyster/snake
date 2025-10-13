@@ -1,4 +1,3 @@
-#include "SDL3/SDL_events.h"
 #include <Core.hpp>
 #include <SDL3/SDL_log.h>
 #include <stdexcept>
@@ -25,7 +24,10 @@ Core::Core(Config config) {
 
 SDL_Renderer *Core::get_renderer() { return renderer; }
 
-void Core::set_GUI(GUI *new_gui) { gui = new_gui; }
+void Core::set_GUI(GUI *new_gui) {
+  gui = new_gui;
+  gui->reset_focus();
+}
 
 void Core::render() {
   /* Clear screen with background color */
@@ -56,7 +58,7 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
     if (event->key.scancode == SDL_SCANCODE_ESCAPE)
       return SDL_APP_SUCCESS;
     else
-     break;
+      break;
   /* Quit event */
   case SDL_EVENT_QUIT:
     return SDL_APP_SUCCESS;
@@ -83,11 +85,11 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
     break;
   case SDL_EVENT_WINDOW_MOUSE_LEAVE:
     // SDL_Log("Mouse leave");
-    gui->on_focus_lost();
+    gui->reset_focus();
     break;
   case SDL_EVENT_WINDOW_FOCUS_LOST:
     // SDL_Log("Lost");
-    gui->on_focus_lost();
+    gui->reset_focus();
     break;
   }
 

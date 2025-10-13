@@ -1,6 +1,7 @@
 #ifndef GUI_CONTAINER_HPP_
 #define GUI_CONTAINER_HPP_
 
+#include "SDL3/SDL_mouse.h"
 #include <GUI/Layout.hpp>
 #include <GUI/Segment.hpp>
 #include <GUI/Skin.hpp>
@@ -24,6 +25,7 @@ private:
   GUISkin *default_skin = NULL;
   GUISkin *mouse_over_skin = NULL;
   GUISkin *mouse_down_skin = NULL;
+  SDL_Cursor *cursor = NULL;
   std::vector<GUIContainer *> children;
   std::vector<GUIText *> texts;
   GUIContainer *get_child(float x, float y);
@@ -34,6 +36,7 @@ public:
   void set_default_skin(GUISkin *skin);
   void set_mouse_over_skin(GUISkin *skin);
   void set_mouse_down_skin(GUISkin *skin);
+  void set_cursor(SDL_Cursor *cursor);
   void set_min_width(GUIUnit min_width);
   void set_min_height(GUIUnit min_height);
   SDL_FRect get_bounding_rect() const;
@@ -51,7 +54,7 @@ public:
   void on_mouse_move(float x1, float y1, float x2, float y2);
   void on_mouse_down(float x, float y);
   void on_mouse_up(float x, float y);
-  void on_focus_lost();
+  void reset_focus();
   void render(SDL_Renderer *renderer, float parent_x, float parent_y);
 };
 

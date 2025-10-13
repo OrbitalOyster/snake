@@ -1,3 +1,4 @@
+#include "SDL3/SDL_mouse.h"
 #include <GUI/Container.hpp>
 #include <SDL3/SDL_log.h>
 
@@ -31,6 +32,10 @@ void GUIContainer::set_default_skin(GUISkin *skin) {
 void GUIContainer::set_mouse_over_skin(GUISkin *skin) {
   this->mouse_over_skin = skin;
   cache_is_outdated = true;
+}
+
+void GUIContainer::set_cursor(SDL_Cursor *cursor) {
+  this->cursor = cursor;
 }
 
 void GUIContainer::set_mouse_down_skin(GUISkin *skin) {
@@ -88,6 +93,8 @@ void GUIContainer::on_mouse_enter() {
     skin = mouse_over_skin;
     cache_is_outdated = true;
   }
+  if (cursor)
+    SDL_SetCursor(cursor);
   // SDL_Log("Mouse enter %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
 }
 
@@ -97,6 +104,8 @@ void GUIContainer::on_mouse_leave() {
     skin = default_skin;
     cache_is_outdated = true;
   }
+  if (cursor)
+    SDL_SetCursor(SDL_GetDefaultCursor());
   // SDL_Log("Mouse leave %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
 }
 
@@ -143,10 +152,10 @@ void GUIContainer::on_mouse_move(float x1, float y1, float x2, float y2) {
     on_mouse_enter();
 }
 
-void GUIContainer::on_focus_lost() {
+void GUIContainer::reset_focus() {
   on_mouse_leave();
   for (GUIContainer *child : children)
-    child->on_focus_lost();
+    child->reset_focus();
 }
 
 void GUIContainer::render(SDL_Renderer *renderer, float parent_x,
