@@ -1,3 +1,4 @@
+#include "SDL3/SDL_events.h"
 #include <Core.hpp>
 #include <SDL3/SDL_log.h>
 #include <stdexcept>
@@ -20,6 +21,7 @@ Core::Core(Config config) {
 
   /* No ugly scaling */
   SDL_SetDefaultTextureScaleMode(renderer, SDL_SCALEMODE_NEAREST);
+
 }
 
 SDL_Renderer *Core::get_renderer() { return renderer; }
@@ -42,31 +44,43 @@ void Core::iterate() {
 }
 
 SDL_AppResult Core::on_event(SDL_Event *event) {
+  switch (event->type) {
   /* Resize event */
-  if (event->type == SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED) {
+  case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED:
     int w, h;
     SDL_GetWindowSizeInPixels(window, &w, &h);
     gui->on_window_resize(w, h);
     render();
-  }
-
+    break;
   /* Esc key */
-  if (event->type == SDL_EVENT_KEY_DOWN &&
-      event->key.scancode == SDL_SCANCODE_ESCAPE)
-    return SDL_APP_SUCCESS;
+  case SDL_EVENT_KEY_DOWN:
+    if (event->key.scancode == SDL_SCANCODE_ESCAPE)
+      return SDL_APP_SUCCESS;
   /* Quit event */
-  if (event->type == SDL_EVENT_QUIT)
+  case SDL_EVENT_QUIT:
     return SDL_APP_SUCCESS;
-
-  /* Mouse events */
-  if (event->type == SDL_EVENT_MOUSE_MOTION)
+  /* Mouse move */
+  case SDL_EVENT_MOUSE_MOTION:
+    // SDL_Log("Mouse move %f %f", event->motion.x, event->motion.y);
     gui->on_mouse_move(event->motion.x - event->motion.xrel,
                        event->motion.y - event->motion.yrel, event->motion.x,
                        event->motion.y);
-  if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN)
+    break;
+  /* Mouse down */
+  case SDL_EVENT_MOUSE_BUTTON_DOWN:
     gui->on_mouse_down(event->motion.x, event->motion.y);
-  if (event->type == SDL_EVENT_MOUSE_BUTTON_UP)
+    break;
+  /* Mouse up */
+  case SDL_EVENT_MOUSE_BUTTON_UP:
     gui->on_mouse_up(event->motion.x, event->motion.y);
+    break;
+  case SDL_EVENT_WINDOW_FOCUS_GAINED:
+    // SDL_Log("Focus");
+    break;
+  case SDL_EVENT_WINDOW_FOCUS_LOST:
+    gui->on_focus_lost();
+    break;
+  }
 
   return SDL_APP_CONTINUE;
 }

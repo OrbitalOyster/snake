@@ -1,3 +1,5 @@
+#include "SDL3/SDL_events.h"
+#include "SDL3/SDL_oldnames.h"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
@@ -22,6 +24,8 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     /* Create core */
     Core *core = new Core(config);
     *appstate = core;
+
+    //SDL_FlushEvents(SDL_EVENT_MOUSE_MOTION, SDL_EVENT_MOUSE_MOTION);
 
     /* Create GUI */
     GUI *gui = new GUI(core->get_renderer());
@@ -83,7 +87,6 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
         std::string("Hello, World!"), regular_font, white, black,
         {.top = GUISegment(.5f, 0u, .5f), .left = GUISegment(.5f, 0u, .5f)});
     top_right_container->add_text(hello);
-
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {
     SDL_LogError(1, "Unable to init engine -> %s", err.what());

@@ -88,7 +88,7 @@ void GUIContainer::on_mouse_enter() {
     skin = mouse_over_skin;
     cache_is_outdated = true;
   }
-  SDL_Log("Mouse enter %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+  // SDL_Log("Mouse enter %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
 }
 
 void GUIContainer::on_mouse_leave() {
@@ -130,6 +130,7 @@ void GUIContainer::on_mouse_up(float x, float y) {
 
 void GUIContainer::on_mouse_move(float x1, float y1, float x2, float y2) {
   // SDL_Log("Mouse move %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+  // SDL_Log("%f %f %f %f", x1, y1, x2, y2);
   GUIContainer *child1 = get_child(x1, y1);
   GUIContainer *child2 = get_child(x2, y2);
   /* Left child1 */
@@ -140,6 +141,12 @@ void GUIContainer::on_mouse_move(float x1, float y1, float x2, float y2) {
     child2->on_mouse_move(x1, y1, x2, y2);
   else if (!is_mouse_over)
     on_mouse_enter();
+}
+
+void GUIContainer::on_focus_lost() {
+  on_mouse_leave();
+  for (GUIContainer *child : children)
+    child->on_focus_lost();
 }
 
 void GUIContainer::render(SDL_Renderer *renderer, float parent_x,
