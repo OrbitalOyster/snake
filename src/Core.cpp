@@ -21,7 +21,6 @@ Core::Core(Config config) {
 
   /* No ugly scaling */
   SDL_SetDefaultTextureScaleMode(renderer, SDL_SCALEMODE_NEAREST);
-
 }
 
 SDL_Renderer *Core::get_renderer() { return renderer; }
@@ -56,6 +55,8 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
   case SDL_EVENT_KEY_DOWN:
     if (event->key.scancode == SDL_SCANCODE_ESCAPE)
       return SDL_APP_SUCCESS;
+    else
+     break;
   /* Quit event */
   case SDL_EVENT_QUIT:
     return SDL_APP_SUCCESS;
@@ -77,7 +78,15 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
   case SDL_EVENT_WINDOW_FOCUS_GAINED:
     // SDL_Log("Focus");
     break;
+  case SDL_EVENT_WINDOW_MOUSE_ENTER:
+    // SDL_Log("Mouse enter");
+    break;
+  case SDL_EVENT_WINDOW_MOUSE_LEAVE:
+    // SDL_Log("Mouse leave");
+    gui->on_focus_lost();
+    break;
   case SDL_EVENT_WINDOW_FOCUS_LOST:
+    // SDL_Log("Lost");
     gui->on_focus_lost();
     break;
   }
