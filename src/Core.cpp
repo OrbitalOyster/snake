@@ -1,4 +1,3 @@
-#include "SDL3/SDL_events.h"
 #include <Core.hpp>
 #include <SDL3/SDL_log.h>
 #include <stdexcept>
@@ -61,7 +60,9 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
 
   /* Mouse events */
   if (event->type == SDL_EVENT_MOUSE_MOTION)
-    gui->on_mouse_move(event->motion.x, event->motion.y);
+    gui->on_mouse_move(event->motion.x - event->motion.xrel,
+                       event->motion.y - event->motion.yrel, event->motion.x,
+                       event->motion.y);
   if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN)
     gui->on_mouse_down(event->motion.x, event->motion.y);
   if (event->type == SDL_EVENT_MOUSE_BUTTON_UP)

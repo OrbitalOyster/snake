@@ -1,4 +1,5 @@
 #include <GUI/Container.hpp>
+#include <SDL3/SDL_log.h>
 
 GUIContainer::GUIContainer() {}
 
@@ -87,8 +88,9 @@ void GUIContainer::on_mouse_enter() {
     skin = mouse_over_skin;
     cache_is_outdated = true;
   }
-  // SDL_Log("Mouse enter %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+  SDL_Log("Mouse enter %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
 }
+
 void GUIContainer::on_mouse_leave() {
   is_mouse_over = false;
   if (mouse_over_skin) {
@@ -99,7 +101,7 @@ void GUIContainer::on_mouse_leave() {
 }
 
 void GUIContainer::on_mouse_down(float x, float y) {
-  SDL_Log("Mouse down %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+  // SDL_Log("Mouse down %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
   GUIContainer *child = get_child(x, y);
   if (child)
     child->on_mouse_down(x, y);
@@ -126,19 +128,17 @@ void GUIContainer::on_mouse_up(float x, float y) {
   }
 }
 
-void GUIContainer::on_mouse_over(float x, float y) {
-  for (GUIContainer *child : children) {
-    const SDL_FRect rect = child->get_bounding_rect();
-    if (x > rect.x && x < rect.x + rect.w && y > rect.y &&
-        y < rect.y + rect.h) {
-      child->on_mouse_over(x, y);
-      if (is_mouse_over)
-        on_mouse_leave();
-      return;
-    } else if (child->get_is_mouse_over())
-      child->on_mouse_leave();
-  }
-  if (!is_mouse_over)
+void GUIContainer::on_mouse_move(float x1, float y1, float x2, float y2) {
+  // SDL_Log("Mouse move %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+  GUIContainer *child1 = get_child(x1, y1);
+  GUIContainer *child2 = get_child(x2, y2);
+  /* Left child1 */
+  if (child1 && child1 != child2)
+    child1->on_mouse_leave();
+  /* Entered child2 */
+  if (child2)
+    child2->on_mouse_move(x1, y1, x2, y2);
+  else if (!is_mouse_over)
     on_mouse_enter();
 }
 
