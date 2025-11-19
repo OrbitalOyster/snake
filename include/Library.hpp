@@ -2,8 +2,8 @@
 #define LIBRARY_HPP_
 
 #include <GUI/Font.hpp>
-#include <Stretchable.hpp>
 #include <SpriteMap.hpp>
+#include <Stretchable.hpp>
 #include <Texture.hpp>
 #include <map>
 
@@ -25,11 +25,12 @@ public:
   void add_sprite_map(std::string key, float x, float y, float w, float h,
                       unsigned n, unsigned fps);
   SpriteMap *get_sprite_map(std::string key);
-  void add_skin(std::string key, std::string texture_key, SDL_FRect center,
-                SDL_FRect top_left, SDL_FRect top, SDL_FRect top_right,
-                SDL_FRect right, SDL_FRect bottom_right, SDL_FRect bottom,
-                SDL_FRect bottom_left, SDL_FRect left);
-  Stretchable *get_skin(std::string key);
+  void add_stretchable(std::string key, std::string texture_key,
+                       SDL_FRect center, SDL_FRect top_left, SDL_FRect top,
+                       SDL_FRect top_right, SDL_FRect right,
+                       SDL_FRect bottom_right, SDL_FRect bottom,
+                       SDL_FRect bottom_left, SDL_FRect left);
+  Stretchable *get_stretchable(std::string key);
   ~Library();
 };
 

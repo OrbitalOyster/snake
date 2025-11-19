@@ -84,10 +84,10 @@ void Config::load_sprite_maps_to_library(Library *library) const {
   }
 }
 
-void Config::load_skins_to_library(Library *library) const {
-  YAML::Node skins_yaml = yaml["stretchables"];
-  for (YAML::const_iterator i = skins_yaml.begin(); i != skins_yaml.end();
-       i++) {
+void Config::load_stretchables_to_library(Library *library) const {
+  YAML::Node stretchables_yaml = yaml["stretchables"];
+  for (YAML::const_iterator i = stretchables_yaml.begin();
+       i != stretchables_yaml.end(); i++) {
     const std::string key = i->first.as<YAML::Node>().as<std::string>();
     const auto value = i->second.as<YAML::Node>();
     const std::string texture_key = value["texture"].as<std::string>();
@@ -100,7 +100,7 @@ void Config::load_skins_to_library(Library *library) const {
     const YAML::Node bottom = value["bottom"].as<YAML::Node>();
     const YAML::Node bottom_left = value["bottom_left"].as<YAML::Node>();
     const YAML::Node left = value["left"].as<YAML::Node>();
-    library->add_skin(
+    library->add_stretchable(
         key, texture_key,
         SDL_FRect(center["x"].as<float>(), center["y"].as<float>(),
                   center["w"].as<float>(), center["h"].as<float>()),

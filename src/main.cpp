@@ -30,16 +30,16 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     config.load_images_to_library(library);
     config.load_fonts_to_library(library, core->get_renderer());
     config.load_sprite_maps_to_library(library);
-    config.load_skins_to_library(library);
+    config.load_stretchables_to_library(library);
 
     Sprite *apple = new Sprite(0, 320, 128, 128, library->get_texture("apple"),
                                library->get_sprite_map("apple_default"));
     core->add_sprite(apple);
 
-    Stretchable *button_skin = library->get_skin("button");
-    Stretchable *button_mouse_over_skin = library->get_skin("button_mouse_over");
-    Stretchable *button_mouse_down_skin = library->get_skin("button_mouse_down");
-    Stretchable *window_skin = library->get_skin("window");
+    Stretchable *button_skin = library->get_stretchable("button");
+    Stretchable *button_mouse_over_skin = library->get_stretchable("button_mouse_over");
+    Stretchable *button_mouse_down_skin = library->get_stretchable("button_mouse_down");
+    Stretchable *window_skin = library->get_stretchable("window");
 
     GUILayout l1 =
         GUILayout({}, GUIUnit(.5f), GUISegment(0u, 0u, 0u),

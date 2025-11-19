@@ -41,21 +41,23 @@ SpriteMap *Library::get_sprite_map(std::string key) {
   return sprite_maps.at(key);
 }
 
-void Library::add_skin(std::string key, std::string texture_key,
-                       SDL_FRect center, SDL_FRect top_left, SDL_FRect top,
-                       SDL_FRect top_right, SDL_FRect right,
-                       SDL_FRect bottom_right, SDL_FRect bottom,
-                       SDL_FRect bottom_left, SDL_FRect left) {
+void Library::add_stretchable(std::string key, std::string texture_key,
+                              SDL_FRect center, SDL_FRect top_left,
+                              SDL_FRect top, SDL_FRect top_right,
+                              SDL_FRect right, SDL_FRect bottom_right,
+                              SDL_FRect bottom, SDL_FRect bottom_left,
+                              SDL_FRect left) {
   if (stretchables.contains(key))
-    throw std::runtime_error("Duplicate GUI skin: " + key);
+    throw std::runtime_error("Duplicate stretchable: " + key);
   Texture *texture = get_texture(texture_key);
-  stretchables[key] = new Stretchable(texture, center, top_left, top, top_right, right,
-                           bottom_right, bottom, bottom_left, left);
+  stretchables[key] =
+      new Stretchable(texture, center, top_left, top, top_right, right,
+                      bottom_right, bottom, bottom_left, left);
 }
 
-Stretchable *Library::get_skin(std::string key) {
+Stretchable *Library::get_stretchable(std::string key) {
   if (!stretchables.contains(key))
-    throw std::runtime_error("GUI skin not found: " + key);
+    throw std::runtime_error("Stretchable not found: " + key);
   return stretchables.at(key);
 }
 
