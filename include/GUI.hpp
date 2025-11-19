@@ -3,8 +3,8 @@
 
 #include <GUI/Container.hpp>
 #include <GUI/Font.hpp>
-#include <GUI/Skin.hpp>
 #include <GUI/Text.hpp>
+#include <Stretchable.hpp>
 
 class GUI {
 private:

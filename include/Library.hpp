@@ -2,7 +2,7 @@
 #define LIBRARY_HPP_
 
 #include <GUI/Font.hpp>
-#include <GUI/Skin.hpp>
+#include <Stretchable.hpp>
 #include <SpriteMap.hpp>
 #include <Texture.hpp>
 #include <map>
@@ -13,7 +13,7 @@ private:
   std::map<std::string, Texture *> textures;
   std::map<std::string, Font *> fonts;
   std::map<std::string, SpriteMap *> sprite_maps;
-  std::map<std::string, GUISkin *> skins;
+  std::map<std::string, Stretchable *> stretchables;
 
 public:
   Library(SDL_Renderer *renderer);
@@ -29,7 +29,7 @@ public:
                 SDL_FRect top_left, SDL_FRect top, SDL_FRect top_right,
                 SDL_FRect right, SDL_FRect bottom_right, SDL_FRect bottom,
                 SDL_FRect bottom_left, SDL_FRect left);
-  GUISkin *get_skin(std::string key);
+  Stretchable *get_skin(std::string key);
   ~Library();
 };
 

@@ -7,12 +7,12 @@ set_property(TARGET main PROPERTY CXX_STANDARD 20)
 target_sources(main PRIVATE
     src/Config.cpp
     src/Core.cpp
+    src/Stretchable.cpp
     src/GUI.cpp
     src/GUI/Container.cpp
     src/GUI/Font.cpp
     src/GUI/Layout.cpp
     src/GUI/Segment.cpp
-    src/GUI/Skin.cpp
     src/GUI/Text.cpp
     src/GUI/Unit.cpp
     src/Library.cpp

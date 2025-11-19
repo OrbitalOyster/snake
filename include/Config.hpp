@@ -2,11 +2,11 @@
 #define CONFIG_HPP_
 
 #include <GUI/Font.hpp>
-#include <GUI/Skin.hpp>
 #include <Library.hpp>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_pixels.h>
 #include <SpriteMap.hpp>
+#include <Stretchable.hpp>
 #include <string>
 #include <yaml-cpp/yaml.h>
 

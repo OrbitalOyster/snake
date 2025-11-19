@@ -1,4 +1,3 @@
-#include "SDL3/SDL_mouse.h"
 #include <GUI/Container.hpp>
 #include <SDL3/SDL_log.h>
 
@@ -27,20 +26,20 @@ void GUIContainer::update(int parent_width, int parent_height) {
   reset_mouse();
 }
 
-void GUIContainer::set_default_skin(GUISkin *skin) {
+void GUIContainer::set_default_skin(Stretchable *skin) {
   this->default_skin = skin;
   this->skin = this->default_skin;
   cache_is_outdated = true;
 }
 
-void GUIContainer::set_mouse_over_skin(GUISkin *skin) {
+void GUIContainer::set_mouse_over_skin(Stretchable *skin) {
   this->mouse_over_skin = skin;
   cache_is_outdated = true;
 }
 
 void GUIContainer::set_cursor(SDL_Cursor *cursor) { this->cursor = cursor; }
 
-void GUIContainer::set_mouse_down_skin(GUISkin *skin) {
+void GUIContainer::set_mouse_down_skin(Stretchable *skin) {
   this->mouse_down_skin = skin;
   cache_is_outdated = true;
 }

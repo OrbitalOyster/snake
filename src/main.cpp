@@ -2,7 +2,7 @@
 #include <Config.hpp>
 #include <Core.hpp>
 #include <GUI.hpp>
-#include <GUI/Skin.hpp>
+#include <Stretchable.hpp>
 #include <GUI/Unit.hpp>
 #include <Library.hpp>
 #include <SDL3/SDL.h>
@@ -36,10 +36,10 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                                library->get_sprite_map("apple_default"));
     core->add_sprite(apple);
 
-    GUISkin *button_skin = library->get_skin("button");
-    GUISkin *button_mouse_over_skin = library->get_skin("button_mouse_over");
-    GUISkin *button_mouse_down_skin = library->get_skin("button_mouse_down");
-    GUISkin *window_skin = library->get_skin("window");
+    Stretchable *button_skin = library->get_skin("button");
+    Stretchable *button_mouse_over_skin = library->get_skin("button_mouse_over");
+    Stretchable *button_mouse_down_skin = library->get_skin("button_mouse_down");
+    Stretchable *window_skin = library->get_skin("window");
 
     GUILayout l1 =
         GUILayout({}, GUIUnit(.5f), GUISegment(0u, 0u, 0u),

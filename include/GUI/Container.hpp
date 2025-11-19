@@ -1,12 +1,11 @@
 #ifndef GUI_CONTAINER_HPP_
 #define GUI_CONTAINER_HPP_
 
-#include "SDL3/SDL_mouse.h"
 #include <GUI/Layout.hpp>
 #include <GUI/Segment.hpp>
-#include <GUI/Skin.hpp>
 #include <GUI/Text.hpp>
 #include <GUI/Unit.hpp>
+#include <Stretchable.hpp>
 #include <vector>
 
 class GUIContainer {
@@ -21,10 +20,10 @@ private:
   /* Cache, updating on resize */
   SDL_Texture *cache = NULL;
   bool cache_is_outdated = false;
-  GUISkin *skin = NULL;
-  GUISkin *default_skin = NULL;
-  GUISkin *mouse_over_skin = NULL;
-  GUISkin *mouse_down_skin = NULL;
+  Stretchable *skin = NULL;
+  Stretchable *default_skin = NULL;
+  Stretchable *mouse_over_skin = NULL;
+  Stretchable *mouse_down_skin = NULL;
   SDL_Cursor *cursor = NULL;
   std::vector<GUIContainer *> children;
   std::vector<GUIText *> texts;
@@ -33,9 +32,9 @@ private:
 public:
   GUIContainer();
   GUIContainer(GUILayout layout);
-  void set_default_skin(GUISkin *skin);
-  void set_mouse_over_skin(GUISkin *skin);
-  void set_mouse_down_skin(GUISkin *skin);
+  void set_default_skin(Stretchable *skin);
+  void set_mouse_over_skin(Stretchable *skin);
+  void set_mouse_down_skin(Stretchable *skin);
   void set_cursor(SDL_Cursor *cursor);
   void set_min_width(GUIUnit min_width);
   void set_min_height(GUIUnit min_height);

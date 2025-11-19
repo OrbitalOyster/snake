@@ -35,7 +35,7 @@ sprite_maps:
     n: 17
     fps: 25
 
-skins:
+stretchables:
   window:
     texture: "gui_skin"
     center: { x: 32, y: 32, w: 16, h: 16 }

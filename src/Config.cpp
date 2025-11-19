@@ -85,7 +85,7 @@ void Config::load_sprite_maps_to_library(Library *library) const {
 }
 
 void Config::load_skins_to_library(Library *library) const {
-  YAML::Node skins_yaml = yaml["skins"];
+  YAML::Node skins_yaml = yaml["stretchables"];
   for (YAML::const_iterator i = skins_yaml.begin(); i != skins_yaml.end();
        i++) {
     const std::string key = i->first.as<YAML::Node>().as<std::string>();
