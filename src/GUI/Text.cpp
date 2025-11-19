@@ -1,4 +1,3 @@
-#include "SDL3/SDL_log.h"
 #include <GUI/Text.hpp>
 
 GUIText::GUIText(std::string text, Font *font, SDL_Color color,

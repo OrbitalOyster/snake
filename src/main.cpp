@@ -57,11 +57,13 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     top_right_container->set_mouse_over_skin(button_mouse_over_skin);
     top_right_container->set_mouse_down_skin(button_mouse_down_skin);
 
-    SDL_Cursor *pointerCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_POINTER);
+    SDL_Cursor *pointerCursor =
+        SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_POINTER);
     top_right_container->set_cursor(pointerCursor);
     container->add_container(top_right_container);
 
-    GUILayout l3 = GUILayout(GUIUnit(.4f), GUIUnit(.5f), GUISegment(8u), GUISegment(8u), {}, {});
+    GUILayout l3 = GUILayout(GUIUnit(.4f), GUIUnit(.5f), GUISegment(8u),
+                             GUISegment(8u), {}, {});
     GUIContainer *top_left_container = new GUIContainer(l3);
     top_left_container->set_default_skin(button_skin);
     top_left_container->set_mouse_over_skin(button_mouse_over_skin);

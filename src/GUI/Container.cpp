@@ -38,9 +38,7 @@ void GUIContainer::set_mouse_over_skin(GUISkin *skin) {
   cache_is_outdated = true;
 }
 
-void GUIContainer::set_cursor(SDL_Cursor *cursor) {
-  this->cursor = cursor;
-}
+void GUIContainer::set_cursor(SDL_Cursor *cursor) { this->cursor = cursor; }
 
 void GUIContainer::set_mouse_down_skin(GUISkin *skin) {
   this->mouse_down_skin = skin;

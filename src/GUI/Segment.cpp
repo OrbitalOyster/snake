@@ -4,9 +4,7 @@
 GUISegment::GUISegment(GUIUnit size, GUIUnit start, GUIUnit end)
     : size(size), start(start), end(end) {}
 
-bool GUISegment::depends_on_child_size() {
-  return !end.is_absolute();
-}
+bool GUISegment::depends_on_child_size() { return !end.is_absolute(); }
 
 /*
  * |                      |
