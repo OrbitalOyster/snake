@@ -50,6 +50,7 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
   case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED:
     int w, h;
     SDL_GetWindowSizeInPixels(window, &w, &h);
+    SDL_Log("Window resize: %ix%i", w, h);
     gui->on_window_resize(w, h);
     render();
     break;

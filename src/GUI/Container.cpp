@@ -21,6 +21,10 @@ void GUIContainer::update(int parent_width, int parent_height) {
 
   for (GUIContainer *c : children)
     c->update(rect.w, rect.h);
+
+  /* Re-check mouse position */
+  reset_focus();
+  reset_mouse();
 }
 
 void GUIContainer::set_default_skin(GUISkin *skin) {
@@ -156,6 +160,12 @@ void GUIContainer::reset_focus() {
   on_mouse_leave();
   for (GUIContainer *child : children)
     child->reset_focus();
+}
+
+void GUIContainer::reset_mouse() {
+  float x = 0, y = 0;
+  SDL_GetMouseState(&x, &y);
+  on_mouse_move(x, y, x, y);
 }
 
 void GUIContainer::render(SDL_Renderer *renderer, float parent_x,

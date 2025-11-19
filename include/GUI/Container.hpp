@@ -55,6 +55,7 @@ public:
   void on_mouse_down(float x, float y);
   void on_mouse_up(float x, float y);
   void reset_focus();
+  void reset_mouse();
   void render(SDL_Renderer *renderer, float parent_x, float parent_y);
 };
 
