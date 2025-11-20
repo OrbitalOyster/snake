@@ -2,13 +2,13 @@
 #include <Config.hpp>
 #include <Core.hpp>
 #include <GUI.hpp>
-#include <Stretchable.hpp>
 #include <GUI/Unit.hpp>
 #include <Library.hpp>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_log.h>
 #include <SDL3/SDL_main.h>
+#include <Stretchable.hpp>
 #include <stdexcept>
 #include <stdlib.h>
 
@@ -28,7 +28,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     /* Library */
     Library *library = new Library(core->get_renderer());
     config.load_images_to_library(library);
-    config.load_fonts_to_library(library, core->get_renderer());
+    config.load_fonts_to_library(library);
     config.load_sprite_maps_to_library(library);
     config.load_stretchables_to_library(library);
 
@@ -37,8 +37,10 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     core->add_sprite(apple);
 
     Stretchable *button_skin = library->get_stretchable("button");
-    Stretchable *button_mouse_over_skin = library->get_stretchable("button_mouse_over");
-    Stretchable *button_mouse_down_skin = library->get_stretchable("button_mouse_down");
+    Stretchable *button_mouse_over_skin =
+        library->get_stretchable("button_mouse_over");
+    Stretchable *button_mouse_down_skin =
+        library->get_stretchable("button_mouse_down");
     Stretchable *window_skin = library->get_stretchable("window");
 
     GUILayout l1 =

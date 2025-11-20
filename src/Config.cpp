@@ -52,8 +52,7 @@ void Config::load_images_to_library(Library *library) const {
   }
 }
 
-void Config::load_fonts_to_library(Library *library,
-                                   SDL_Renderer *renderer) const {
+void Config::load_fonts_to_library(Library *library) const {
   YAML::Node fonts_yaml = yaml["fonts"];
   for (YAML::const_iterator i = fonts_yaml.begin(); i != fonts_yaml.end();
        ++i) {
@@ -64,7 +63,7 @@ void Config::load_fonts_to_library(Library *library,
     /* Outline is optional */
     const float outline_size =
         value["outline_size"] ? value["outline_size"].as<float>() : 0;
-    library->add_font(key, filename, size, outline_size, renderer);
+    library->add_font(key, filename, size, outline_size);
   }
 }
 
@@ -122,3 +121,5 @@ void Config::load_stretchables_to_library(Library *library) const {
                   left["w"].as<float>(), left["h"].as<float>()));
   }
 }
+
+void Config::load_skins_to_library(Library *library) const {}

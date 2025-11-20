@@ -80,3 +80,9 @@ stretchables:
     bottom: { x: 96, y: 176, w: 16, h: 16 }
     bottom_left: { x: 80, y: 176, w: 16, h: 16 }
     left: { x: 80, y: 160, w: 16, h: 16 }
+
+skins:
+  button:
+    base: "button"
+    hover: "button_mouse_over"
+    active: "button_mouse_down"

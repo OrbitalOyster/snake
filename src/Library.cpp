@@ -16,7 +16,7 @@ Texture *Library::get_texture(std::string key) {
 }
 
 void Library::add_font(std::string key, std::string filename, float size,
-                       float outline_size, SDL_Renderer *renderer) {
+                       float outline_size) {
   if (fonts.contains(key))
     throw std::runtime_error("Duplicate font: " + key);
   fonts[key] = new Font(filename, size, outline_size, renderer);
@@ -59,6 +59,18 @@ Stretchable *Library::get_stretchable(std::string key) {
   if (!stretchables.contains(key))
     throw std::runtime_error("Stretchable not found: " + key);
   return stretchables.at(key);
+}
+
+void Library::add_skin(std::string key, Skin *new_skin) {
+  if (skins.contains(key))
+    throw std::runtime_error("Duplicate skin: " + key);
+  skins[key] = new_skin;
+}
+
+Skin *Library::get_skin(std::string key) {
+  if (!skins.contains(key))
+    throw std::runtime_error("Skin not found: " + key);
+  return skins[key];
 }
 
 Library::~Library() {

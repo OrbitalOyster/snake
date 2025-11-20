@@ -3,6 +3,7 @@
 ## Prerequisites
 
 * git
+* make
 * cmake
 * clang
 * This: https://github.com/libsdl-org/SDL/blob/main/docs/README-linux.md#build-dependencies
