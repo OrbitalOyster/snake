@@ -9,11 +9,11 @@ Skin::Skin(Stretchable *base, std::optional<Stretchable *> hover,
     this->active = active.value();
 }
 
-void Skin::render(SDL_FRect rect, std::optional<enum ContainerState> state) {
-  if (!state.has_value())
-    base->render(rect);
-  else
-    switch (state.value()) {
+void Skin::render(SDL_FRect rect, enum ContainerState state) {
+    switch (state) {
+    case Base:
+      base->render(rect);
+      break;
     case Hover:
       hover ? hover->render(rect) : base->render(rect);
       break;

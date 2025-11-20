@@ -82,6 +82,8 @@ stretchables:
     left: { x: 80, y: 160, w: 16, h: 16 }
 
 skins:
+  window:
+    base: "window"
   button:
     base: "button"
     hover: "button_mouse_over"

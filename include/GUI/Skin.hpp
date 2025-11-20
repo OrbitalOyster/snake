@@ -4,7 +4,7 @@
 #include <Stretchable.hpp>
 #include <optional>
 
-enum ContainerState { Hover, Active };
+enum ContainerState { Base, Hover, Active };
 
 class Skin {
 private:
@@ -15,7 +15,7 @@ private:
 public:
   Skin(Stretchable *base, std::optional<Stretchable *> hover,
        std::optional<Stretchable *> active);
-  void render(SDL_FRect rect, std::optional<enum ContainerState> state);
+  void render(SDL_FRect rect, enum ContainerState state = Base);
 };
 
 #endif

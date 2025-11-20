@@ -31,23 +31,7 @@ void GUIContainer::set_skin(Skin *new_skin) {
   cache_is_outdated = true;
 }
 
-void GUIContainer::set_default_skin(Stretchable *skin) {
-  this->default_skin = skin;
-  this->skin = this->default_skin;
-  cache_is_outdated = true;
-}
-
-void GUIContainer::set_mouse_over_skin(Stretchable *skin) {
-  this->mouse_over_skin = skin;
-  cache_is_outdated = true;
-}
-
 void GUIContainer::set_cursor(SDL_Cursor *cursor) { this->cursor = cursor; }
-
-void GUIContainer::set_mouse_down_skin(Stretchable *skin) {
-  this->mouse_down_skin = skin;
-  cache_is_outdated = true;
-}
 
 void GUIContainer::set_min_width(GUIUnit min_width) {
   this->min_width = min_width;
@@ -77,7 +61,14 @@ void GUIContainer::update_cache(SDL_Renderer *renderer) {
   cache = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32,
                             SDL_TEXTUREACCESS_TARGET, rect.w, rect.h);
   SDL_SetRenderTarget(renderer, cache);
-  skin->render({0, 0, rect.w, rect.h});
+
+  if (is_mouse_down)
+    the_skin->render({0, 0, rect.w, rect.h}, Active);
+  else if (is_mouse_over)
+    the_skin->render({0, 0, rect.w, rect.h}, Hover);
+  else
+    the_skin->render({0, 0, rect.w, rect.h}, Base);
+
   for (GUIText *t : texts)
     t->render(renderer, rect.w, rect.h);
   SDL_SetRenderTarget(renderer, NULL);
@@ -95,10 +86,7 @@ GUIContainer *GUIContainer::get_child(float x, float y) {
 
 void GUIContainer::on_mouse_enter() {
   is_mouse_over = true;
-  if (mouse_over_skin) {
-    skin = mouse_over_skin;
-    cache_is_outdated = true;
-  }
+  cache_is_outdated = true;
   if (cursor)
     SDL_SetCursor(cursor);
   // SDL_Log("Mouse enter %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
@@ -106,10 +94,7 @@ void GUIContainer::on_mouse_enter() {
 
 void GUIContainer::on_mouse_leave() {
   is_mouse_over = false;
-  if (mouse_over_skin) {
-    skin = default_skin;
-    cache_is_outdated = true;
-  }
+  cache_is_outdated = true;
   if (cursor)
     SDL_SetCursor(SDL_GetDefaultCursor());
   // SDL_Log("Mouse leave %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
@@ -122,10 +107,7 @@ void GUIContainer::on_mouse_down(float x, float y) {
     child->on_mouse_down(x, y);
   else {
     is_mouse_down = true;
-    if (mouse_down_skin) {
-      skin = mouse_down_skin;
-      cache_is_outdated = true;
-    }
+    cache_is_outdated = true;
   }
 }
 
@@ -136,10 +118,7 @@ void GUIContainer::on_mouse_up(float x, float y) {
     child->on_mouse_up(x, y);
   else {
     is_mouse_down = false;
-    if (mouse_down_skin) {
-      skin = mouse_over_skin;
-      cache_is_outdated = true;
-    }
+    cache_is_outdated = true;
   }
 }
 
@@ -179,7 +158,7 @@ void GUIContainer::render(SDL_Renderer *renderer, float parent_x,
   dst.y += parent_y;
   SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0, 0xFF);
   // SDL_RenderRect(renderer, &dst);
-  if (skin != NULL) {
+  if (the_skin != NULL) {
     if (cache_is_outdated)
       update_cache(renderer);
     SDL_RenderTexture(renderer, cache, NULL, &dst);

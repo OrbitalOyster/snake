@@ -37,28 +37,19 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                                library->get_sprite_map("apple_default"));
     core->add_sprite(apple);
 
-    Stretchable *button_skin = library->get_stretchable("button");
-    Stretchable *button_mouse_over_skin =
-        library->get_stretchable("button_mouse_over");
-    Stretchable *button_mouse_down_skin =
-        library->get_stretchable("button_mouse_down");
-    Stretchable *window_skin = library->get_stretchable("window");
-
     GUILayout l1 =
         GUILayout({}, GUIUnit(.5f), GUISegment(0u, 0u, 0u),
                   GUISegment(0u, 0u, 0u), {}, GUISegment(0u, 0u, 0u));
 
     GUIContainer *container = new GUIContainer(l1);
-    container->set_default_skin(window_skin);
+    container->set_skin(library->get_skin("window"));
     gui->add_container(container);
 
     GUILayout l2 = GUILayout(GUIUnit(.5f), GUIUnit(.5f), GUISegment(8u), {}, {},
                              GUISegment(8u));
 
     GUIContainer *top_right_container = new GUIContainer(l2);
-    top_right_container->set_default_skin(button_skin);
-    top_right_container->set_mouse_over_skin(button_mouse_over_skin);
-    top_right_container->set_mouse_down_skin(button_mouse_down_skin);
+    top_right_container->set_skin(library->get_skin("button"));
 
     SDL_Cursor *pointerCursor =
         SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_POINTER);
@@ -68,9 +59,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     GUILayout l3 = GUILayout(GUIUnit(.4f), GUIUnit(.5f), GUISegment(8u),
                              GUISegment(8u), {}, {});
     GUIContainer *top_left_container = new GUIContainer(l3);
-    top_left_container->set_default_skin(button_skin);
-    top_left_container->set_mouse_over_skin(button_mouse_over_skin);
-    top_left_container->set_mouse_down_skin(button_mouse_down_skin);
+    top_left_container->set_skin(library->get_skin("button"));
     container->add_container(top_left_container);
 
     GUILayout stoopid_layout = GUILayout(GUISegment(.5f), GUISegment(.25f),
@@ -78,7 +67,8 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     GUIContainer *stoopid_container = new GUIContainer(stoopid_layout);
 
     gui->add_container(stoopid_container);
-    stoopid_container->set_default_skin(window_skin);
+    stoopid_container->set_skin(library->get_skin("window"));
+    // stoopid_container->set_default_skin(window_skin);
     stoopid_container->set_min_width(48u);
     stoopid_container->set_min_height(48u);
 
