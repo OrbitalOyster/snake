@@ -1,3 +1,6 @@
+#include "GUI/Container.hpp"
+#include "GUI/Layout.hpp"
+#include "GUI/Segment.hpp"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
@@ -68,7 +71,6 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
 
     gui->add_container(stoopid_container);
     stoopid_container->set_skin(library->get_skin("window"));
-    // stoopid_container->set_default_skin(window_skin);
     stoopid_container->set_min_width(48u);
     stoopid_container->set_min_height(48u);
 
@@ -79,6 +81,12 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
         std::string("Hello, World!"), regular_font, white, black,
         {.top = GUISegment(.5f, 0u, .5f), .left = GUISegment(.5f, 0u, .5f)});
     top_right_container->add_text(hello);
+
+    GUILayout movable_layout = GUILayout(GUIUnit(320u), GUIUnit(240u), GUISegment(100u), GUISegment(100u), {}, {});
+    GUIContainer *movable_container = new GUIContainer(movable_layout);
+    movable_container->set_skin(library->get_skin("window"));
+    gui->add_container(movable_container);
+
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {
     SDL_LogError(1, "Unable to init engine -> %s", err.what());
