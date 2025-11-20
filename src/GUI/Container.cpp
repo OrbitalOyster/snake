@@ -26,6 +26,11 @@ void GUIContainer::update(int parent_width, int parent_height) {
   reset_mouse();
 }
 
+void GUIContainer::set_skin(Skin *new_skin) {
+  this->the_skin = new_skin;
+  cache_is_outdated = true;
+}
+
 void GUIContainer::set_default_skin(Stretchable *skin) {
   this->default_skin = skin;
   this->skin = this->default_skin;

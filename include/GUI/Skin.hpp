@@ -9,12 +9,12 @@ enum ContainerState { Hover, Active };
 class Skin {
 private:
   Stretchable *base;
-  std::optional<Stretchable> *hover;
-  std::optional<Stretchable> *active;
+  Stretchable *hover = NULL;
+  Stretchable *active = NULL;
 
 public:
-  Skin(Stretchable *base, std::optional<Stretchable> *hover,
-       std::optional<Stretchable> *active);
+  Skin(Stretchable *base, std::optional<Stretchable *> hover,
+       std::optional<Stretchable *> active);
   void render(SDL_FRect rect, std::optional<enum ContainerState> state);
 };
 

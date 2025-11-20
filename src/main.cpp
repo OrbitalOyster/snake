@@ -31,6 +31,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     config.load_fonts_to_library(library);
     config.load_sprite_maps_to_library(library);
     config.load_stretchables_to_library(library);
+    config.load_skins_to_library(library);
 
     Sprite *apple = new Sprite(0, 320, 128, 128, library->get_texture("apple"),
                                library->get_sprite_map("apple_default"));

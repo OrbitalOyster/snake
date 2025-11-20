@@ -21,6 +21,9 @@ private:
   /* Cache, updating on resize */
   SDL_Texture *cache = NULL;
   bool cache_is_outdated = false;
+
+  Skin *the_skin = NULL;
+
   Stretchable *skin = NULL;
   Stretchable *default_skin = NULL;
   Stretchable *mouse_over_skin = NULL;
@@ -33,6 +36,7 @@ private:
 public:
   GUIContainer();
   GUIContainer(GUILayout layout);
+  void set_skin(Skin *skin);
   void set_default_skin(Stretchable *skin);
   void set_mouse_over_skin(Stretchable *skin);
   void set_mouse_down_skin(Stretchable *skin);

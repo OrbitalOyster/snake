@@ -1,5 +1,6 @@
 #include <Config.hpp>
 #include <stdexcept>
+#include <string>
 
 SDL_Color hex_to_color(unsigned hex) {
   Uint8 r = hex >> 16 & 0xff;
@@ -122,4 +123,21 @@ void Config::load_stretchables_to_library(Library *library) const {
   }
 }
 
-void Config::load_skins_to_library(Library *library) const {}
+void Config::load_skins_to_library(Library *library) const {
+  YAML::Node skins_yaml = yaml["skins"];
+  for (YAML::const_iterator i = skins_yaml.begin(); i != skins_yaml.end();
+       i++) {
+    const std::string key = i->first.as<YAML::Node>().as<std::string>();
+    const auto value = i->second.as<YAML::Node>();
+    const std::string base = value["base"].as<std::string>();
+
+    std::optional<std::string> hover;
+    std::optional<std::string> active;
+    if (value["hover"].IsDefined())
+      hover = value["hover"].as<std::string>();
+    if (value["active"].IsDefined())
+      active = value["active"].as<std::string>();
+
+    library->add_skin(key, base, hover, active);
+  }
+}
