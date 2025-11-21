@@ -66,6 +66,15 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
   /* Mouse move */
   case SDL_EVENT_MOUSE_MOTION:
     // SDL_Log("Mouse move %f %f", event->motion.x, event->motion.y);
+    if (event->motion.state & SDL_BUTTON_LEFT) {
+      // SDL_Log("Dragging %f %f -> %f %f", event->motion.x -
+      // event->motion.xrel,
+      //           event->motion.y - event->motion.yrel, event->motion.x,
+      //           event->motion.y);
+      gui->on_mouse_drag(event->motion.x - event->motion.xrel,
+                         event->motion.y - event->motion.yrel, event->motion.x,
+                         event->motion.y);
+    }
     gui->on_mouse_move(event->motion.x - event->motion.xrel,
                        event->motion.y - event->motion.yrel, event->motion.x,
                        event->motion.y);

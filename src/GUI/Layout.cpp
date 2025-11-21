@@ -3,12 +3,12 @@
 
 GUILayout::GUILayout(std::optional<GUIUnit> width,
                      std::optional<GUIUnit> height,
-                     std::optional<GUISegment> top,
                      std::optional<GUISegment> left,
-                     std::optional<GUISegment> bottom,
-                     std::optional<GUISegment> right)
-    : width(width), height(height), top(top), left(left), bottom(bottom),
-      right(right) {
+                     std::optional<GUISegment> top,
+                     std::optional<GUISegment> right,
+                     std::optional<GUISegment> bottom)
+    : width(width), height(height), left(left), top(top), right(right),
+      bottom(bottom) {
   /* Horizontal axis */
   if (width.has_value()) { /* Known width */
     if (left.has_value() && right.has_value())
@@ -51,14 +51,13 @@ GUILayout::GUILayout() {
 }
 
 /* a.k.a "movable layout" */
-GUILayout::GUILayout(GUIUnit width, GUIUnit height, GUISegment top,
-                     GUISegment left)
-    : width(width), height(height), top(top), left(left) {}
+GUILayout::GUILayout(GUIUnit width, GUIUnit height, GUISegment left,
+                     GUISegment top)
+    : width(width), height(height), left(left), top(top) {}
 
 /* Unknown size */
-GUILayout::GUILayout(GUISegment top, GUISegment left, GUISegment bottom,
-                     GUISegment right)
-    : GUILayout({}, {}, top, left, bottom, right) {}
+GUILayout::GUILayout(GUISegment left, GUISegment top, GUISegment right, GUISegment bottom)
+    : GUILayout({}, {}, left, top, right, bottom) {}
 
 SDL_FRect GUILayout::calculate(float parent_width, float parent_height) {
   float x, y, w, h;

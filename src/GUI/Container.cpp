@@ -41,6 +41,8 @@ void GUIContainer::set_min_height(GUIUnit min_height) {
   this->min_height = min_height;
 }
 
+void GUIContainer::set_draggable(bool draggable) { is_draggable = draggable; }
+
 SDL_FRect GUIContainer::get_bounding_rect() const { return rect; }
 
 int GUIContainer::get_width() const { return rect.w; }
@@ -94,6 +96,7 @@ void GUIContainer::on_mouse_enter() {
 
 void GUIContainer::on_mouse_leave() {
   is_mouse_over = false;
+  is_mouse_down = false;
   cache_is_outdated = true;
   if (cursor)
     SDL_SetCursor(SDL_GetDefaultCursor());
@@ -101,7 +104,7 @@ void GUIContainer::on_mouse_leave() {
 }
 
 void GUIContainer::on_mouse_down(float x, float y) {
-  // SDL_Log("Mouse down %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+  SDL_Log("Mouse down %f %f %f %f %b", rect.x, rect.y, rect.w, rect.h, is_draggable);
   GUIContainer *child = get_child(x, y);
   if (child)
     child->on_mouse_down(x, y);
@@ -117,7 +120,10 @@ void GUIContainer::on_mouse_up(float x, float y) {
   if (child)
     child->on_mouse_up(x, y);
   else {
-    is_mouse_down = false;
+    if (is_mouse_down) {
+      is_mouse_down = false;
+      SDL_Log("Mouse click");
+    }
     cache_is_outdated = true;
   }
 }
@@ -135,6 +141,19 @@ void GUIContainer::on_mouse_move(float x1, float y1, float x2, float y2) {
     child2->on_mouse_move(x1, y1, x2, y2);
   else if (!is_mouse_over)
     on_mouse_enter();
+}
+
+void GUIContainer::on_mouse_drag(float x, float y, float dx, float dy) {
+  SDL_Log("Container drag %f %f %f %f %b", x, y, dx, dy, is_draggable);
+
+  if (is_draggable) {
+    this->rect.x += dx;
+    this->rect.y += dy;
+  }
+
+  for (GUIContainer *child : children)
+    if (child->get_is_mouse_over())
+      child->on_mouse_drag(x, y, dx, dy);
 }
 
 void GUIContainer::reset_focus() {

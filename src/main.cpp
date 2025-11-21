@@ -40,17 +40,13 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                                library->get_sprite_map("apple_default"));
     core->add_sprite(apple);
 
-    GUILayout l1 =
-        GUILayout({}, GUIUnit(.5f), GUISegment(0u, 0u, 0u),
-                  GUISegment(0u, 0u, 0u), {}, GUISegment(0u, 0u, 0u));
-
+    GUILayout l1 = GUILayout(GUIUnit(1.0f), GUIUnit(.5f), {}, {});
     GUIContainer *container = new GUIContainer(l1);
     container->set_skin(library->get_skin("window"));
     gui->add_container(container);
 
-    GUILayout l2 = GUILayout(GUIUnit(.5f), GUIUnit(.5f), GUISegment(8u), {}, {},
-                             GUISegment(8u));
-
+    GUILayout l2 = GUILayout(GUIUnit(.5f), GUIUnit(.5f), {}, GUISegment(8u),
+                             GUISegment(8u), {});
     GUIContainer *top_right_container = new GUIContainer(l2);
     top_right_container->set_skin(library->get_skin("button"));
 
@@ -65,8 +61,8 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     top_left_container->set_skin(library->get_skin("button"));
     container->add_container(top_left_container);
 
-    GUILayout stoopid_layout = GUILayout(GUISegment(.5f), GUISegment(.25f),
-                                         GUISegment(32u), GUISegment(100u));
+    GUILayout stoopid_layout = GUILayout(GUISegment(.25f), GUISegment(.5f),
+                                         GUISegment(100u), GUISegment(32u));
     GUIContainer *stoopid_container = new GUIContainer(stoopid_layout);
 
     gui->add_container(stoopid_container);
@@ -82,9 +78,11 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
         {.top = GUISegment(.5f, 0u, .5f), .left = GUISegment(.5f, 0u, .5f)});
     top_right_container->add_text(hello);
 
-    GUILayout movable_layout = GUILayout(GUIUnit(320u), GUIUnit(240u), GUISegment(100u), GUISegment(100u));
+    GUILayout movable_layout = GUILayout(GUIUnit(320u), GUIUnit(240u),
+                                         GUISegment(100u), GUISegment(800u));
     GUIContainer *movable_container = new GUIContainer(movable_layout);
     movable_container->set_skin(library->get_skin("window"));
+    movable_container->set_draggable(true);
     gui->add_container(movable_container);
 
     return SDL_APP_CONTINUE;

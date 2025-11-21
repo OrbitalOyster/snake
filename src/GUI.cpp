@@ -29,6 +29,10 @@ void GUI::on_mouse_down(float x, float y) {
 
 void GUI::on_mouse_up(float x, float y) { root_container->on_mouse_up(x, y); }
 
+void GUI::on_mouse_drag(float x1, float y1, float x2, float y2) {
+  root_container->on_mouse_drag(x1, y1, x2 - x1, y2 - y1);
+}
+
 void GUI::reset_focus() { root_container->reset_focus(); }
 
 void GUI::render() const { root_container->render(renderer, 0, 0); }

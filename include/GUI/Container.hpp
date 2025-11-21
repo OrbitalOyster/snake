@@ -18,6 +18,7 @@ private:
   GUIUnit min_width, min_height;
   bool is_mouse_over = false;
   bool is_mouse_down = false;
+  bool is_draggable = false;
   /* Cache, updating on resize */
   SDL_Texture *cache = NULL;
   bool cache_is_outdated = false;
@@ -34,6 +35,7 @@ public:
   void set_cursor(SDL_Cursor *cursor);
   void set_min_width(GUIUnit min_width);
   void set_min_height(GUIUnit min_height);
+  void set_draggable(bool draggable);
   SDL_FRect get_bounding_rect() const;
   int get_width() const;
   int get_height() const;
@@ -49,6 +51,7 @@ public:
   void on_mouse_move(float x1, float y1, float x2, float y2);
   void on_mouse_down(float x, float y);
   void on_mouse_up(float x, float y);
+  void on_mouse_drag(float x, float y, float dx, float dy);
   void reset_focus();
   void reset_mouse();
   void render(SDL_Renderer *renderer, float parent_x, float parent_y);

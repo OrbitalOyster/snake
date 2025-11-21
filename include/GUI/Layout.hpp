@@ -9,16 +9,15 @@
 class GUILayout {
 private:
   std::optional<GUIUnit> width = {}, height = {};
-  std::optional<GUISegment> top = {}, left = {}, bottom = {}, right = {};
+  std::optional<GUISegment> left = {}, top = {}, right = {}, bottom = {};
 
 public:
-  GUILayout();
-  GUILayout(GUIUnit width, GUIUnit height, GUISegment top, GUISegment left);
   GUILayout(std::optional<GUIUnit> width, std::optional<GUIUnit> height,
-            std::optional<GUISegment> top, std::optional<GUISegment> left,
-            std::optional<GUISegment> bottom, std::optional<GUISegment> right);
-  GUILayout(GUISegment top, GUISegment left, GUISegment bottom,
-            GUISegment right);
+            std::optional<GUISegment> left, std::optional<GUISegment> top,
+            std::optional<GUISegment> right, std::optional<GUISegment> bottom);
+  GUILayout();
+  GUILayout(GUIUnit width, GUIUnit height, GUISegment left, GUISegment top);
+  GUILayout(GUISegment left, GUISegment top, GUISegment right, GUISegment bottom);
   SDL_FRect calculate(float parent_width, float parent_height);
 };
 
