@@ -13,6 +13,7 @@ private:
 
 public:
   GUILayout();
+  GUILayout(GUIUnit width, GUIUnit height, GUISegment top, GUISegment left);
   GUILayout(std::optional<GUIUnit> width, std::optional<GUIUnit> height,
             std::optional<GUISegment> top, std::optional<GUISegment> left,
             std::optional<GUISegment> bottom, std::optional<GUISegment> right);

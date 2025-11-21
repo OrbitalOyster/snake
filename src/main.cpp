@@ -82,7 +82,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
         {.top = GUISegment(.5f, 0u, .5f), .left = GUISegment(.5f, 0u, .5f)});
     top_right_container->add_text(hello);
 
-    GUILayout movable_layout = GUILayout(GUIUnit(320u), GUIUnit(240u), GUISegment(100u), GUISegment(100u), {}, {});
+    GUILayout movable_layout = GUILayout(GUIUnit(320u), GUIUnit(240u), GUISegment(100u), GUISegment(100u));
     GUIContainer *movable_container = new GUIContainer(movable_layout);
     movable_container->set_skin(library->get_skin("window"));
     gui->add_container(movable_container);

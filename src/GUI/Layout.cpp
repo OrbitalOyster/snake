@@ -1,13 +1,6 @@
 #include <GUI/Layout.hpp>
 #include <stdexcept>
 
-GUILayout::GUILayout() {
-  width = GUIUnit(1.0f);
-  height = GUIUnit(1.0f);
-  top = GUISegment();
-  left = GUISegment();
-}
-
 GUILayout::GUILayout(std::optional<GUIUnit> width,
                      std::optional<GUIUnit> height,
                      std::optional<GUISegment> top,
@@ -49,6 +42,18 @@ GUILayout::GUILayout(std::optional<GUIUnit> width,
       throw std::runtime_error("Circular dependency (bottom)");
   }
 }
+
+GUILayout::GUILayout() {
+  width = GUIUnit(1.0f);
+  height = GUIUnit(1.0f);
+  top = GUISegment();
+  left = GUISegment();
+}
+
+/* a.k.a "movable layout" */
+GUILayout::GUILayout(GUIUnit width, GUIUnit height, GUISegment top,
+                     GUISegment left)
+    : width(width), height(height), top(top), left(left) {}
 
 /* Unknown size */
 GUILayout::GUILayout(GUISegment top, GUISegment left, GUISegment bottom,
