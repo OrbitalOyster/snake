@@ -19,6 +19,7 @@ private:
   bool is_mouse_over = false;
   bool is_mouse_down = false;
   bool is_draggable = false;
+  bool is_bubbling = true;
   /* Cache, updating on resize */
   SDL_Texture *cache = NULL;
   bool cache_is_outdated = false;
@@ -26,7 +27,7 @@ private:
   SDL_Cursor *cursor = NULL;
   std::vector<GUIContainer *> children;
   std::vector<GUIText *> texts;
-  GUIContainer *get_child(float x, float y);
+  std::vector<GUIContainer *> get_child(float x, float y);
 
 public:
   GUIContainer();
@@ -49,7 +50,7 @@ public:
   void on_mouse_enter();
   void on_mouse_leave();
   void on_mouse_move(float x1, float y1, float x2, float y2);
-  void on_mouse_down(float x, float y);
+  bool on_mouse_down(float x, float y);
   void on_mouse_up(float x, float y);
   void on_mouse_drag(float x, float y, float dx, float dy);
   void reset_focus();
