@@ -27,7 +27,7 @@ private:
   SDL_Cursor *cursor = NULL;
   std::vector<GUIContainer *> children;
   std::vector<GUIText *> texts;
-  std::vector<GUIContainer *> get_child(float x, float y);
+  std::vector<GUIContainer *> get_children(float x, float y);
 
 public:
   GUIContainer();
