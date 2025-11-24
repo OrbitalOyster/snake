@@ -59,6 +59,10 @@ GUILayout::GUILayout(GUIUnit width, GUIUnit height, GUISegment left,
 GUILayout::GUILayout(GUISegment left, GUISegment top, GUISegment right, GUISegment bottom)
     : GUILayout({}, {}, left, top, right, bottom) {}
 
+void GUILayout::move() {
+
+}
+
 SDL_FRect GUILayout::calculate(float parent_width, float parent_height) {
   float x, y, w, h;
   /* Known width */
