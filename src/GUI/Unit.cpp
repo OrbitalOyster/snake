@@ -3,7 +3,7 @@
 
 GUIUnit::GUIUnit(float number, GUIUnitType type) : number(number), type(type) {}
 
-bool GUIUnit::is_absolute() const { return type == Relative; }
+bool GUIUnit::is_absolute() const { return type == Absolute; }
 
 float GUIUnit::to_pixels() const {
   if (type != Absolute)

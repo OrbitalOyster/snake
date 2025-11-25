@@ -1,6 +1,5 @@
-#include "GUI/Unit.hpp"
-#include "SDL3/SDL_log.h"
 #include <GUI/Text.hpp>
+#include <cmath>
 
 GUIText::GUIText(std::string text, Font *font, SDL_Color color,
                  SDL_Color outline_color, TextLayout text_layout)
@@ -22,6 +21,10 @@ void GUIText::update(std::string new_text) {
 void GUIText::render(SDL_Renderer *renderer, float parent_width,
                      float parent_height) {
   SDL_FRect dst = layout.calculate(parent_width, parent_height);
+  dst.x = round(dst.x);
+  dst.y = round(dst.y);
+  dst.w = round(dst.w);
+  dst.h = round(dst.h);
   // SDL_Log("%f %f %f %f %f %f", dst.x, dst.y, dst.w, dst.h, parent_width, parent_height);
   SDL_RenderTexture(renderer, texture, NULL, &dst);
 }

@@ -60,9 +60,10 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     top_left_container->set_skin(library->get_skin("button"));
     container->add_container(top_left_container);
 
-    GUILayout stoopid_layout = GUILayout(GUISegment(.25f), GUISegment(.5f),
-                                         GUISegment(GUIUnit(100, Absolute)),
-                                         GUISegment(GUIUnit(32, Absolute)));
+    GUILayout stoopid_layout = GUILayout(
+        GUISegment(GUIUnit(.25f), 0, GUIUnit(0, Absolute)), GUISegment(GUIUnit(.5f)),
+        GUISegment(GUIUnit(100, Absolute), 0, GUIUnit(0, Absolute)), GUISegment(GUIUnit(32, Absolute)));
+    SDL_Log("Got here");
     GUIContainer *stoopid_container = new GUIContainer(stoopid_layout);
 
     gui->add_container(stoopid_container);

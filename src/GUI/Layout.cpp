@@ -67,7 +67,7 @@ GUILayout::GUILayout(GUISegment left, GUISegment top)
 
 // float GUILayout::get_left() { return left->get_absolute_size(); }
 
-void GUILayout::move(unsigned dx, unsigned dy) {
+void GUILayout::move(float dx, float dy) {
   left->resize(dx);
   top->resize(dy);
 }

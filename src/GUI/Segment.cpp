@@ -1,4 +1,3 @@
-#include "GUI/Unit.hpp"
 #include <GUI/Segment.hpp>
 #include <cstdio>
 #include <stdexcept>
@@ -10,7 +9,7 @@ bool GUISegment::depends_on_child_size() const { return !end.is_absolute(); }
 
 bool GUISegment::is_resizable() const { return size.is_absolute(); }
 
-void GUISegment::resize(unsigned delta) {
+void GUISegment::resize(float delta) {
   // std::printf(">>> %d\n", size.to_pixels());
   size = GUIUnit(size.to_pixels() + delta);
 }
