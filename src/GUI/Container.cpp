@@ -160,7 +160,7 @@ void GUIContainer::on_mouse_drag(float x, float y, float dx, float dy) {
     // this->rect.x += dx;
     // this->rect.y += dy;
     layout.move(dx, dy);
-    rect.x = layout.get_left();
+    // rect.x = layout.get_left();
     SDL_Log("%f %f", this->rect.x, this->rect.y);
   }
 

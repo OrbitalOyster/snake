@@ -1,3 +1,4 @@
+#include "SDL3/SDL_log.h"
 #include <GUI/Layout.hpp>
 #include <stdexcept>
 
@@ -44,8 +45,8 @@ GUILayout::GUILayout(std::optional<GUIUnit> width,
 }
 
 GUILayout::GUILayout() {
-  width = GUIUnit(1.0f, Relative);
-  height = GUIUnit(1.0f, Relative);
+  width = GUIUnit(1.0f);
+  height = GUIUnit(1.0f);
   top = GUISegment();
   left = GUISegment();
 }
@@ -60,7 +61,11 @@ GUILayout::GUILayout(GUISegment left, GUISegment top, GUISegment right,
                      GUISegment bottom)
     : GUILayout({}, {}, left, top, right, bottom) {}
 
-unsigned GUILayout::get_left() { return left->get_absolute_size(); }
+/* Top-left */
+GUILayout::GUILayout(GUISegment left, GUISegment top)
+    : GUILayout({}, {}, left, top, {}, {}) {};
+
+// float GUILayout::get_left() { return left->get_absolute_size(); }
 
 void GUILayout::move(unsigned dx, unsigned dy) {
   left->resize(dx);
@@ -98,6 +103,6 @@ SDL_FRect GUILayout::calculate(float parent_width, float parent_height) {
     h = parent_height - y - bottom_p;
   }
   /* Done */
-  // SDL_Log(">>> %f %f %f %f", x, y, w, h);
+  // SDL_Log("Layout calculated %f %f %f %f / %f %f", x, y, w, h, parent_width, parent_height);
   return {x, y, w, h};
 }

@@ -8,8 +8,10 @@
 #include <string>
 
 struct TextLayout {
-  std::optional<GUISegment> top, left;
-  std::optional<GUISegment> bottom, right;
+  std::optional<GUISegment> left;
+  std::optional<GUISegment> top;
+  std::optional<GUISegment> right;
+  std::optional<GUISegment> bottom;
 };
 
 class GUIText {
@@ -20,7 +22,7 @@ private:
   SDL_Color color, outline_color;
   GUILayout layout;
   /* Texture size */
-  float w, h;
+  float width, height;
 
 public:
   GUIText(std::string text, Font *font, SDL_Color color,

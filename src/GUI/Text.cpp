@@ -1,24 +1,27 @@
+#include "GUI/Unit.hpp"
+#include "SDL3/SDL_log.h"
 #include <GUI/Text.hpp>
 
 GUIText::GUIText(std::string text, Font *font, SDL_Color color,
-                 SDL_Color outline_color, TextLayout layout)
+                 SDL_Color outline_color, TextLayout text_layout)
     : text(text), font(font), color(color), outline_color(outline_color) {
-  texture = font->get_texture(text, color, outline_color, &w, &h);
-  this->layout = GUILayout((unsigned)w, (unsigned)h, layout.top, layout.left,
-                           layout.bottom, layout.right);
+  texture = font->get_texture(text, color, outline_color, &width, &height);
+  // SDL_Log("width height %f %f", width, height);
+  layout = GUILayout(GUIUnit(width, Absolute), GUIUnit(height, Absolute), text_layout.left, text_layout.top,
+                     text_layout.right, text_layout.bottom);
+  // SDL_Log(">>> %f", layout.calculate(100, 100).w);
 }
 
-void GUIText::update(std::string text) {
-  this->text = text;
+void GUIText::update(std::string new_text) {
+  text = new_text;
   SDL_DestroyTexture(texture);
-  texture = font->get_texture(text, color, outline_color, &w, &h);
+  texture = font->get_texture(text, color, outline_color, &width, &height);
   /* TODO: Layout update */
 }
 
 void GUIText::render(SDL_Renderer *renderer, float parent_width,
                      float parent_height) {
   SDL_FRect dst = layout.calculate(parent_width, parent_height);
-  // SDL_Log("%f %f %f %f %f %f", dst.x, dst.y, dst.w, dst.h, parent_width,
-  // parent_height);
+  // SDL_Log("%f %f %f %f %f %f", dst.x, dst.y, dst.w, dst.h, parent_width, parent_height);
   SDL_RenderTexture(renderer, texture, NULL, &dst);
 }
