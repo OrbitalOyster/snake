@@ -55,6 +55,7 @@ public:
   void on_mouse_drag(float x, float y, float dx, float dy);
   void reset_focus();
   void reset_mouse();
+  void reset_all();
   void render(SDL_Renderer *renderer, float parent_x, float parent_y);
 };
 

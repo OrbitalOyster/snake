@@ -1,7 +1,12 @@
+#include "SDL3/SDL_rect.h"
 #include <GUI/Container.hpp>
 #include <SDL3/SDL_log.h>
 #include <cmath>
 #include <vector>
+
+bool point_within_rect(float x, float y, SDL_FRect rect) {
+  return x > rect.x && x < rect.x + rect.w && y > rect.y && y < rect.y + rect.h;
+}
 
 GUIContainer::GUIContainer() {}
 
@@ -24,8 +29,10 @@ void GUIContainer::update(float parent_width, float parent_height) {
     c->update(rect.w, rect.h);
 
   /* Re-check mouse position */
-  reset_focus();
-  reset_mouse();
+  // reset_focus(); /* TODO: Back to drawing board */
+  // reset_mouse();
+
+  // reset_all();
 }
 
 void GUIContainer::set_skin(Skin *new_skin) {
@@ -96,7 +103,7 @@ void GUIContainer::on_mouse_enter() {
   cache_is_outdated = true;
   if (cursor)
     SDL_SetCursor(cursor);
-  // SDL_Log("Mouse enter %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+   SDL_Log("Mouse enter %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
 }
 
 void GUIContainer::on_mouse_leave() {
@@ -107,12 +114,11 @@ void GUIContainer::on_mouse_leave() {
     SDL_SetCursor(SDL_GetDefaultCursor());
   for (GUIContainer *child : children)
     child->on_mouse_leave();
-  // SDL_Log("Mouse leave %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+  SDL_Log("Mouse leave %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
 }
 
 bool GUIContainer::on_mouse_down(float x, float y) {
-  // SDL_Log("Mouse down %f %f %f %f %b", rect.x, rect.y, rect.w, rect.h,
-  // is_draggable);
+  // SDL_Log("Mouse down %f %f %f %f %b", rect.x, rect.y, rect.w, rect.h, is_draggable);
   std::vector<GUIContainer *> child = get_children(x, y);
   if (!child.empty())
     return child.back()->on_mouse_down(x, y);
@@ -170,6 +176,7 @@ void GUIContainer::on_mouse_drag(float x, float y, float dx, float dy) {
 }
 
 void GUIContainer::reset_focus() {
+  SDL_Log("Resetting focus %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
   on_mouse_leave();
   for (GUIContainer *child : children)
     child->reset_focus();
@@ -178,7 +185,20 @@ void GUIContainer::reset_focus() {
 void GUIContainer::reset_mouse() {
   float x = 0, y = 0;
   SDL_GetMouseState(&x, &y);
+
+  // if (point_within_rect(x, y, rect))
+    on_mouse_move(x, y, x, y);
+}
+
+void GUIContainer::reset_all() {
+  is_mouse_over = false;
+
+  float x = 0, y = 0;
+  SDL_GetMouseState(&x, &y);
   on_mouse_move(x, y, x, y);
+
+  for (GUIContainer *child : children)
+    child->reset_all();
 }
 
 void GUIContainer::render(SDL_Renderer *renderer, float parent_x,
