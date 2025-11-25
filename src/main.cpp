@@ -67,8 +67,8 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
 
     gui->add_container(stoopid_container);
     stoopid_container->set_skin(library->get_skin("window"));
-    //    stoopid_container->set_min_width(48u);
-    //    stoopid_container->set_min_height(48u);
+    stoopid_container->set_min_width(GUIUnit(48, Absolute));
+    stoopid_container->set_min_height(GUIUnit(48, Absolute));
 
     SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
     SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
@@ -79,14 +79,13 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                                  white, black, centered);
     top_right_container->add_text(hello);
 
-    //    GUILayout movable_layout = GUILayout(GUIUnit(320u, Absolute),
-    //    GUIUnit(240u, Absolute),
-    //                                         GUISegment(100u, Absolute),
-    //                                         GUISegment(800u, Absolute));
-    //    GUIContainer *movable_container = new GUIContainer(movable_layout);
-    //    movable_container->set_skin(library->get_skin("window"));
-    //    movable_container->set_draggable(true);
-    //    gui->add_container(movable_container);
+    GUILayout movable_layout = GUILayout(
+        GUIUnit(320, Absolute), GUIUnit(240, Absolute),
+        GUISegment(GUIUnit(100, Absolute)), GUISegment(GUIUnit(100, Absolute)));
+    GUIContainer *movable_container = new GUIContainer(movable_layout);
+    movable_container->set_skin(library->get_skin("window"));
+    movable_container->set_draggable(true);
+    gui->add_container(movable_container);
 
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {
