@@ -44,8 +44,8 @@ GUILayout::GUILayout(std::optional<GUIUnit> width,
 }
 
 GUILayout::GUILayout() {
-  width = GUIUnit(1.0f);
-  height = GUIUnit(1.0f);
+  width = GUIUnit(1.0f, Relative);
+  height = GUIUnit(1.0f, Relative);
   top = GUISegment();
   left = GUISegment();
 }
@@ -56,11 +56,15 @@ GUILayout::GUILayout(GUIUnit width, GUIUnit height, GUISegment left,
     : width(width), height(height), left(left), top(top) {}
 
 /* Unknown size */
-GUILayout::GUILayout(GUISegment left, GUISegment top, GUISegment right, GUISegment bottom)
+GUILayout::GUILayout(GUISegment left, GUISegment top, GUISegment right,
+                     GUISegment bottom)
     : GUILayout({}, {}, left, top, right, bottom) {}
 
-void GUILayout::move() {
+unsigned GUILayout::get_left() { return left->get_absolute_size(); }
 
+void GUILayout::move(unsigned dx, unsigned dy) {
+  left->resize(dx);
+  top->resize(dy);
 }
 
 SDL_FRect GUILayout::calculate(float parent_width, float parent_height) {
@@ -94,5 +98,6 @@ SDL_FRect GUILayout::calculate(float parent_width, float parent_height) {
     h = parent_height - y - bottom_p;
   }
   /* Done */
+  // SDL_Log(">>> %f %f %f %f", x, y, w, h);
   return {x, y, w, h};
 }

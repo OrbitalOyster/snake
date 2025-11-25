@@ -4,22 +4,30 @@
 #include <GUI/Unit.hpp>
 
 /*
- * |<--------------------root_size----------------->|
- *                   |<-child_size->|
- * |-----------------|==============|---------------|
- * |-----size------->|
+ * |<----------------------parent_size--------------------->|
+ * |                                                        |
+ * |<-start->|<---------size------->|                       |
+ * |                 |<-----end---->|                       |
+ * |                 |==============|============|          |
+ * |                 |<-------child_size-------->|          |
+ * |<--calculate()-->|                                      |
  */
 
+/* Refer to ASCHII art */
 class GUISegment {
 private:
   GUIUnit size, start, end;
 
 public:
-  GUISegment(GUIUnit size = GUIUnit(0.0f), GUIUnit start = GUIUnit(),
+  GUISegment(GUIUnit size = GUIUnit(),
+             GUIUnit start = GUIUnit(),
              GUIUnit end = GUIUnit());
-  bool depends_on_child_size();
-  int calculate(int parent_size, int child_size);
-  int calculate(int parent_size);
+  bool depends_on_child_size() const;
+  float calculate(float parent_size, float child_size) const;
+  float calculate(float parent_size) const;
+  bool is_resizable() const;
+  void resize(unsigned delta);
+  float get_absolute_size() const;
 };
 
 #endif

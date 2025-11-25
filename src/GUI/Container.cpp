@@ -1,5 +1,6 @@
 #include <GUI/Container.hpp>
 #include <SDL3/SDL_log.h>
+#include <cmath>
 #include <vector>
 
 GUIContainer::GUIContainer() {}
@@ -156,8 +157,11 @@ void GUIContainer::on_mouse_drag(float x, float y, float dx, float dy) {
   // SDL_Log("Container drag %f %f %f %f %b", x, y, dx, dy, is_draggable);
 
   if (is_draggable) {
-    this->rect.x += dx;
-    this->rect.y += dy;
+    // this->rect.x += dx;
+    // this->rect.y += dy;
+    layout.move(dx, dy);
+    rect.x = layout.get_left();
+    SDL_Log("%f %f", this->rect.x, this->rect.y);
   }
 
   for (GUIContainer *child : children)
@@ -180,6 +184,10 @@ void GUIContainer::reset_mouse() {
 void GUIContainer::render(SDL_Renderer *renderer, float parent_x,
                           float parent_y) {
   SDL_FRect dst = get_bounding_rect();
+  dst.x = round(dst.x);
+  dst.y = round(dst.y);
+  dst.w = round(dst.w);
+  dst.h = round(dst.h);
   if (!dst.w || !dst.h)
     return;
   dst.x += parent_x;

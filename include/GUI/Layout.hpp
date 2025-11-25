@@ -18,7 +18,8 @@ public:
   GUILayout();
   GUILayout(GUIUnit width, GUIUnit height, GUISegment left, GUISegment top);
   GUILayout(GUISegment left, GUISegment top, GUISegment right, GUISegment bottom);
-  void move();
+  unsigned get_left();
+  void move(unsigned dx, unsigned dy);
   SDL_FRect calculate(float parent_width, float parent_height);
 };
 

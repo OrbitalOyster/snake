@@ -1,25 +1,24 @@
 #include <GUI/Unit.hpp>
 #include <stdexcept>
 
-GUIUnit::GUIUnit(unsigned int l) {
-  number.pixels = l;
-  type = Absolute;
+GUIUnit::GUIUnit(float number, GUIUnitType type) : number(number), type(type) {}
+
+bool GUIUnit::is_absolute() const { return type == Absolute; }
+
+float GUIUnit::to_pixels() const {
+  if (type != Absolute)
+    throw std::runtime_error("Wrong!");
+  return number;
 }
 
-GUIUnit::GUIUnit(float l) {
-  number.percent = l;
-  type = Relative;
-}
-
-bool GUIUnit::is_absolute() { return type == Absolute; }
-
-int GUIUnit::to_pixels(unsigned int parent_length) {
+float GUIUnit::to_pixels(float parent_length) const {
   switch (type) {
   case Absolute:
-    return number.pixels;
+    return number;
     break;
   case Relative:
-    return parent_length * number.percent;
+    // SDL_Log("to pixels: %f %f %f", number, parent_length, number * parent_length);
+    return parent_length * number;
     break;
   }
   /* Should not happen */

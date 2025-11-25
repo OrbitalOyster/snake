@@ -1,6 +1,4 @@
-#include "GUI/Container.hpp"
 #include "GUI/Layout.hpp"
-#include "GUI/Segment.hpp"
 #define SDL_MAIN_USE_CALLBACKS
 #include <Config.hpp>
 #include <Core.hpp>
@@ -40,50 +38,52 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                                library->get_sprite_map("apple_default"));
     core->add_sprite(apple);
 
-    GUILayout l1 = GUILayout(GUIUnit(1.0f), GUIUnit(.5f), {}, {});
+    GUILayout l1 = GUILayout(GUIUnit(1.0f, Relative), GUIUnit(.5f, Relative), {}, {});
     GUIContainer *container = new GUIContainer(l1);
     container->set_skin(library->get_skin("window"));
     gui->add_container(container);
 
-    GUILayout l2 = GUILayout(GUIUnit(.5f), GUIUnit(.5f), {}, GUISegment(8u),
-                             GUISegment(8u), {});
+    GUILayout l2 = GUILayout(GUIUnit(.5f, Relative), GUIUnit(.5f, Relative), {}, GUISegment(8.0f, Absolute),
+                             GUISegment(8.0f, Absolute), {});
     GUIContainer *top_right_container = new GUIContainer(l2);
     top_right_container->set_skin(library->get_skin("button"));
 
-    SDL_Cursor *pointerCursor =
-        SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_POINTER);
-    top_right_container->set_cursor(pointerCursor);
+//    SDL_Cursor *pointerCursor =
+//        SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_POINTER);
+//    top_right_container->set_cursor(pointerCursor);
     container->add_container(top_right_container);
 
-    GUILayout l3 = GUILayout(GUIUnit(.4f), GUIUnit(.5f), GUISegment(8u),
-                             GUISegment(8u), {}, {});
-    GUIContainer *top_left_container = new GUIContainer(l3);
-    top_left_container->set_skin(library->get_skin("button"));
-    container->add_container(top_left_container);
+//    GUILayout l3 = GUILayout(GUIUnit(.4f), GUIUnit(.5f), GUISegment(8u, Absolute),
+//                             GUISegment(8u, Absolute), {}, {});
+//    GUIContainer *top_left_container = new GUIContainer(l3);
+//    top_left_container->set_skin(library->get_skin("button"));
+//    container->add_container(top_left_container);
 
-    GUILayout stoopid_layout = GUILayout(GUISegment(.25f), GUISegment(.5f),
-                                         GUISegment(100u), GUISegment(32u));
-    GUIContainer *stoopid_container = new GUIContainer(stoopid_layout);
+//    GUILayout stoopid_layout = GUILayout(GUISegment(.25f), GUISegment(.5f),
+//                                         GUISegment(100u, Absolute), GUISegment(32u, Absolute));
+//    GUIContainer *stoopid_container = new GUIContainer(stoopid_layout);
 
-    gui->add_container(stoopid_container);
-    stoopid_container->set_skin(library->get_skin("window"));
-    stoopid_container->set_min_width(48u);
-    stoopid_container->set_min_height(48u);
+//    gui->add_container(stoopid_container);
+//    stoopid_container->set_skin(library->get_skin("window"));
+//    stoopid_container->set_min_width(48u);
+//    stoopid_container->set_min_height(48u);
 
-    SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
-    SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
-    Font *regular_font = library->get_font("regular");
-    GUIText *hello = new GUIText(
-        std::string("Hello, World!"), regular_font, white, black,
-        {.top = GUISegment(.5f, 0u, .5f), .left = GUISegment(.5f, 0u, .5f)});
-    top_right_container->add_text(hello);
+    // SDL_Color white = {0xEE, 0xEE, 0xEE, 0xFF};
+    // SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
+    // Font *regular_font = library->get_font("regular");
+    // GUILayout centered = GUILayout(GUISegment(.5f, 0u, .5f), GUISegment(.5f, 0u, .5f));
+    // GUIText *hello = new GUIText(
+    //     std::string("Hello, World!"), regular_font, white, black,
+    //     centered);
+    //    {.top = GUISegment(.5f, 0u, .5f), .left = GUISegment(.5f, 0u, .5f)});
+    // top_right_container->add_text(hello);
 
-    GUILayout movable_layout = GUILayout(GUIUnit(320u), GUIUnit(240u),
-                                         GUISegment(100u), GUISegment(800u));
-    GUIContainer *movable_container = new GUIContainer(movable_layout);
-    movable_container->set_skin(library->get_skin("window"));
-    movable_container->set_draggable(true);
-    gui->add_container(movable_container);
+//    GUILayout movable_layout = GUILayout(GUIUnit(320u, Absolute), GUIUnit(240u, Absolute),
+//                                         GUISegment(100u, Absolute), GUISegment(800u, Absolute));
+//    GUIContainer *movable_container = new GUIContainer(movable_layout);
+//    movable_container->set_skin(library->get_skin("window"));
+//    movable_container->set_draggable(true);
+//    gui->add_container(movable_container);
 
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {
