@@ -19,6 +19,7 @@ private:
   GUIUnit size, start, end;
 
 public:
+  void debug();
   GUISegment(GUIUnit size = GUIUnit(),
              GUIUnit start = GUIUnit(),
              GUIUnit end = GUIUnit(0, Absolute));

@@ -63,7 +63,6 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     GUILayout stoopid_layout = GUILayout(
         GUISegment(GUIUnit(.25f), 0, GUIUnit(0, Absolute)), GUISegment(GUIUnit(.5f)),
         GUISegment(GUIUnit(100, Absolute), 0, GUIUnit(0, Absolute)), GUISegment(GUIUnit(32, Absolute)));
-    SDL_Log("Got here");
     GUIContainer *stoopid_container = new GUIContainer(stoopid_layout);
 
     gui->add_container(stoopid_container);
@@ -82,7 +81,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
 
     GUILayout movable_layout = GUILayout(
         GUIUnit(320, Absolute), GUIUnit(240, Absolute),
-        GUISegment(GUIUnit(100, Absolute)), GUISegment(GUIUnit(100, Absolute)));
+        GUISegment(GUIUnit(200, Absolute)), GUISegment(GUIUnit(600, Absolute)));
     GUIContainer *movable_container = new GUIContainer(movable_layout);
     movable_container->set_skin(library->get_skin("window"));
     movable_container->set_draggable(true);

@@ -31,6 +31,7 @@ void GUI::on_mouse_up(float x, float y) { root_container->on_mouse_up(x, y); }
 
 void GUI::on_mouse_drag(float x1, float y1, float x2, float y2) {
   root_container->on_mouse_drag(x1, y1, x2 - x1, y2 - y1);
+  // root_container->update(root_container->get_width(), root_container->get_height());
 }
 
 void GUI::reset_focus() { root_container->reset_focus(); }

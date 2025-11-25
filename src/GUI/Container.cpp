@@ -7,7 +7,7 @@ GUIContainer::GUIContainer() {}
 
 GUIContainer::GUIContainer(GUILayout layout) : layout(layout) {}
 
-void GUIContainer::update(int parent_width, int parent_height) {
+void GUIContainer::update(float parent_width, float parent_height) {
   int old_w = rect.w, old_h = rect.h;
   rect = layout.calculate(parent_width, parent_height);
 
@@ -47,8 +47,8 @@ void GUIContainer::set_draggable(bool draggable) { is_draggable = draggable; }
 
 SDL_FRect GUIContainer::get_bounding_rect() const { return rect; }
 
-int GUIContainer::get_width() const { return rect.w; }
-int GUIContainer::get_height() const { return rect.h; }
+float GUIContainer::get_width() const { return rect.w; }
+float GUIContainer::get_height() const { return rect.h; }
 bool GUIContainer::get_is_mouse_over() const { return is_mouse_over; };
 bool GUIContainer::get_is_mouse_down() const { return is_mouse_down; };
 
@@ -154,14 +154,14 @@ void GUIContainer::on_mouse_move(float x1, float y1, float x2, float y2) {
 }
 
 void GUIContainer::on_mouse_drag(float x, float y, float dx, float dy) {
-  // SDL_Log("Container drag %f %f %f %f %b", x, y, dx, dy, is_draggable);
-
   if (is_draggable) {
+    // SDL_Log("Container drag %f %f %f %f %b", x, y, dx, dy, is_draggable);
     // this->rect.x += dx;
     // this->rect.y += dy;
     layout.move(dx, dy);
     // rect.x = layout.get_left();
-    SDL_Log("%f %f", this->rect.x, this->rect.y);
+    // SDL_Log("%f %f", this->rect.x, this->rect.y);
+    update(get_width(), get_height());
   }
 
   for (GUIContainer *child : children)

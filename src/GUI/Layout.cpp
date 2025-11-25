@@ -68,6 +68,8 @@ GUILayout::GUILayout(GUISegment left, GUISegment top)
 // float GUILayout::get_left() { return left->get_absolute_size(); }
 
 void GUILayout::move(float dx, float dy) {
+  // SDL_Log("Moving container %f %f", dx, dy);
+  // left->debug();
   left->resize(dx);
   top->resize(dy);
 }

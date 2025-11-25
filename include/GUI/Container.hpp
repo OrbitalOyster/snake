@@ -38,12 +38,12 @@ public:
   void set_min_height(GUIUnit min_height);
   void set_draggable(bool draggable);
   SDL_FRect get_bounding_rect() const;
-  int get_width() const;
-  int get_height() const;
+  float get_width() const;
+  float get_height() const;
   bool get_is_mouse_over() const;
   bool get_is_mouse_down() const;
-  void update(int parent_width, int parent_height);
-  void on_parent_resize(int new_parent_width, int new_parent_height);
+  void update(float parent_width, float parent_height);
+  void on_parent_resize(float new_parent_width, float new_parent_height);
   void add_container(GUIContainer *container);
   void add_text(GUIText *text);
   void update_cache(SDL_Renderer *renderer);
