@@ -1,4 +1,3 @@
-#include "SDL3/SDL_log.h"
 #include <GUI/Layout.hpp>
 #include <stdexcept>
 
@@ -69,7 +68,6 @@ double GUILayout::get_left() { return left->get_absolute_size(); }
 
 void GUILayout::move(double dx, double dy) {
   // SDL_Log("Moving container %f %f", dx, dy);
-  // left->debug();
   left->resize(dx);
   top->resize(dy);
 }

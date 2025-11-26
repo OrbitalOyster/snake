@@ -1,4 +1,3 @@
-#include "SDL3/SDL_rect.h"
 #include <Texture.hpp>
 #include <cmath>
 #include <stdexcept>

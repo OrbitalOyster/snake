@@ -1,4 +1,7 @@
+#include "SDL3/SDL_log.h"
+#include "SDL3/SDL_rect.h"
 #include <Stretchable.hpp>
+#include <cmath>
 
 Stretchable::Stretchable(Texture *texture, SDL_FRect center, SDL_FRect top_left,
                          SDL_FRect top, SDL_FRect top_right, SDL_FRect right,
@@ -59,6 +62,11 @@ void Stretchable::render_bottom_left(SDL_FRect rect) {
 }
 
 void Stretchable::render(SDL_FRect rect) {
+  rect.x = round(rect.x);
+  rect.y = round(rect.y);
+  rect.w = round(rect.w);
+  rect.h = round(rect.h);
+  //SDL_Log("W: %f", rect.w);
   render_center(rect);
   render_top(rect);
   render_right(rect);

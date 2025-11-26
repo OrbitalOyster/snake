@@ -28,9 +28,10 @@ private:
   void render_left(SDL_FRect rect);
 
 public:
-  Stretchable(Texture *texture, SDL_FRect center, SDL_FRect top_left, SDL_FRect top,
-          SDL_FRect top_right, SDL_FRect right, SDL_FRect bottom_right,
-          SDL_FRect bottom, SDL_FRect bottom_left, SDL_FRect left);
+  Stretchable(Texture *texture, SDL_FRect center, SDL_FRect top_left,
+              SDL_FRect top, SDL_FRect top_right, SDL_FRect right,
+              SDL_FRect bottom_right, SDL_FRect bottom, SDL_FRect bottom_left,
+              SDL_FRect left);
 
   void render(SDL_FRect rect);
 };

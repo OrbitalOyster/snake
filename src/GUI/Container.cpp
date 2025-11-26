@@ -1,7 +1,6 @@
 #include <GUI/Container.hpp>
 #include <SDL3/SDL_log.h>
 #include <cmath>
-#include <vector>
 
 bool point_within_rect(double x, double y, SDL_FRect rect) {
   return x > rect.x && x < rect.x + rect.w && y > rect.y && y < rect.y + rect.h;
@@ -15,13 +14,6 @@ void GUIContainer::on_resize(double parent_width, double parent_height) {
   int old_w = rect.w, old_h = rect.h;
   rect = layout.calculate(parent_width, parent_height);
 
-  /*
-  rect.x = round(rect.x);
-  rect.y = round(rect.y);
-  rect.w = round(rect.w);
-  rect.h = round(rect.h);
-  */
-
   /* Adjust min. size */
   if (rect.w < min_width.to_pixels(parent_width))
     rect.w = min_width.to_pixels(parent_width);
@@ -31,8 +23,8 @@ void GUIContainer::on_resize(double parent_width, double parent_height) {
   if (rect.w != old_w || rect.h != old_h)
     cache_is_outdated = true;
 
-  for (GUIContainer *c : children)
-    c->on_resize(rect.w, rect.h);
+  for (GUIContainer *child : children)
+    child->on_resize(rect.w, rect.h);
 
   /* Re-check mouse position */
   reset_mouse();
@@ -72,8 +64,9 @@ void GUIContainer::add_text(GUIText *text) { texts.push_back(text); }
 void GUIContainer::update_cache(SDL_Renderer *renderer) {
   if (cache != NULL)
     SDL_DestroyTexture(cache);
-  cache = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32,
-                            SDL_TEXTUREACCESS_TARGET, rect.w, rect.h);
+  cache =
+      SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32,
+                        SDL_TEXTUREACCESS_TARGET, round(rect.w), round(rect.h));
   SDL_SetRenderTarget(renderer, cache);
 
   if (mouse_down)
@@ -83,8 +76,8 @@ void GUIContainer::update_cache(SDL_Renderer *renderer) {
   else
     skin->render({0, 0, rect.w, rect.h}, Base);
 
-  for (GUIText *t : texts)
-    t->render(renderer, rect.w, rect.h);
+  for (GUIText *text : texts)
+    text->render(renderer, rect.w, rect.h);
   SDL_SetRenderTarget(renderer, NULL);
   cache_is_outdated = false;
 }
@@ -123,7 +116,8 @@ void GUIContainer::on_mouse_leave() {
 }
 
 bool GUIContainer::on_mouse_down(double x, double y) {
-  // SDL_Log("Mouse down %f %f %f %f %b", rect.x, rect.y, rect.w, rect.h, is_draggable);
+  // SDL_Log("Mouse down %f %f %f %f %b", rect.x, rect.y, rect.w, rect.h,
+  // is_draggable);
   std::vector<GUIContainer *> child = get_children(x, y);
   if (!child.empty())
     return child.back()->on_mouse_down(x, y);
