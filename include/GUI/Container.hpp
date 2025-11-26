@@ -16,14 +16,14 @@ private:
   /* Actual dimensions */
   SDL_FRect rect;
   GUIUnit min_width, min_height;
-  bool is_mouse_over = false;
-  bool is_mouse_down = false;
+  bool mouse_over = false;
+  bool mouse_down = false;
   bool is_draggable = false;
   bool is_bubbling = true;
   /* Cache, updating on resize */
   SDL_Texture *cache = NULL;
   bool cache_is_outdated = false;
-  Skin *the_skin = NULL;
+  Skin *skin = NULL;
   SDL_Cursor *cursor = NULL;
   std::vector<GUIContainer *> children;
   std::vector<GUIText *> texts;
@@ -40,8 +40,8 @@ public:
   SDL_FRect get_bounding_rect() const;
   float get_width() const;
   float get_height() const;
-  bool get_is_mouse_over() const;
-  bool get_is_mouse_down() const;
+  bool is_mouse_over() const;
+  bool is_mouse_down() const;
   void on_resize(float parent_width, float parent_height);
   void add_container(GUIContainer *container);
   void add_text(GUIText *text);
