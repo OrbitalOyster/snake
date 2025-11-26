@@ -18,8 +18,8 @@ void GUIText::update(std::string new_text) {
   /* TODO: Layout update */
 }
 
-void GUIText::render(SDL_Renderer *renderer, float parent_width,
-                     float parent_height) {
+void GUIText::render(SDL_Renderer *renderer, double parent_width,
+                     double parent_height) {
   SDL_FRect dst = layout.calculate(parent_width, parent_height);
   dst.x = round(dst.x);
   dst.y = round(dst.y);

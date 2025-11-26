@@ -27,7 +27,7 @@ private:
   SDL_Cursor *cursor = NULL;
   std::vector<GUIContainer *> children;
   std::vector<GUIText *> texts;
-  std::vector<GUIContainer *> get_children(float x, float y);
+  std::vector<GUIContainer *> get_children(double x, double y);
 
 public:
   GUIContainer();
@@ -38,23 +38,23 @@ public:
   void set_min_height(GUIUnit min_height);
   void set_draggable(bool draggable);
   SDL_FRect get_bounding_rect() const;
-  float get_width() const;
-  float get_height() const;
+  double get_width() const;
+  double get_height() const;
   bool is_mouse_over() const;
   bool is_mouse_down() const;
-  void on_resize(float parent_width, float parent_height);
+  void on_resize(double parent_width, double parent_height);
   void add_container(GUIContainer *container);
   void add_text(GUIText *text);
   void update_cache(SDL_Renderer *renderer);
   void on_mouse_enter();
   void on_mouse_leave();
-  void on_mouse_move(float x1, float y1, float x2, float y2);
-  bool on_mouse_down(float x, float y);
-  void on_mouse_up(float x, float y);
-  void on_mouse_drag(float x, float y, float dx, float dy);
+  void on_mouse_move(double x1, double y1, double x2, double y2);
+  bool on_mouse_down(double x, double y);
+  void on_mouse_up(double x, double y);
+  void on_mouse_drag(double x, double y, double dx, double dy);
   void reset_focus();
   void reset_mouse();
-  void render(SDL_Renderer *renderer, float parent_x, float parent_y);
+  void render(SDL_Renderer *renderer, double parent_x, double parent_y);
 };
 
 #endif

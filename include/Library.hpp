@@ -21,10 +21,10 @@ public:
   Library(SDL_Renderer *renderer);
   void add_texture(std::string key, std::string filename);
   Texture *get_texture(std::string key);
-  void add_font(std::string key, std::string filename, float size,
-                float outline_size);
+  void add_font(std::string key, std::string filename, double size,
+                double outline_size);
   Font *get_font(std::string key);
-  void add_sprite_map(std::string key, float x, float y, float w, float h,
+  void add_sprite_map(std::string key, double x, double y, double w, double h,
                       unsigned n, unsigned fps);
   SpriteMap *get_sprite_map(std::string key);
   void add_stretchable(std::string key, std::string texture_key,

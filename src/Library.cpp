@@ -16,8 +16,8 @@ Texture *Library::get_texture(std::string key) {
   return textures.at(key);
 }
 
-void Library::add_font(std::string key, std::string filename, float size,
-                       float outline_size) {
+void Library::add_font(std::string key, std::string filename, double size,
+                       double outline_size) {
   if (fonts.contains(key))
     throw std::runtime_error("Duplicate font: " + key);
   fonts[key] = new Font(filename, size, outline_size, renderer);
@@ -29,8 +29,8 @@ Font *Library::get_font(std::string key) {
   return fonts.at(key);
 }
 
-void Library::add_sprite_map(std::string key, float x, float y, float w,
-                             float h, unsigned n, unsigned fps) {
+void Library::add_sprite_map(std::string key, double x, double y, double w,
+                             double h, unsigned n, unsigned fps) {
   if (sprite_maps.contains(key))
     throw std::runtime_error("Duplicate sprite map: " + key);
   sprite_maps[key] = new SpriteMap(x, y, w, h, n, fps);

@@ -8,18 +8,18 @@ class Font {
 private:
   const std::string filename;
   TTF_Font *ttf;
-  float size;
+  double size;
   TTF_Font *outline;
-  float outline_size;
+  double outline_size;
   SDL_Renderer *renderer;
   SDL_Texture *render_text(const std::string text, TTF_Font *font,
                            SDL_Color color);
 
 public:
-  Font(std::string filename, float size, float outline_size,
+  Font(std::string filename, double size, double outline_size,
        SDL_Renderer *renderer);
   SDL_Texture *get_texture(const std::string text, SDL_Color color,
-                           SDL_Color outline_color, float *w, float *h);
+                           SDL_Color outline_color, double *width, double *height);
   ~Font();
 };
 

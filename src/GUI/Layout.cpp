@@ -65,29 +65,29 @@ GUILayout::GUILayout(GUISegment left, GUISegment top, GUISegment right,
 GUILayout::GUILayout(GUISegment left, GUISegment top)
     : GUILayout({}, {}, left, top, {}, {}) {};
 
-float GUILayout::get_left() { return left->get_absolute_size(); }
+double GUILayout::get_left() { return left->get_absolute_size(); }
 
-void GUILayout::move(float dx, float dy) {
+void GUILayout::move(double dx, double dy) {
   // SDL_Log("Moving container %f %f", dx, dy);
   // left->debug();
   left->resize(dx);
   top->resize(dy);
 }
 
-SDL_FRect GUILayout::calculate(float parent_width, float parent_height) {
-  float x, y, w, h;
+SDL_FRect GUILayout::calculate(double parent_width, double parent_height) {
+  double x, y, w, h;
   /* Known width */
   if (width.has_value()) {
     w = width->to_pixels(parent_width);
     if (left.has_value()) {
       x = left->calculate(parent_width, w);
     } else {
-      float right_p = right->calculate(parent_width, w);
+      double right_p = right->calculate(parent_width, w);
       x = parent_width - w - right_p;
     }
   } else { /* Unknown width */
     x = left->calculate(parent_width);
-    float right_p = right->calculate(parent_width);
+    double right_p = right->calculate(parent_width);
     w = parent_width - x - right_p;
   }
   /* Known height */
@@ -96,15 +96,16 @@ SDL_FRect GUILayout::calculate(float parent_width, float parent_height) {
     if (top.has_value()) {
       y = top->calculate(parent_height, h);
     } else {
-      float bottom_p = bottom->calculate(parent_height, h);
+      double bottom_p = bottom->calculate(parent_height, h);
       y = parent_height - h - bottom_p;
     }
   } else { /* Unknown height */
     y = top->calculate(parent_height);
-    float bottom_p = bottom->calculate(parent_height);
+    double bottom_p = bottom->calculate(parent_height);
     h = parent_height - y - bottom_p;
   }
   /* Done */
-  // SDL_Log("Layout calculated %f %f %f %f / %f %f", x, y, w, h, parent_width, parent_height);
-  return {x, y, w, h};
+  // SDL_Log("Layout calculated %f %f %f %f / %f %f", x, y, w, h, parent_width,
+  // parent_height);
+  return {(float)x, (float)y, (float)w, (float)h};
 }

@@ -22,13 +22,13 @@ private:
   SDL_Color color, outline_color;
   GUILayout layout;
   /* Texture size */
-  float width, height;
+  double width, height;
 
 public:
   GUIText(std::string text, Font *font, SDL_Color color,
           SDL_Color outline_color, TextLayout layout);
   void update(std::string text);
-  void render(SDL_Renderer *renderer, float parent_width, float parent_height);
+  void render(SDL_Renderer *renderer, double parent_width, double parent_height);
 };
 
 #endif

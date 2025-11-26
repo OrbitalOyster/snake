@@ -5,15 +5,15 @@
 
 class SpriteMap {
 private:
-  float x, y;
-  float w, h;
+  double x, y;
+  double w, h;
   unsigned n;
   unsigned fps;
   unsigned long ticks_per_loop;
   unsigned long frame_size;
 
 public:
-  SpriteMap(float x, float y, float w, float h, unsigned n, unsigned fps);
+  SpriteMap(double x, double y, double w, double h, unsigned n, unsigned fps);
   SDL_FRect get_frame(unsigned long animation_start_time,
                       unsigned long ticks) const;
 };

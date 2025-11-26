@@ -24,11 +24,11 @@ public:
              GUIUnit start = GUIUnit(),
              GUIUnit end = GUIUnit(0, Absolute));
   bool depends_on_child_size() const;
-  float calculate(float parent_size, float child_size) const;
-  float calculate(float parent_size) const;
+  double calculate(double parent_size, double child_size) const;
+  double calculate(double parent_size) const;
   bool is_resizable() const;
-  void resize(float delta);
-  float get_absolute_size() const;
+  void resize(double delta);
+  double get_absolute_size() const;
 };
 
 #endif

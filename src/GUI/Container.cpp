@@ -3,7 +3,7 @@
 #include <cmath>
 #include <vector>
 
-bool point_within_rect(float x, float y, SDL_FRect rect) {
+bool point_within_rect(double x, double y, SDL_FRect rect) {
   return x > rect.x && x < rect.x + rect.w && y > rect.y && y < rect.y + rect.h;
 }
 
@@ -11,7 +11,7 @@ GUIContainer::GUIContainer() {}
 
 GUIContainer::GUIContainer(GUILayout layout) : layout(layout) {}
 
-void GUIContainer::on_resize(float parent_width, float parent_height) {
+void GUIContainer::on_resize(double parent_width, double parent_height) {
   int old_w = rect.w, old_h = rect.h;
   rect = layout.calculate(parent_width, parent_height);
 
@@ -57,8 +57,8 @@ void GUIContainer::set_draggable(bool draggable) { is_draggable = draggable; }
 
 SDL_FRect GUIContainer::get_bounding_rect() const { return rect; }
 
-float GUIContainer::get_width() const { return rect.w; }
-float GUIContainer::get_height() const { return rect.h; }
+double GUIContainer::get_width() const { return rect.w; }
+double GUIContainer::get_height() const { return rect.h; }
 bool GUIContainer::is_mouse_over() const { return mouse_over; };
 bool GUIContainer::is_mouse_down() const { return mouse_down; };
 
@@ -89,7 +89,7 @@ void GUIContainer::update_cache(SDL_Renderer *renderer) {
   cache_is_outdated = false;
 }
 
-std::vector<GUIContainer *> GUIContainer::get_children(float x, float y) {
+std::vector<GUIContainer *> GUIContainer::get_children(double x, double y) {
   std::vector<GUIContainer *> result;
   for (GUIContainer *child : children) {
     const SDL_FRect rect = child->get_bounding_rect();
@@ -122,7 +122,7 @@ void GUIContainer::on_mouse_leave() {
     child->on_mouse_leave();
 }
 
-bool GUIContainer::on_mouse_down(float x, float y) {
+bool GUIContainer::on_mouse_down(double x, double y) {
   // SDL_Log("Mouse down %f %f %f %f %b", rect.x, rect.y, rect.w, rect.h, is_draggable);
   std::vector<GUIContainer *> child = get_children(x, y);
   if (!child.empty())
@@ -134,7 +134,7 @@ bool GUIContainer::on_mouse_down(float x, float y) {
   }
 }
 
-void GUIContainer::on_mouse_up(float x, float y) {
+void GUIContainer::on_mouse_up(double x, double y) {
   // SDL_Log("Mouse up %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
   std::vector<GUIContainer *> child = get_children(x, y);
   if (!child.empty())
@@ -148,7 +148,7 @@ void GUIContainer::on_mouse_up(float x, float y) {
   }
 }
 
-void GUIContainer::on_mouse_move(float x1, float y1, float x2, float y2) {
+void GUIContainer::on_mouse_move(double x1, double y1, double x2, double y2) {
   // SDL_Log("Mouse move %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
   // SDL_Log("%f %f %f %f", x1, y1, x2, y2);
   std::vector<GUIContainer *> child1 = get_children(x1, y1);
@@ -164,7 +164,7 @@ void GUIContainer::on_mouse_move(float x1, float y1, float x2, float y2) {
     on_mouse_enter();
 }
 
-void GUIContainer::on_mouse_drag(float x, float y, float dx, float dy) {
+void GUIContainer::on_mouse_drag(double x, double y, double dx, double dy) {
   if (is_draggable) {
     // SDL_Log("Container drag %f %f %f %f %b", x, y, dx, dy, is_draggable);
     // this->rect.x += dx;
@@ -196,8 +196,8 @@ void GUIContainer::reset_mouse() {
     on_mouse_leave();
 }
 
-void GUIContainer::render(SDL_Renderer *renderer, float parent_x,
-                          float parent_y) {
+void GUIContainer::render(SDL_Renderer *renderer, double parent_x,
+                          double parent_y) {
   SDL_FRect dst = get_bounding_rect();
   // dst.x = round(dst.x);
   // dst.y = round(dst.y);

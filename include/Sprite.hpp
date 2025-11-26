@@ -8,15 +8,15 @@
 
 class Sprite {
 private:
-  float x, y;
-  float w, h;
+  double x, y;
+  double w, h;
   const Texture *texture;
   const SpriteMap *sprite_map = NULL;
   unsigned long animation_start_time;
 
 public:
-  Sprite(float x, float y, float w, float h, Texture *texture);
-  Sprite(float x, float y, float w, float h, Texture *texture,
+  Sprite(double x, double y, double w, double h, Texture *texture);
+  Sprite(double x, double y, double w, double h, Texture *texture,
          const SpriteMap *sprite_map);
   SDL_FRect get_bounding_rect() const;
   void render(unsigned long ticks) const;

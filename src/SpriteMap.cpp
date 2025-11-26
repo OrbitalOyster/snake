@@ -1,7 +1,7 @@
 #include <SpriteMap.hpp>
 #include <stdexcept>
 
-SpriteMap::SpriteMap(float x, float y, float w, float h, unsigned n,
+SpriteMap::SpriteMap(double x, double y, double w, double h, unsigned n,
                      unsigned fps)
     : x(x), y(y), w(w), h(h), n(n), fps(fps) {
   if (1000 % fps)
@@ -14,5 +14,5 @@ SDL_FRect SpriteMap::get_frame(unsigned long animation_start_time,
   const unsigned long time_passed = ticks - animation_start_time;
   const unsigned int frames_passed = time_passed / frame_size;
   const unsigned current_frame = frames_passed % n;
-  return {x + current_frame * w, y, w, h};
+  return {(float)(x + current_frame * w), (float)y, (float)w, (float)h};
 }

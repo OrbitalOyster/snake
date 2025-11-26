@@ -9,20 +9,28 @@ Texture::Texture(std::string filename, SDL_Renderer *renderer)
   if (!texture)
     throw std::runtime_error("Failed to load image" +
                              std::string(SDL_GetError()));
+  float w, h;
   SDL_GetTextureSize(texture, &w, &h);
+  width = w;
+  height = h;
   SDL_Log("Loaded texture %s, size %.2f x %.2f", filename.c_str(), w, h);
 }
 
-float Texture::get_width() const { return w; }
+double Texture::get_width() const { return width; }
 
-float Texture::get_height() const { return h; }
+double Texture::get_height() const { return height; }
 
 void Texture::render(const SDL_FRect *dst) const {
   SDL_RenderTexture(renderer, texture, NULL, dst);
 }
 
-void Texture::render(const SDL_FRect *src, const SDL_FRect *dst) const {
-  SDL_RenderTexture(renderer, texture, src, dst);
+// void Texture::render(const SDL_FRect *src, const SDL_FRect *dst) const {
+//   SDL_RenderTexture(renderer, texture, src, dst);
+// }
+
+void Texture::render(const SDL_FRect *src, double x, double y, double w, double h) const {
+  SDL_FRect dst = {(float)x, (float)y, (float)w, (float)h};
+  SDL_RenderTexture(renderer, texture, src, &dst);
 }
 
 Texture::~Texture() {

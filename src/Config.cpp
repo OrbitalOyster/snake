@@ -60,10 +60,10 @@ void Config::load_fonts_to_library(Library *library) const {
     const std::string key = i->first.as<YAML::Node>().as<std::string>();
     const auto value = i->second.as<YAML::Node>();
     const std::string filename = value["filename"].as<std::string>();
-    const float size = value["size"].as<float>();
+    const double size = value["size"].as<double>();
     /* Outline is optional */
-    const float outline_size =
-        value["outline_size"] ? value["outline_size"].as<float>() : 0;
+    const double outline_size =
+        value["outline_size"] ? value["outline_size"].as<double>() : 0;
     library->add_font(key, filename, size, outline_size);
   }
 }
@@ -74,12 +74,12 @@ void Config::load_sprite_maps_to_library(Library *library) const {
        i != sprite_maps_yaml.end(); i++) {
     const std::string key = i->first.as<YAML::Node>().as<std::string>();
     const auto value = i->second.as<YAML::Node>();
-    const float x = value["x"].as<unsigned>();
-    const float y = value["y"].as<unsigned>();
-    const float w = value["w"].as<unsigned>();
-    const float h = value["h"].as<unsigned>();
-    const float n = value["n"].as<unsigned>();
-    const float fps = value["fps"].as<unsigned>();
+    const double x = value["x"].as<double>();
+    const double y = value["y"].as<double>();
+    const double w = value["w"].as<double>();
+    const double h = value["h"].as<double>();
+    const unsigned n = value["n"].as<unsigned>();
+    const unsigned fps = value["fps"].as<unsigned>();
     library->add_sprite_map(key, x, y, w, h, n, fps);
   }
 }
@@ -102,24 +102,24 @@ void Config::load_stretchables_to_library(Library *library) const {
     const YAML::Node left = value["left"].as<YAML::Node>();
     library->add_stretchable(
         key, texture_key,
-        SDL_FRect(center["x"].as<float>(), center["y"].as<float>(),
-                  center["w"].as<float>(), center["h"].as<float>()),
-        SDL_FRect(top_left["x"].as<float>(), top_left["y"].as<float>(),
-                  top_left["w"].as<float>(), top_left["h"].as<float>()),
-        SDL_FRect(top["x"].as<float>(), top["y"].as<float>(),
-                  top["w"].as<float>(), top["h"].as<float>()),
-        SDL_FRect(top_right["x"].as<float>(), top_right["y"].as<float>(),
-                  top_right["w"].as<float>(), top_right["h"].as<float>()),
-        SDL_FRect(right["x"].as<float>(), right["y"].as<float>(),
-                  right["w"].as<float>(), right["h"].as<float>()),
-        SDL_FRect(bottom_right["x"].as<float>(), bottom_right["y"].as<float>(),
-                  bottom_right["w"].as<float>(), bottom_right["h"].as<float>()),
-        SDL_FRect(bottom["x"].as<float>(), bottom["y"].as<float>(),
-                  bottom["w"].as<float>(), bottom["h"].as<float>()),
-        SDL_FRect(bottom_left["x"].as<float>(), bottom_left["y"].as<float>(),
-                  bottom_left["w"].as<float>(), bottom_left["h"].as<float>()),
-        SDL_FRect(left["x"].as<float>(), left["y"].as<float>(),
-                  left["w"].as<float>(), left["h"].as<float>()));
+        SDL_FRect(center["x"].as<double>(), center["y"].as<double>(),
+                  center["w"].as<double>(), center["h"].as<double>()),
+        SDL_FRect(top_left["x"].as<double>(), top_left["y"].as<double>(),
+                  top_left["w"].as<double>(), top_left["h"].as<double>()),
+        SDL_FRect(top["x"].as<double>(), top["y"].as<double>(),
+                  top["w"].as<double>(), top["h"].as<double>()),
+        SDL_FRect(top_right["x"].as<double>(), top_right["y"].as<double>(),
+                  top_right["w"].as<double>(), top_right["h"].as<double>()),
+        SDL_FRect(right["x"].as<double>(), right["y"].as<double>(),
+                  right["w"].as<double>(), right["h"].as<double>()),
+        SDL_FRect(bottom_right["x"].as<double>(), bottom_right["y"].as<double>(),
+                  bottom_right["w"].as<double>(), bottom_right["h"].as<double>()),
+        SDL_FRect(bottom["x"].as<double>(), bottom["y"].as<double>(),
+                  bottom["w"].as<double>(), bottom["h"].as<double>()),
+        SDL_FRect(bottom_left["x"].as<double>(), bottom_left["y"].as<double>(),
+                  bottom_left["w"].as<double>(), bottom_left["h"].as<double>()),
+        SDL_FRect(left["x"].as<double>(), left["y"].as<double>(),
+                  left["w"].as<double>(), left["h"].as<double>()));
   }
 }
 

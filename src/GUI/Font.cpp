@@ -1,7 +1,7 @@
 #include <GUI/Font.hpp>
 #include <stdexcept>
 
-Font::Font(std::string filename, float size, float outline_size,
+Font::Font(std::string filename, double size, double outline_size,
            SDL_Renderer *renderer)
     : filename(filename), size(size), outline_size(outline_size),
       renderer(renderer) {
@@ -34,7 +34,8 @@ SDL_Texture *Font::render_text(const std::string text, TTF_Font *ttf_font,
 }
 
 SDL_Texture *Font::get_texture(const std::string text, SDL_Color color,
-                               SDL_Color outline_color, float *w, float *h) {
+                               SDL_Color outline_color, double *width,
+                               double *height) {
   /* Outline text on background */
   SDL_Texture *bg = render_text(text, outline, outline_color);
   /* Actual text on foreground */
@@ -52,10 +53,10 @@ SDL_Texture *Font::get_texture(const std::string text, SDL_Color color,
   SDL_SetTextureBlendMode(result, SDL_BLENDMODE_BLEND);
   SDL_SetRenderTarget(renderer, result);
   const SDL_FRect bg_rect = {0, 0, bw, bh};
-  const SDL_FRect fg_rect = {outline_size, outline_size, fw, fh};
+  const SDL_FRect fg_rect = {(float)outline_size, (float)outline_size, fw, fh};
   /* Set width and height */
-  *w = bw;
-  *h = bh;
+  *width = bw;
+  *height = bh;
   /* Copy bg, fg, clear render target */
   SDL_RenderTexture(renderer, bg, NULL, &bg_rect);
   SDL_RenderTexture(renderer, fg, NULL, &fg_rect);
