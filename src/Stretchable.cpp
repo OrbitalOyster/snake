@@ -9,8 +9,8 @@ Stretchable::Stretchable(Texture *texture, SDL_FRect center, SDL_FRect top_left,
       bottom(bottom), bottom_left(bottom_left), left(left) {}
 
 void Stretchable::render_center(SDL_FRect rect) {
-  for (unsigned y = top.h; y < rect.h - bottom.h; y += center.h)
-    for (unsigned x = left.w; x < rect.w - right.w; x += center.w) {
+  for (float y = top.h; y < rect.h - bottom.h; y += center.h)
+    for (float x = left.w; x < rect.w - right.w; x += center.w) {
       SDL_FRect dst = {rect.x + x, rect.y + y, center.w, center.h};
       texture->render(&center, &dst);
     }
@@ -22,7 +22,7 @@ void Stretchable::render_top_left(SDL_FRect rect) {
 }
 
 void Stretchable::render_top(SDL_FRect rect) {
-  for (unsigned i = top_left.w; i < rect.w - top_right.w; i += top.w) {
+  for (float i = top_left.w; i < rect.w - top_right.w; i += top.w) {
     SDL_FRect dst = {rect.x + i, rect.y, top.w, top.h};
     texture->render(&top, &dst);
   }
@@ -35,7 +35,7 @@ void Stretchable::render_top_right(SDL_FRect rect) {
 }
 
 void Stretchable::render_right(SDL_FRect rect) {
-  for (unsigned i = top_right.h; i < rect.h - bottom_right.w; i += right.h) {
+  for (float i = top_right.h; i < rect.h - bottom_right.w; i += right.h) {
     SDL_FRect dst = {rect.x + rect.w - right.w, rect.y + i, right.w, right.h};
     texture->render(&right, &dst);
   }
@@ -49,7 +49,7 @@ void Stretchable::render_bottom_right(SDL_FRect rect) {
 }
 
 void Stretchable::render_bottom(SDL_FRect rect) {
-  for (unsigned i = bottom_left.w; i < rect.w - bottom_right.w; i += bottom.w) {
+  for (float i = bottom_left.w; i < rect.w - bottom_right.w; i += bottom.w) {
     SDL_FRect dst = {rect.x + i, rect.y + rect.h - bottom.h, bottom.w,
                      bottom.h};
     texture->render(&bottom, &dst);
@@ -57,7 +57,7 @@ void Stretchable::render_bottom(SDL_FRect rect) {
 }
 
 void Stretchable::render_left(SDL_FRect rect) {
-  for (unsigned i = top_left.h; i < rect.h - bottom_left.w; i += left.h) {
+  for (float i = top_left.h; i < rect.h - bottom_left.w; i += left.h) {
     SDL_FRect dst = {rect.x, rect.y + i, left.w, left.h};
     texture->render(&left, &dst);
   }

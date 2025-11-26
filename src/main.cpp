@@ -54,8 +54,8 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     container->add_container(top_right_container);
 
     GUILayout top_left_layout =
-        GUILayout(.4f, .5f, GUISegment(GUIUnit(8, Absolute)),
-                  GUISegment(GUIUnit(8, Absolute)), {}, {});
+        GUILayout(.4f, .5f, GUISegment(GUIUnit(8.0f, Absolute)),
+                  GUISegment(GUIUnit(8.0f, Absolute)), {}, {});
     GUIContainer *top_left_container = new GUIContainer(top_left_layout);
     top_left_container->set_skin(library->get_skin("button"));
     container->add_container(top_left_container);

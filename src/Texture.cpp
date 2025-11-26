@@ -1,4 +1,6 @@
+#include "SDL3/SDL_rect.h"
 #include <Texture.hpp>
+#include <cmath>
 #include <stdexcept>
 
 Texture::Texture(std::string filename, SDL_Renderer *renderer)

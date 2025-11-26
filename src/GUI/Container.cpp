@@ -15,6 +15,13 @@ void GUIContainer::on_resize(float parent_width, float parent_height) {
   int old_w = rect.w, old_h = rect.h;
   rect = layout.calculate(parent_width, parent_height);
 
+  /*
+  rect.x = round(rect.x);
+  rect.y = round(rect.y);
+  rect.w = round(rect.w);
+  rect.h = round(rect.h);
+  */
+
   /* Adjust min. size */
   if (rect.w < min_width.to_pixels(parent_width))
     rect.w = min_width.to_pixels(parent_width);
@@ -163,7 +170,7 @@ void GUIContainer::on_mouse_drag(float x, float y, float dx, float dy) {
     // this->rect.x += dx;
     // this->rect.y += dy;
     layout.move(dx, dy);
-    // rect.x = layout.get_left();
+    rect.x = layout.get_left();
     // SDL_Log("%f %f", this->rect.x, this->rect.y);
     // update_size(get_width(), get_height());
   }
@@ -192,10 +199,10 @@ void GUIContainer::reset_mouse() {
 void GUIContainer::render(SDL_Renderer *renderer, float parent_x,
                           float parent_y) {
   SDL_FRect dst = get_bounding_rect();
-  dst.x = round(dst.x);
-  dst.y = round(dst.y);
-  dst.w = round(dst.w);
-  dst.h = round(dst.h);
+  // dst.x = round(dst.x);
+  // dst.y = round(dst.y);
+  // dst.w = round(dst.w);
+  // dst.h = round(dst.h);
   if (!dst.w || !dst.h)
     return;
   dst.x += parent_x;

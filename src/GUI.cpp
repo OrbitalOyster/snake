@@ -13,7 +13,7 @@ void GUI::add_container(GUIContainer *container) {
 
 void GUI::add_text(GUIText *text) { root_container->add_text(text); }
 
-void GUI::on_window_resize(int width, int height) {
+void GUI::on_window_resize(float width, float height) {
   root_container->on_resize(width, height);
 }
 
