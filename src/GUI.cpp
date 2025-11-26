@@ -8,15 +8,13 @@ GUI::GUI(SDL_Renderer *renderer) : renderer(renderer) {
 
 void GUI::add_container(GUIContainer *container) {
   root_container->add_container(container);
-  SDL_Cursor *defaultCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_DEFAULT);
-  root_container->set_cursor(defaultCursor);
-  container->update(root_container->get_width(), root_container->get_height());
+  container->on_resize(root_container->get_width(), root_container->get_height());
 }
 
 void GUI::add_text(GUIText *text) { root_container->add_text(text); }
 
 void GUI::on_window_resize(int width, int height) {
-  root_container->update(width, height);
+  root_container->on_resize(width, height);
 }
 
 void GUI::on_mouse_move(float x1, float y1, float x2, float y2) {

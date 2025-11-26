@@ -42,8 +42,7 @@ public:
   float get_height() const;
   bool get_is_mouse_over() const;
   bool get_is_mouse_down() const;
-  void update(float parent_width, float parent_height);
-  void on_parent_resize(float new_parent_width, float new_parent_height);
+  void on_resize(float parent_width, float parent_height);
   void add_container(GUIContainer *container);
   void add_text(GUIText *text);
   void update_cache(SDL_Renderer *renderer);
@@ -55,7 +54,6 @@ public:
   void on_mouse_drag(float x, float y, float dx, float dy);
   void reset_focus();
   void reset_mouse();
-  void reset_all();
   void render(SDL_Renderer *renderer, float parent_x, float parent_y);
 };
 
