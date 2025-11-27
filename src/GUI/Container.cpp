@@ -1,6 +1,7 @@
 #include <GUI/Container.hpp>
 #include <SDL3/SDL_log.h>
 #include <cmath>
+#include <cstdlib>
 
 bool point_within_rect(double x, double y, SDL_FRect rect) {
   return x > rect.x && x < rect.x + rect.w && y > rect.y && y < rect.y + rect.h;
@@ -92,8 +93,8 @@ std::vector<GUIContainer *> GUIContainer::get_children(double x, double y) {
   return result;
 }
 
-void GUIContainer::on_mouse_enter() {
-  SDL_Log("Mouse enter %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+void GUIContainer::on_mouse_enter(double x, double y) {
+  SDL_Log("Mouse enter %f %f %f %f from %f %f", rect.x, rect.y, rect.w, rect.h, x, y);
   mouse_over = true;
   cache_is_outdated = true;
   if (cursor) {
@@ -103,16 +104,18 @@ void GUIContainer::on_mouse_enter() {
 }
 
 void GUIContainer::on_mouse_leave() {
+  for (GUIContainer *child : children)
+    child->on_mouse_leave();
+  if (!mouse_over)
+     return;
   SDL_Log("Mouse leave %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
-  mouse_over = false;
-  mouse_down = false;
-  cache_is_outdated = true;
+  // mouse_down = false;
   if (cursor) {
     SDL_SetCursor(SDL_GetDefaultCursor());
     // SDL_Log("Clearing cursor");
   }
-  for (GUIContainer *child : children)
-    child->on_mouse_leave();
+  mouse_over = false;
+  cache_is_outdated = true;
 }
 
 bool GUIContainer::on_mouse_down(double x, double y) {
@@ -129,17 +132,23 @@ bool GUIContainer::on_mouse_down(double x, double y) {
 }
 
 void GUIContainer::on_mouse_up(double x, double y) {
-  // SDL_Log("Mouse up %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
   std::vector<GUIContainer *> child = get_children(x, y);
-  if (!child.empty())
-    child.back()->on_mouse_up(x, y);
-  else {
-    if (mouse_down) {
-      mouse_down = false;
-      // SDL_Log("Mouse click");
-    }
-    cache_is_outdated = true;
-  }
+  for (GUIContainer *child : children)
+    child->on_mouse_up(x, y);
+
+  if (!mouse_down)
+    return;
+  SDL_Log("Mouse up %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+
+  if (child.empty() && mouse_over && mouse_down)
+    on_mouse_click();
+
+  mouse_down = false;
+  cache_is_outdated = true;
+}
+
+void GUIContainer::on_mouse_click() {
+  SDL_Log("Mouse click %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
 }
 
 void GUIContainer::on_mouse_move(double x1, double y1, double x2, double y2) {
@@ -152,10 +161,13 @@ void GUIContainer::on_mouse_move(double x1, double y1, double x2, double y2) {
   if (!child1.empty() && (child2.empty() || child1.back() != child2.back()))
     child1.back()->on_mouse_leave();
   /* Entered child2 */
-  if (!child2.empty())
+  if (!child2.empty()) {
+    if (mouse_over)
+      on_mouse_leave();
     child2.back()->on_mouse_move(x1, y1, x2, y2);
+  }
   else if (!mouse_over)
-    on_mouse_enter();
+    on_mouse_enter(x2, y2);
 }
 
 void GUIContainer::on_mouse_drag(double x, double y, double dx, double dy) {
@@ -174,20 +186,28 @@ void GUIContainer::on_mouse_drag(double x, double y, double dx, double dy) {
       child->on_mouse_drag(x, y, dx, dy);
 }
 
+/*
 void GUIContainer::reset_focus() {
   SDL_Log("Resetting focus %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
-  on_mouse_leave();
   for (GUIContainer *child : children)
-    child->reset_focus();
+    child->on_mouse_leave();
+  on_mouse_leave();
 }
+*/
 
 void GUIContainer::reset_mouse() {
   float x = 0, y = 0;
   SDL_GetMouseState(&x, &y);
-  if (point_within_rect(x, y, rect) && !mouse_over)
-    on_mouse_enter();
-  if (!point_within_rect(x, y, rect) && mouse_over)
-    on_mouse_leave();
+
+  std::vector<GUIContainer *> children = get_children(x, y);
+  if (children.empty()) {
+    if (point_within_rect(x, y, rect) && !mouse_over)
+      on_mouse_enter(x, y);
+    if (!point_within_rect(x, y, rect) && mouse_over)
+      on_mouse_leave();
+  }
+  else
+    children.back()->reset_mouse();
 }
 
 void GUIContainer::render(SDL_Renderer *renderer, double parent_x,
@@ -201,13 +221,22 @@ void GUIContainer::render(SDL_Renderer *renderer, double parent_x,
     return;
   dst.x += parent_x;
   dst.y += parent_y;
-  SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0, 0xFF);
-  // SDL_RenderRect(renderer, &dst);
+
   if (skin != NULL) {
     if (cache_is_outdated)
       update_cache(renderer);
     SDL_RenderTexture(renderer, cache, NULL, &dst);
   }
+
+  /* Mouse state debug */
+  if (mouse_over) {
+    if (mouse_down)
+      SDL_SetRenderDrawColor(renderer, 0x22, 0x11, 0xFF, 0xFF);
+    else
+      SDL_SetRenderDrawColor(renderer, 0x33, 0xEE, 0xEE, 0xFF);
+  } else
+    SDL_SetRenderDrawColor(renderer, 0xEE, 0xEE, 0, 0xFF);
+  SDL_RenderRect(renderer, &dst);
 
   for (GUIContainer *c : children)
     c->render(renderer, dst.x, dst.y);

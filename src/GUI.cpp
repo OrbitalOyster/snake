@@ -32,6 +32,6 @@ void GUI::on_mouse_drag(double x1, double y1, double x2, double y2) {
   root_container->on_mouse_drag(x1, y1, x2 - x1, y2 - y1);
 }
 
-void GUI::reset_focus() { root_container->reset_focus(); }
+void GUI::reset_focus() { root_container->on_mouse_leave(); }
 
 void GUI::render() const { root_container->render(renderer, 0, 0); }

@@ -18,6 +18,7 @@ private:
   GUIUnit min_width, min_height;
   bool mouse_over = false;
   bool mouse_down = false;
+  bool mouse_dragging = false;
   bool is_draggable = false;
   bool is_bubbling = true;
   /* Cache, updating on resize */
@@ -46,13 +47,14 @@ public:
   void add_container(GUIContainer *container);
   void add_text(GUIText *text);
   void update_cache(SDL_Renderer *renderer);
-  void on_mouse_enter();
+  void on_mouse_enter(double x, double y);
   void on_mouse_leave();
   void on_mouse_move(double x1, double y1, double x2, double y2);
   bool on_mouse_down(double x, double y);
   void on_mouse_up(double x, double y);
+  void on_mouse_click();
   void on_mouse_drag(double x, double y, double dx, double dy);
-  void reset_focus();
+//  void reset_focus();
   void reset_mouse();
   void render(SDL_Renderer *renderer, double parent_x, double parent_y);
 };

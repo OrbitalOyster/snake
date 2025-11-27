@@ -88,17 +88,17 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
     gui->on_mouse_up(event->motion.x, event->motion.y);
     break;
   case SDL_EVENT_WINDOW_FOCUS_GAINED:
-    // SDL_Log("Focus");
+    SDL_Log("SDL_EVENT_WINDOW_FOCUS_GAINED");
     break;
   case SDL_EVENT_WINDOW_MOUSE_ENTER:
-    // SDL_Log("Mouse enter");
+    SDL_Log("SDL_EVENT_WINDOW_MOUSE_ENTER");
     break;
   case SDL_EVENT_WINDOW_MOUSE_LEAVE:
-    // SDL_Log("Mouse leave");
+    SDL_Log("SDL_EVENT_WINDOW_MOUSE_LEAVE");
     gui->reset_focus();
     break;
   case SDL_EVENT_WINDOW_FOCUS_LOST:
-    // SDL_Log("Lost");
+    SDL_Log("SDL_EVENT_WINDOW_FOCUS_LOST");
     gui->reset_focus();
     break;
   }
