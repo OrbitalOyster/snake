@@ -157,45 +157,34 @@ void GUIContainer::on_mouse_move(double x1, double y1, double x2, double y2) {
   std::vector<GUIContainer *> child1 = get_children(x1, y1);
   std::vector<GUIContainer *> child2 = get_children(x2, y2);
 
-  /* Left child1 */
-  if (!child1.empty() && (child2.empty() || child1.back() != child2.back()))
-    child1.back()->on_mouse_leave();
+  /* No children involved */
+  if (child1.empty() && child2.empty()) {
+    return;
+  }
+
+  /* Mouse within one child */
+  if (!child1.empty() && !child2.empty() && child1.back() == child2.back()) {
+    child1.back()->on_mouse_move(x1, y1, x2, y2);
+    return;
+  }
+
   /* Entered child2 */
   if (!child2.empty()) {
-    if (mouse_over)
-      on_mouse_leave();
-    child2.back()->on_mouse_move(x1, y1, x2, y2);
-  }
-  else if (!mouse_over)
-    on_mouse_enter(x2, y2);
-}
-
-void GUIContainer::on_mouse_drag(double x, double y, double dx, double dy) {
-  if (is_draggable) {
-    // SDL_Log("Container drag %f %f %f %f %b", x, y, dx, dy, is_draggable);
-    // this->rect.x += dx;
-    // this->rect.y += dy;
-    layout.move(dx, dy);
-    rect.x = layout.get_left();
-    // SDL_Log("%f %f", this->rect.x, this->rect.y);
-    // update_size(get_width(), get_height());
+    on_mouse_leave();
+    child2.back()->on_mouse_enter(x2, y2);
   }
 
-  for (GUIContainer *child : children)
-    if (child->is_mouse_over())
-      child->on_mouse_drag(x, y, dx, dy);
-}
+  /* Left child1 */
+  if (!child1.empty()) {
+    child1.back()->on_mouse_leave();
+    if (child2.empty())
+      on_mouse_enter(x2, y2);
+  }
 
-/*
-void GUIContainer::reset_focus() {
-  SDL_Log("Resetting focus %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
-  for (GUIContainer *child : children)
-    child->on_mouse_leave();
-  on_mouse_leave();
 }
-*/
 
 void GUIContainer::reset_mouse() {
+  SDL_Log("Resetting mouse");
   float x = 0, y = 0;
   SDL_GetMouseState(&x, &y);
 
@@ -213,10 +202,6 @@ void GUIContainer::reset_mouse() {
 void GUIContainer::render(SDL_Renderer *renderer, double parent_x,
                           double parent_y) {
   SDL_FRect dst = get_bounding_rect();
-  // dst.x = round(dst.x);
-  // dst.y = round(dst.y);
-  // dst.w = round(dst.w);
-  // dst.h = round(dst.h);
   if (!dst.w || !dst.h)
     return;
   dst.x += parent_x;

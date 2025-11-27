@@ -22,6 +22,7 @@ public:
   void on_mouse_up(double x, double y);
   void on_mouse_drag(double x1, double y1, double x2, double y2);
   void reset_focus();
+  void reset_mouse();
   void render() const;
   ~GUI();
 };

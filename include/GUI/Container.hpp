@@ -53,8 +53,8 @@ public:
   bool on_mouse_down(double x, double y);
   void on_mouse_up(double x, double y);
   void on_mouse_click();
-  void on_mouse_drag(double x, double y, double dx, double dy);
-//  void reset_focus();
+  //  void on_mouse_drag(double x, double y, double dx, double dy);
+  //  void reset_focus();
   void reset_mouse();
   void render(SDL_Renderer *renderer, double parent_x, double parent_y);
 };
