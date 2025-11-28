@@ -45,7 +45,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
 
     GUILayout top_right_layout =
         GUILayout(.5f, .5f, {}, GUIUnit(8, Absolute), GUIUnit(8, Absolute), {});
-    GUIContainer *top_right_container = new GUIContainer("to right", top_right_layout);
+    GUIContainer *top_right_container = new GUIContainer("top right", top_right_layout);
     top_right_container->set_skin(library->get_skin("button"));
 
     SDL_Cursor *pointerCursor =

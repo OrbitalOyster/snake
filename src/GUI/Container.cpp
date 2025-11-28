@@ -101,8 +101,7 @@ std::vector<GUIContainer *> GUIContainer::get_children(double x, double y) {
 }
 
 void GUIContainer::on_mouse_enter(double x, double y) {
-  SDL_Log("Mouse enter %f %f %f %f from %f %f", rect.x, rect.y, rect.w, rect.h,
-          x, y);
+  SDL_Log("Mouse enter %s", tag.c_str());
   mouse_over = true;
   cache_is_outdated = true;
   if (cursor) {
@@ -127,8 +126,7 @@ void GUIContainer::on_mouse_leave() {
 }
 
 bool GUIContainer::on_mouse_down(double x, double y) {
-  // SDL_Log("Mouse down %f %f %f %f %b", rect.x, rect.y, rect.w, rect.h,
-  // is_draggable);
+  SDL_Log("Mouse down %s", tag.c_str());
   std::vector<GUIContainer *> child = get_children(x, y);
   if (!child.empty())
     return child.back()->on_mouse_down(x, y);
@@ -165,21 +163,25 @@ void GUIContainer::on_mouse_click() {
 }
 
 void GUIContainer::on_mouse_move(double x1, double y1, double x2, double y2) {
-  // SDL_Log("Mouse move %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+  // SDL_Log("Mouse move %s", tag.c_str());
   // SDL_Log("%f %f %f %f", x1, y1, x2, y2);
   std::vector<GUIContainer *> child1 = get_children(x1, y1);
   std::vector<GUIContainer *> child2 = get_children(x2, y2);
 
+  /*
   if (mouse_down && !mouse_dragging) {
     mouse_dragging = true;
     SDL_Log("Started dragging %s", tag.c_str());
   }
+  */
 
+  /*
   if (!child1.empty() && mouse_dragging) {
     child1.back()->move(x2 - x1, y2 - y1);
     child1 = get_children(x1, y1);
     child2 = get_children(x2, y2);
   }
+  */
 
   /* No children involved */
   if (child1.empty() && child2.empty()) {
