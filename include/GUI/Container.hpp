@@ -20,7 +20,6 @@ private:
   GUIUnit min_width, min_height;
   bool mouse_over = false;
   bool mouse_down = false;
-  // bool mouse_dragging = false;
   bool draggable = false;
   bool is_bubbling = true;
   /* Cache, updating on resize */
@@ -30,7 +29,7 @@ private:
   SDL_Cursor *cursor = NULL;
   std::vector<GUIContainer *> children;
   std::vector<GUIText *> texts;
-  std::vector<GUIContainer *> get_children(double x, double y);
+  void calculate_layout(double parent_width, double parent_height);
 
 public:
   GUIContainer(std::string tag);
@@ -54,15 +53,12 @@ public:
   void add_container(GUIContainer *container);
   void add_text(GUIText *text);
   void update_cache(SDL_Renderer *renderer);
-  void on_mouse_enter(double x, double y);
+  void on_mouse_enter();
   void on_mouse_leave();
   void on_mouse_move(double x1, double y1, double x2, double y2);
-  bool on_mouse_down(double x, double y);
-  void on_mouse_up(double x, double y);
+  void on_mouse_down();
+  void on_mouse_up();
   void on_mouse_click();
-  //  void on_mouse_drag(double x, double y, double dx, double dy);
-  //  void reset_focus();
-  void reset_mouse();
   void render(SDL_Renderer *renderer, double parent_x, double parent_y);
 };
 

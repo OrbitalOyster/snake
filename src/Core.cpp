@@ -17,7 +17,6 @@ Core::Core(Config config) {
                              std::string(SDL_GetError()) + " )");
   }
   background_color = config.get_background_color();
-
   /* No ugly scaling */
   SDL_SetDefaultTextureScaleMode(renderer, SDL_SCALEMODE_NEAREST);
 }
@@ -65,17 +64,6 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
     return SDL_APP_SUCCESS;
   /* Mouse move */
   case SDL_EVENT_MOUSE_MOTION:
-    // SDL_Log("Mouse move %f %f", event->motion.x, event->motion.y);
-    // bool mouse_down = (event->motion.state & SDL_BUTTON_LEFT);
-    // if (event->motion.state & SDL_BUTTON_LEFT) {
-      // SDL_Log("Dragging %f %f -> %f %f", event->motion.x -
-      // event->motion.xrel,
-      //           event->motion.y - event->motion.yrel, event->motion.x,
-      //           event->motion.y);
-      // gui->on_mouse_drag(event->motion.x - event->motion.xrel,
-      //                    event->motion.y - event->motion.yrel, event->motion.x,
-      //                    event->motion.y);
-      //}
     gui->on_mouse_move(event->motion.x - event->motion.xrel,
                        event->motion.y - event->motion.yrel, event->motion.x,
                        event->motion.y);
@@ -86,7 +74,7 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
     break;
   /* Mouse up */
   case SDL_EVENT_MOUSE_BUTTON_UP:
-    gui->on_mouse_up(event->motion.x, event->motion.y);
+    gui->on_mouse_up();
     break;
   case SDL_EVENT_WINDOW_FOCUS_GAINED:
     SDL_Log("SDL_EVENT_WINDOW_FOCUS_GAINED");
