@@ -145,12 +145,16 @@ void GUIContainer::on_mouse_down() {
   cache_is_outdated = true;
 }
 
+void GUIContainer::reset_mouse_down() {
+  mouse_down = false;
+  cache_is_outdated = true;
+}
+
 void GUIContainer::on_mouse_up() {
   SDL_Log("Mouse up %s", tag.c_str());
   if (mouse_over && mouse_down)
     on_mouse_click();
-  mouse_down = false;
-  cache_is_outdated = true;
+  reset_mouse_down();
 }
 
 void GUIContainer::on_mouse_click() { SDL_Log("Mouse click %s", tag.c_str()); }

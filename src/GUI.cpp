@@ -22,10 +22,6 @@ void GUI::on_window_resize(double width, double height) {
 void GUI::on_mouse_move(double x1, double y1, double x2, double y2) {
   GUIContainer *child1 = root_container->find_child(x1, y1);
   GUIContainer *child2 = root_container->find_child(x2, y2);
-  /* No children involved */
-  if (!child1 && !child2) {
-    return;
-  }
   /* Dragging */
   if (mouse_dragging && child1) {
     child1->move(x2 - x1, y2 - y1);
@@ -44,17 +40,21 @@ void GUI::on_mouse_move(double x1, double y1, double x2, double y2) {
 
 void GUI::on_mouse_down(double x, double y) {
   GUIContainer *child = root_container->find_child(x, y);
-  if (child == root_container)
-    return;
   if (child->is_draggable() && !mouse_dragging)
     mouse_dragging = true;
   child->on_mouse_down();
 }
 
-void GUI::on_mouse_up() {
+void GUI::on_mouse_up(double x, double y) {
+  GUIContainer *mouse_over_child = root_container->find_child(x, y);
+  mouse_over_child->on_mouse_up();
+  /* Reset all mouse_down children */
+  if (root_container->is_mouse_down())
+    root_container->reset_mouse_down();
   for (GUIContainer *child : root_container->get_all_children())
     if (child->is_mouse_down())
-      child->on_mouse_up();
+      child->reset_mouse_down();
+  /* Reset dragging */
   if (mouse_dragging)
     mouse_dragging = false;
 }

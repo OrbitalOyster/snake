@@ -57,6 +57,7 @@ public:
   void on_mouse_leave();
   void on_mouse_move(double x1, double y1, double x2, double y2);
   void on_mouse_down();
+  void reset_mouse_down();
   void on_mouse_up();
   void on_mouse_click();
   void render(SDL_Renderer *renderer, double parent_x, double parent_y);

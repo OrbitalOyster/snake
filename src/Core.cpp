@@ -74,7 +74,7 @@ SDL_AppResult Core::on_event(SDL_Event *event) {
     break;
   /* Mouse up */
   case SDL_EVENT_MOUSE_BUTTON_UP:
-    gui->on_mouse_up();
+    gui->on_mouse_up(event->motion.x, event->motion.y);
     break;
   case SDL_EVENT_WINDOW_FOCUS_GAINED:
     SDL_Log("SDL_EVENT_WINDOW_FOCUS_GAINED");

@@ -21,7 +21,7 @@ public:
   void on_window_resize(double width, double height);
   void on_mouse_move(double x1, double y1, double x2, double y2);
   void on_mouse_down(double x, double y);
-  void on_mouse_up();
+  void on_mouse_up(double x, double y);
   void on_mouse_drag(double x1, double y1, double x2, double y2);
   void reset_focus();
   void reset_mouse();
