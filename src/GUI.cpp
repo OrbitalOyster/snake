@@ -3,7 +3,7 @@
 
 GUI::GUI(SDL_Renderer *renderer) : renderer(renderer) {
   TTF_Init();
-  root_container = new GUIContainer();
+  root_container = new GUIContainer("root");
 }
 
 void GUI::add_container(GUIContainer *container) {
@@ -28,9 +28,9 @@ void GUI::on_mouse_down(double x, double y) {
 
 void GUI::on_mouse_up(double x, double y) { root_container->on_mouse_up(x, y); }
 
-void GUI::on_mouse_drag(double x1, double y1, double x2, double y2) {
+//void GUI::on_mouse_drag(double x1, double y1, double x2, double y2) {
   // root_container->on_mouse_drag(x1, y1, x2 - x1, y2 - y1);
-}
+//}
 
 void GUI::reset_focus() { root_container->on_mouse_leave(); }
 

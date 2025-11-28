@@ -7,10 +7,12 @@
 #include <GUI/Text.hpp>
 #include <GUI/Unit.hpp>
 #include <Stretchable.hpp>
+#include <string>
 #include <vector>
 
 class GUIContainer {
 private:
+  std::string tag;
   /* Layout */
   GUILayout layout;
   /* Actual dimensions */
@@ -31,14 +33,15 @@ private:
   std::vector<GUIContainer *> get_children(double x, double y);
 
 public:
-  GUIContainer();
-  GUIContainer(GUILayout layout);
+  GUIContainer(std::string tag);
+  GUIContainer(std::string tag, GUILayout layout);
   void set_skin(Skin *skin);
   void set_cursor(SDL_Cursor *cursor);
   void set_min_width(GUIUnit min_width);
   void set_min_height(GUIUnit min_height);
   void set_draggable(bool draggable);
   SDL_FRect get_bounding_rect() const;
+  void move(double dx, double dy);
   double get_width() const;
   double get_height() const;
   bool is_mouse_over() const;
