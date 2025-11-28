@@ -20,8 +20,8 @@ private:
   GUIUnit min_width, min_height;
   bool mouse_over = false;
   bool mouse_down = false;
-  bool mouse_dragging = false;
-  bool is_draggable = false;
+  // bool mouse_dragging = false;
+  bool draggable = false;
   bool is_bubbling = true;
   /* Cache, updating on resize */
   SDL_Texture *cache = NULL;
@@ -35,12 +35,16 @@ private:
 public:
   GUIContainer(std::string tag);
   GUIContainer(std::string tag, GUILayout layout);
+  std::string get_tag() const;
+  std::vector<GUIContainer *> get_all_children();
+  bool is_draggable();
   void set_skin(Skin *skin);
   void set_cursor(SDL_Cursor *cursor);
   void set_min_width(GUIUnit min_width);
   void set_min_height(GUIUnit min_height);
   void set_draggable(bool draggable);
   SDL_FRect get_bounding_rect() const;
+  GUIContainer *find_child(double x, double y);
   void move(double dx, double dy);
   double get_width() const;
   double get_height() const;

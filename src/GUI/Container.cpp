@@ -2,6 +2,8 @@
 #include <SDL3/SDL_log.h>
 #include <cmath>
 #include <cstdlib>
+#include <string>
+#include <vector>
 
 bool point_within_rect(double x, double y, SDL_FRect rect) {
   return x > rect.x && x < rect.x + rect.w && y > rect.y && y < rect.y + rect.h;
@@ -11,6 +13,25 @@ GUIContainer::GUIContainer(std::string tag) : tag(tag) {}
 
 GUIContainer::GUIContainer(std::string tag, GUILayout layout)
     : tag(tag), layout(layout) {}
+
+std::string GUIContainer::get_tag() const {
+  return tag;
+}
+
+std::vector<GUIContainer *> GUIContainer::get_all_children() {
+  std::vector<GUIContainer *>result = children;
+  if (result.empty())
+    return result;
+  for (GUIContainer *child : children) {
+    std::vector<GUIContainer *> tmp = child->get_all_children();
+    result.insert(result.end(), tmp.begin(), tmp.end());
+  }
+  return result;
+}
+
+bool GUIContainer::is_draggable() {
+  return draggable;
+}
 
 void GUIContainer::on_resize(double parent_width, double parent_height) {
   int old_w = rect.w, old_h = rect.h;
@@ -47,7 +68,7 @@ void GUIContainer::set_min_height(GUIUnit min_height) {
   this->min_height = min_height;
 }
 
-void GUIContainer::set_draggable(bool draggable) { is_draggable = draggable; }
+void GUIContainer::set_draggable(bool draggable) { this->draggable = draggable; }
 
 SDL_FRect GUIContainer::get_bounding_rect() const { return rect; }
 
@@ -100,6 +121,16 @@ std::vector<GUIContainer *> GUIContainer::get_children(double x, double y) {
   return result;
 }
 
+GUIContainer *GUIContainer::find_child(double x, double y) {
+  for (auto it = children.rbegin(); it != children.rend(); ++it) {
+    GUIContainer *child = (*it);
+    if (point_within_rect(x, y, child->get_bounding_rect()))
+      return child->find_child(x, y);
+  }
+
+  return this;
+}
+
 void GUIContainer::on_mouse_enter(double x, double y) {
   SDL_Log("Mouse enter %s", tag.c_str());
   mouse_over = true;
@@ -115,7 +146,7 @@ void GUIContainer::on_mouse_leave() {
     child->on_mouse_leave();
   if (!mouse_over)
     return;
-  SDL_Log("Mouse leave %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+  SDL_Log("Mouse leave %s", tag.c_str());
   // mouse_down = false;
   if (cursor) {
     SDL_SetCursor(SDL_GetDefaultCursor());
@@ -127,43 +158,47 @@ void GUIContainer::on_mouse_leave() {
 
 bool GUIContainer::on_mouse_down(double x, double y) {
   SDL_Log("Mouse down %s", tag.c_str());
-  std::vector<GUIContainer *> child = get_children(x, y);
-  if (!child.empty())
-    return child.back()->on_mouse_down(x, y);
-  else {
+  // std::vector<GUIContainer *> child = get_children(x, y);
+  // if (!child.empty())
+  //   return child.back()->on_mouse_down(x, y);
+  // else {
     mouse_down = true;
     cache_is_outdated = true;
-    return is_bubbling;
-  }
+  //  return is_bubbling;
+  // }
+  return true;
 }
 
 void GUIContainer::on_mouse_up(double x, double y) {
-  std::vector<GUIContainer *> child = get_children(x, y);
-  for (GUIContainer *child : children)
-    child->on_mouse_up(x, y);
+  // std::vector<GUIContainer *> child = get_children(x, y);
+  // for (GUIContainer *child : children)
+  //  child->on_mouse_up(x, y);
 
-  if (!mouse_down)
-    return;
-  SDL_Log("Mouse up %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+  // if (!mouse_down)
+  //   return;
+  SDL_Log("Mouse up %s", tag.c_str());
 
-  if (child.empty() && mouse_over && mouse_down)
+  // if (child.empty() && mouse_over && mouse_down)
+  //   on_mouse_click();
+
+  if (mouse_over && mouse_down)
     on_mouse_click();
 
-  if (mouse_dragging) {
-    SDL_Log("Stoped dragging");
-    mouse_dragging = false;
-  }
+  // if (mouse_dragging) {
+  //   SDL_Log("Stoped dragging");
+  //   mouse_dragging = false;
+  // }
 
   mouse_down = false;
   cache_is_outdated = true;
 }
 
 void GUIContainer::on_mouse_click() {
-  SDL_Log("Mouse click %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
+  SDL_Log("Mouse click %s", tag.c_str());
 }
 
 void GUIContainer::on_mouse_move(double x1, double y1, double x2, double y2) {
-  // SDL_Log("Mouse move %s", tag.c_str());
+  SDL_Log("!!!");
   // SDL_Log("%f %f %f %f", x1, y1, x2, y2);
   std::vector<GUIContainer *> child1 = get_children(x1, y1);
   std::vector<GUIContainer *> child2 = get_children(x2, y2);

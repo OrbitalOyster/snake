@@ -10,6 +10,8 @@ class GUI {
 private:
   SDL_Renderer *renderer;
   GUIContainer *root_container;
+  bool mouse_down = false;
+  bool mouse_dragging = false;
 
 public:
   GUI(SDL_Renderer *renderer);
