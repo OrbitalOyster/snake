@@ -1,5 +1,4 @@
 #include <GUI/Text.hpp>
-#include <cmath>
 
 GUIText::GUIText(std::string text, Font *font, SDL_Color color,
                  SDL_Color outline_color, TextLayout text_layout)
@@ -20,8 +19,8 @@ void GUIText::update(std::string new_text) {
 void GUIText::render(SDL_Renderer *renderer, double parent_width,
                      double parent_height) {
   SDL_FRect dst = layout.calculate(parent_width, parent_height);
-  dst.x = round(dst.x);
-  dst.y = round(dst.y);
+  // dst.x = round(dst.x);
+  // dst.y = round(dst.y);
   // dst.w = round(dst.w);
   // dst.h = round(dst.h);
   SDL_RenderTexture(renderer, texture, NULL, &dst);

@@ -1,6 +1,5 @@
 #include <GUI/Container.hpp>
 #include <SDL3/SDL_log.h>
-#include <cmath>
 #include <cstdlib>
 #include <string>
 #include <vector>
@@ -94,7 +93,7 @@ void GUIContainer::update_cache(SDL_Renderer *renderer) {
     SDL_DestroyTexture(cache);
   cache =
       SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32,
-                        SDL_TEXTUREACCESS_TARGET, round(rect.w), round(rect.h));
+                        SDL_TEXTUREACCESS_TARGET, rect.w, rect.h);
   SDL_SetRenderTarget(renderer, cache);
 
   if (mouse_down)

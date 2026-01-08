@@ -1,4 +1,6 @@
+#include "SDL3/SDL_log.h"
 #include <GUI/Layout.hpp>
+#include <cmath>
 #include <stdexcept>
 
 GUILayout::GUILayout(std::optional<GUIUnit> width,
@@ -103,7 +105,10 @@ SDL_FRect GUILayout::calculate(double parent_width, double parent_height) {
     h = parent_height - y - bottom_p;
   }
   /* Done */
-  // SDL_Log("Layout calculated %f %f %f %f / %f %f", x, y, w, h, parent_width,
-  // parent_height);
+  SDL_Log("Layout calculated %f %f %f %f / %f %f", x, y, w, h, parent_width, parent_height);
+  x = round(x);
+  y = round(y);
+  w = round(w);
+  h = round(h);
   return {(float)x, (float)y, (float)w, (float)h};
 }
