@@ -22,7 +22,17 @@ void Stretchable::render_top_left(SDL_FRect rect) {
 
 void Stretchable::render_top(SDL_FRect rect) {
   for (double i = top_left.w; i < rect.w - top_right.w; i += top.w) {
-    texture->render(&top, rect.x + i, rect.y, top.w, top.h);
+    const float overshoot = (rect.x + i + top.w) - (rect.w - top_right.w);
+    if (overshoot < 0)    
+      texture->render(&top, rect.x + i, rect.y, top.w, top.h);
+    else
+      texture->render(
+        {.x = top.x, .y = top.y, .w = top.w - overshoot, .h = top.h},
+        rect.x + i,
+        rect.y,
+        top.w - overshoot,
+        top.h
+      );
   }
 }
 
@@ -32,9 +42,18 @@ void Stretchable::render_top_right(SDL_FRect rect) {
 }
 
 void Stretchable::render_right(SDL_FRect rect) {
-  for (double i = top_right.h; i < rect.h - bottom_right.w; i += right.h)
-    texture->render(&right, rect.x + rect.w - right.w, rect.y + i, right.w,
-                    right.h);
+  for (double i = top_right.h; i < rect.h - bottom_right.w; i += right.h) {
+    const float overshoot = (rect.y + i + right.h) - (rect.h - bottom_right.h);
+    if (overshoot < 0)    
+      texture->render(&right, rect.x + rect.w - right.w, rect.y + i, right.w, right.h);
+    else
+      texture->render(
+        {.x = right.x, .y = right.y, .w = right.w, .h = right.h - overshoot},
+        rect.x + rect.w - right.w,
+        rect.y + i, right.w,
+        right.h - overshoot
+      );
+  }
 }
 
 void Stretchable::render_bottom_right(SDL_FRect rect) {
@@ -44,14 +63,36 @@ void Stretchable::render_bottom_right(SDL_FRect rect) {
 }
 
 void Stretchable::render_bottom(SDL_FRect rect) {
-  for (double i = bottom_left.w; i < rect.w - bottom_right.w; i += bottom.w)
-    texture->render(&bottom, rect.x + i, rect.y + rect.h - bottom.h, bottom.w,
-                    bottom.h);
+  for (double i = bottom_left.w; i < rect.w - bottom_right.w; i += bottom.w) {
+    const float overshoot = (rect.x + i + bottom.w) - (rect.w - bottom_right.w);
+    if (overshoot < 0)    
+      texture->render(&bottom, rect.x + i, rect.y + rect.h - bottom.h, bottom.w, bottom.h);
+    else
+      texture->render(
+        {.x = bottom.x, .y = bottom.y, .w = bottom.w - overshoot, .h = bottom.h},
+        rect.x + i,
+        rect.y + rect.h - bottom.h,
+        bottom.w - overshoot,
+        bottom.h
+      );
+  }
+    
 }
 
 void Stretchable::render_left(SDL_FRect rect) {
-  for (double i = top_left.h; i < rect.h - bottom_left.w; i += left.h)
-    texture->render(&left, rect.x, rect.y + i, left.w, left.h);
+  for (double i = top_left.h; i < rect.h - bottom_left.w; i += left.h) {
+    const float overshoot = (rect.y + i + left.h) - (rect.h - bottom_left.h);
+    if (overshoot < 0)
+      texture->render(&left, rect.x, rect.y + i, left.w, left.h);
+    else
+      texture->render(
+        {.x = left.x, .y = left.y, .w = left.w, .h = left.h - overshoot},
+        rect.x,
+        rect.y + i,
+        left.w,
+        left.h - overshoot
+      );
+  }
 }
 
 void Stretchable::render_bottom_left(SDL_FRect rect) {

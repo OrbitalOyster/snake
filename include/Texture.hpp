@@ -18,6 +18,7 @@ public:
   void render(const SDL_FRect *dst) const;
 //  void render(const SDL_FRect *src, const SDL_FRect *dst) const;
   void render(const SDL_FRect *src, double x, double y, double w, double h) const;
+  void render(const SDL_FRect src, double x, double y, double w, double h) const;
   ~Texture();
 };
 

@@ -23,13 +23,14 @@ void Texture::render(const SDL_FRect *dst) const {
   SDL_RenderTexture(renderer, texture, NULL, dst);
 }
 
-// void Texture::render(const SDL_FRect *src, const SDL_FRect *dst) const {
-//   SDL_RenderTexture(renderer, texture, src, dst);
-// }
-
 void Texture::render(const SDL_FRect *src, double x, double y, double w, double h) const {
   SDL_FRect dst = {(float)x, (float)y, (float)w, (float)h};
   SDL_RenderTexture(renderer, texture, src, &dst);
+}
+
+void Texture::render(const SDL_FRect src, double x, double y, double w, double h) const {
+  SDL_FRect dst = {(float)x, (float)y, (float)w, (float)h};
+  SDL_RenderTexture(renderer, texture, &src, &dst);
 }
 
 Texture::~Texture() {
