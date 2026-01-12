@@ -9,16 +9,18 @@ private:
   std::string filename;
   SDL_Renderer *renderer;
   SDL_Texture *texture;
-  double width, height;
+  float width, height;
 
 public:
   Texture(std::string filename, SDL_Renderer *renderer);
   double get_width() const;
   double get_height() const;
   void render(const SDL_FRect *dst) const;
-//  void render(const SDL_FRect *src, const SDL_FRect *dst) const;
-  void render(const SDL_FRect *src, double x, double y, double w, double h) const;
-  void render(const SDL_FRect src, double x, double y, double w, double h) const;
+  void render(const SDL_FRect *src, double x, double y, double w,
+              double h) const;
+  void render(const SDL_FRect src, double x, double y, double w,
+              double h) const;
+  void render_fill(const SDL_FRect *src, const SDL_FRect *dst) const;
   ~Texture();
 };
 
