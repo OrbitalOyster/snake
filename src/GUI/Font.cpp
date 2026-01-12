@@ -47,11 +47,17 @@ SDL_Texture *Font::get_texture(const std::string text, SDL_Color color,
   /*  Get fg dimensions */
   float fw, fh;
   SDL_GetTextureSize(fg, &fw, &fh);
+
+//   bw = round(bw);
+//   bh = round(bh);
+//   fw = round(fw);
+//   fh = round(fh);
+
   /* Transparent background */
   SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
   SDL_Texture *result =
       SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32,
-                        SDL_TEXTUREACCESS_TARGET, round(bw), round(bh));
+                        SDL_TEXTUREACCESS_TARGET, bw, bh);
   SDL_SetTextureBlendMode(result, SDL_BLENDMODE_BLEND);
   SDL_SetRenderTarget(renderer, result);
   const SDL_FRect bg_rect = {0, 0, bw, bh};

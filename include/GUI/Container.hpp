@@ -29,7 +29,6 @@ private:
   SDL_Cursor *cursor = NULL;
   std::vector<GUIContainer *> children;
   std::vector<GUIText *> texts;
-  void calculate_layout(double parent_width, double parent_height);
 
 public:
   GUIContainer(std::string tag);

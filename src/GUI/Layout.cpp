@@ -74,7 +74,7 @@ void GUILayout::move(double dx, double dy) {
   top->resize(dy);
 }
 
-SDL_FRect GUILayout::calculate(double parent_width, double parent_height) {
+SDL_FRect GUILayout::calculate(double parent_width, double parent_height, bool round_result) {
   double x, y, w, h;
   /* Known width */
   if (width.has_value()) {
@@ -105,10 +105,12 @@ SDL_FRect GUILayout::calculate(double parent_width, double parent_height) {
     h = parent_height - y - bottom_p;
   }
   /* Done */
-  SDL_Log("Layout calculated %f %f %f %f / %f %f", x, y, w, h, parent_width, parent_height);
-  x = round(x);
-  y = round(y);
-  w = round(w);
-  h = round(h);
+  // SDL_Log("Layout calculated %f %f %f %f / %f %f", x, y, w, h, parent_width, parent_height);
+  if (round_result) {
+    x = round(x);
+    y = round(y);
+    w = round(w);
+    h = round(h);
+  }
   return {(float)x, (float)y, (float)w, (float)h};
 }

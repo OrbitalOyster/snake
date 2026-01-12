@@ -1,5 +1,5 @@
-#include "SDL3/SDL_rect.h"
 #include <Stretchable.hpp>
+#include <cmath>
 
 Stretchable::Stretchable(Texture *texture, SDL_FRect center, SDL_FRect top_left,
                          SDL_FRect top, SDL_FRect top_right, SDL_FRect right,
@@ -19,7 +19,7 @@ void Stretchable::render_center(SDL_FRect rect) const {
 
 void Stretchable::render_top(SDL_FRect rect) const {
   const SDL_FRect dst = {
-      .x = left.w, .y = 0.0, .w = rect.w - left.w - right.w, .h = top.h};
+      .x = left.w, .y = 0.0f, .w = rect.w - left.w - right.w, .h = top.h};
   texture->render_fill(&top, &dst);
 }
 
@@ -41,7 +41,7 @@ void Stretchable::render_bottom(SDL_FRect rect) const {
 
 void Stretchable::render_left(SDL_FRect rect) const {
   const SDL_FRect dst = {
-      .x = 0.0, .y = top.h, .w = left.w, .h = rect.h - top.h - bottom.h};
+      .x = 0.0f, .y = top.h, .w = left.w, .h = rect.h - top.h - bottom.h};
   texture->render_fill(&left, &dst);
 }
 
@@ -70,7 +70,7 @@ void Stretchable::render(SDL_FRect rect) const {
   // rect.y = round(rect.y);
   // rect.w = round(rect.w);
   // rect.h = round(rect.h);
-  // SDL_Log("W: %f", rect.w);
+  // SDL_Log("H: %f %f %f %f", rect.x, rect.y, rect.w, rect.h);
   render_center(rect);
   render_top(rect);
   render_right(rect);

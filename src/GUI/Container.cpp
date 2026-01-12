@@ -1,5 +1,6 @@
 #include <GUI/Container.hpp>
 #include <SDL3/SDL_log.h>
+#include <cmath>
 #include <cstdlib>
 #include <string>
 #include <vector>
@@ -28,13 +29,9 @@ std::vector<GUIContainer *> GUIContainer::get_all_children() {
 
 bool GUIContainer::is_draggable() { return draggable; }
 
-void GUIContainer::calculate_layout(double parent_width, double parent_height) {
-  rect = layout.calculate(parent_width, parent_height);
-}
-
 void GUIContainer::on_resize(double parent_width, double parent_height) {
-  int old_w = rect.w, old_h = rect.h;
-  calculate_layout(parent_width, parent_height);
+  double old_w = rect.w, old_h = rect.h;
+  rect = layout.calculate(parent_width, parent_height, false);
 
   /* Adjust min. size */
   if (rect.w < min_width.to_pixels(parent_width))
@@ -93,7 +90,7 @@ void GUIContainer::update_cache(SDL_Renderer *renderer) {
     SDL_DestroyTexture(cache);
   cache =
       SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32,
-                        SDL_TEXTUREACCESS_TARGET, rect.w, rect.h);
+                        SDL_TEXTUREACCESS_TARGET, round(rect.w), round(rect.h));
   SDL_SetRenderTarget(renderer, cache);
 
   if (mouse_down)
@@ -169,7 +166,11 @@ void GUIContainer::render(SDL_Renderer *renderer, double parent_x,
   if (skin != NULL) {
     if (cache_is_outdated)
       update_cache(renderer);
-    SDL_RenderTexture(renderer, cache, NULL, &dst);
+    const SDL_FRect _dst = {.x = (float)round(dst.x),
+                            .y = (float)round(dst.y),
+                            .w = (float)round(dst.w),
+                            .h = (float)round(dst.h)};
+    SDL_RenderTexture(renderer, cache, NULL, &_dst);
   }
 
   /* Mouse state debug */

@@ -9,7 +9,6 @@ private:
   Texture *texture;
   SDL_FRect center, top_left, top, top_right, right, bottom_right, bottom,
       bottom_left, left;
-
   void render_center(SDL_FRect rect) const;
   void render_top(SDL_FRect rect) const;
   void render_right(SDL_FRect rect) const;
