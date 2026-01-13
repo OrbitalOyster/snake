@@ -1,8 +1,5 @@
 #include <Sprite.hpp>
 
-Sprite::Sprite(double x, double y, double w, double h, Texture *texture)
-    : x(x), y(y), w(w), h(h), texture(texture) {}
-
 Sprite::Sprite(double x, double y, double w, double h, Texture *texture,
                const SpriteMap *sprite_map)
     : x(x), y(y), w(w), h(h), texture(texture), sprite_map(sprite_map) {}

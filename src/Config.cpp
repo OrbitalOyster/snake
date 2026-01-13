@@ -1,3 +1,4 @@
+#include "SDL3/SDL_log.h"
 #include <Config.hpp>
 #include <stdexcept>
 #include <string>
@@ -40,8 +41,8 @@ bool Config::get_resizeable() const { return resizeable; };
 void Config::load_textures_to_library(Library *library) const {
   try {
     YAML::Node textures_yaml = yaml["textures"];
-    for (YAML::const_iterator i = textures_yaml.begin(); i != textures_yaml.end();
-         ++i) {
+    for (YAML::const_iterator i = textures_yaml.begin();
+         i != textures_yaml.end(); ++i) {
       const std::string key = i->first.as<YAML::Node>().as<std::string>();
       const auto value = i->second.as<YAML::Node>();
       const std::string filename = value["filename"].as<std::string>();
@@ -74,13 +75,18 @@ void Config::load_sprite_maps_to_library(Library *library) const {
        i != sprite_maps_yaml.end(); i++) {
     const std::string key = i->first.as<YAML::Node>().as<std::string>();
     const auto value = i->second.as<YAML::Node>();
-    const double x = value["x"].as<double>();
-    const double y = value["y"].as<double>();
-    const double w = value["w"].as<double>();
-    const double h = value["h"].as<double>();
-    const unsigned n = value["n"].as<unsigned>();
-    const unsigned fps = value["fps"].as<unsigned>();
-    library->add_sprite_map(key, x, y, w, h, n, fps);
+    const int x = value["x"].as<int>();
+    const int y = value["y"].as<int>();
+    const int w = value["w"].as<int>();
+    const int h = value["h"].as<int>();
+    /* For animated sprites */
+    if (value["n"].IsDefined() && value["fps"].IsDefined()) {
+      const unsigned n = value["n"].as<unsigned>();
+      const unsigned fps = value["fps"].as<unsigned>();
+      library->add_sprite_map(key, x, y, w, h, n, fps);
+    } else
+      /* For static sprites */
+      library->add_sprite_map(key, x, y, w, h);
   }
 }
 
@@ -102,24 +108,25 @@ void Config::load_stretchables_to_library(Library *library) const {
     const YAML::Node left = value["left"].as<YAML::Node>();
     library->add_stretchable(
         key, texture_key,
-        SDL_FRect(center["x"].as<double>(), center["y"].as<double>(),
-                  center["w"].as<double>(), center["h"].as<double>()),
-        SDL_FRect(top_left["x"].as<double>(), top_left["y"].as<double>(),
-                  top_left["w"].as<double>(), top_left["h"].as<double>()),
-        SDL_FRect(top["x"].as<double>(), top["y"].as<double>(),
-                  top["w"].as<double>(), top["h"].as<double>()),
-        SDL_FRect(top_right["x"].as<double>(), top_right["y"].as<double>(),
-                  top_right["w"].as<double>(), top_right["h"].as<double>()),
-        SDL_FRect(right["x"].as<double>(), right["y"].as<double>(),
-                  right["w"].as<double>(), right["h"].as<double>()),
-        SDL_FRect(bottom_right["x"].as<double>(), bottom_right["y"].as<double>(),
-                  bottom_right["w"].as<double>(), bottom_right["h"].as<double>()),
-        SDL_FRect(bottom["x"].as<double>(), bottom["y"].as<double>(),
-                  bottom["w"].as<double>(), bottom["h"].as<double>()),
-        SDL_FRect(bottom_left["x"].as<double>(), bottom_left["y"].as<double>(),
-                  bottom_left["w"].as<double>(), bottom_left["h"].as<double>()),
-        SDL_FRect(left["x"].as<double>(), left["y"].as<double>(),
-                  left["w"].as<double>(), left["h"].as<double>()));
+        SDL_FRect(center["x"].as<float>(), center["y"].as<float>(),
+                  center["w"].as<float>(), center["h"].as<float>()),
+        SDL_FRect(top_left["x"].as<float>(), top_left["y"].as<float>(),
+                  top_left["w"].as<float>(), top_left["h"].as<float>()),
+        SDL_FRect(top["x"].as<float>(), top["y"].as<float>(),
+                  top["w"].as<float>(), top["h"].as<float>()),
+        SDL_FRect(top_right["x"].as<float>(), top_right["y"].as<float>(),
+                  top_right["w"].as<float>(), top_right["h"].as<float>()),
+        SDL_FRect(right["x"].as<float>(), right["y"].as<float>(),
+                  right["w"].as<float>(), right["h"].as<float>()),
+        SDL_FRect(
+            bottom_right["x"].as<float>(), bottom_right["y"].as<float>(),
+            bottom_right["w"].as<float>(), bottom_right["h"].as<float>()),
+        SDL_FRect(bottom["x"].as<float>(), bottom["y"].as<float>(),
+                  bottom["w"].as<float>(), bottom["h"].as<float>()),
+        SDL_FRect(bottom_left["x"].as<float>(), bottom_left["y"].as<float>(),
+                  bottom_left["w"].as<float>(), bottom_left["h"].as<float>()),
+        SDL_FRect(left["x"].as<float>(), left["y"].as<float>(),
+                  left["w"].as<float>(), left["h"].as<float>()));
   }
 }
 
@@ -130,14 +137,12 @@ void Config::load_skins_to_library(Library *library) const {
     const std::string key = i->first.as<YAML::Node>().as<std::string>();
     const auto value = i->second.as<YAML::Node>();
     const std::string base = value["base"].as<std::string>();
-
     std::optional<std::string> hover;
     std::optional<std::string> active;
     if (value["hover"].IsDefined())
       hover = value["hover"].as<std::string>();
     if (value["active"].IsDefined())
       active = value["active"].as<std::string>();
-
     library->add_skin(key, base, hover, active);
   }
 }

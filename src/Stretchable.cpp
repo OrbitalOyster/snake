@@ -1,5 +1,4 @@
 #include <Stretchable.hpp>
-#include <cmath>
 
 Stretchable::Stretchable(Texture *texture, SDL_FRect center, SDL_FRect top_left,
                          SDL_FRect top, SDL_FRect top_right, SDL_FRect right,

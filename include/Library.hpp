@@ -26,6 +26,7 @@ public:
   Font *get_font(std::string key);
   void add_sprite_map(std::string key, double x, double y, double w, double h,
                       unsigned n, unsigned fps);
+  void add_sprite_map(std::string key, double x, double y, double w, double h);
   SpriteMap *get_sprite_map(std::string key);
   void add_stretchable(std::string key, std::string texture_key,
                        SDL_FRect center, SDL_FRect top_left, SDL_FRect top,

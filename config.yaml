@@ -33,7 +33,13 @@ sprite_maps:
     w: 32
     h: 32
     n: 17
-    fps: 25
+    fps: 20
+  cross:
+    texture: "gui_skin"
+    x: 425
+    y: 5
+    w: 64
+    h: 64
 
 stretchables:
   window:

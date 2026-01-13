@@ -1,5 +1,4 @@
 #include <GUI/Container.hpp>
-#include <SDL3/SDL_log.h>
 #include <cmath>
 #include <cstdlib>
 #include <string>

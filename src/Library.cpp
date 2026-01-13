@@ -36,6 +36,13 @@ void Library::add_sprite_map(std::string key, double x, double y, double w,
   sprite_maps[key] = new SpriteMap(x, y, w, h, n, fps);
 }
 
+void Library::add_sprite_map(std::string key, double x, double y, double w,
+                             double h) {
+  if (sprite_maps.contains(key))
+    throw std::runtime_error("Duplicate sprite map: " + key);
+  sprite_maps[key] = new SpriteMap(x, y, w, h);
+}
+
 SpriteMap *Library::get_sprite_map(std::string key) {
   if (!sprite_maps.contains(key))
     throw std::runtime_error("Sprite map not found: " + key);
