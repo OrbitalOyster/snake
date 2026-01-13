@@ -19,10 +19,8 @@ private:
   GUIUnit size, start, end;
 
 public:
-  void debug();
-  GUISegment(GUIUnit size = GUIUnit(),
-             GUIUnit start = GUIUnit(),
-             GUIUnit end = GUIUnit(0, Absolute));
+  GUISegment(GUIUnit size = GUIUnit(), GUIUnit start = GUIUnit(),
+             GUIUnit end = GUIUnit(0.0f, Absolute));
   bool depends_on_child_size() const;
   double calculate(double parent_size, double child_size) const;
   double calculate(double parent_size) const;

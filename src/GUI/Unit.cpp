@@ -1,25 +1,22 @@
 #include <GUI/Unit.hpp>
 #include <stdexcept>
 
-GUIUnit::GUIUnit(double number, GUIUnitType type) : number(number), type(type) {}
+GUIUnit::GUIUnit(double value, GUIUnitType type) : value(value), type(type) {}
 
 bool GUIUnit::is_absolute() const { return type == Absolute; }
 
 double GUIUnit::to_pixels() const {
   if (type != Absolute)
     throw std::runtime_error("Wrong!!!");
-  return number;
+  return value;
 }
 
 double GUIUnit::to_pixels(double parent_length) const {
   switch (type) {
   case Relative:
-    // SDL_Log("to pixels: %f %f %f", number, parent_length, number * parent_length);
-    return parent_length * number;
-    break;
+    return parent_length * value;
   case Absolute:
-    return number;
-    break;
+    return value;
   }
   /* Should not happen */
   throw std::runtime_error("Wut?!");

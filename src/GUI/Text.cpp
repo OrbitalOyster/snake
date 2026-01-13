@@ -1,13 +1,12 @@
 #include <GUI/Text.hpp>
-#include <cmath>
 
 GUIText::GUIText(std::string text, Font *font, SDL_Color color,
                  SDL_Color outline_color, TextLayout text_layout)
     : text(text), font(font), color(color), outline_color(outline_color) {
   texture = font->get_texture(text, color, outline_color, &width, &height);
-  // SDL_Log("width height %f %f", width, height);
-  layout = GUILayout(GUIUnit(width, Absolute), GUIUnit(height, Absolute), text_layout.left, text_layout.top,
-                     text_layout.right, text_layout.bottom);
+  layout = GUILayout(GUIUnit(width, Absolute), GUIUnit(height, Absolute),
+                     text_layout.left, text_layout.top, text_layout.right,
+                     text_layout.bottom);
 }
 
 void GUIText::update(std::string new_text) {

@@ -5,11 +5,11 @@ enum GUIUnitType { Relative, Absolute };
 
 class GUIUnit {
 private:
-  double number;
+  double value;
   enum GUIUnitType type;
 
 public:
-  GUIUnit(double number = 0, GUIUnitType type = Relative);
+  GUIUnit(double value = 0.0f, GUIUnitType type = Relative);
   bool is_absolute() const;
   double to_pixels() const;
   double to_pixels(double parent_length) const;
