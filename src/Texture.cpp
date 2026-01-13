@@ -9,9 +9,11 @@ Texture::Texture(std::string filename, SDL_Renderer *renderer)
   if (!texture)
     throw std::runtime_error("Failed to load image" +
                              std::string(SDL_GetError()));
-  SDL_GetTextureSize(texture, &width, &height);
-  SDL_Log("Loaded texture %s, size %.2f x %.2f", filename.c_str(), width,
-          height);
+  float w, h;
+  SDL_GetTextureSize(texture, &w, &h);
+  width = round(w);
+  height = round(h);
+  SDL_Log("Loaded texture %s, size %u x %u", filename.c_str(), width, height);
 }
 
 double Texture::get_width() const { return width; }

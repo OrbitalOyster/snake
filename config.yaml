@@ -6,9 +6,9 @@ window:
   width: 640
   height: 480
   fullscreen: false
-  resizeable: false
+  resizeable: true
 
-images:
+textures:
   goose:
     filename: "assets/sprites/goose.png"
   apple:

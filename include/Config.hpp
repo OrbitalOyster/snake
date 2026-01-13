@@ -35,7 +35,7 @@ public:
   SDL_Color get_background_color() const;
   bool get_fullscreen() const;
   bool get_resizeable() const;
-  void load_images_to_library(Library *library) const;
+  void load_textures_to_library(Library *library) const;
   void load_fonts_to_library(Library *library) const;
   void load_sprite_maps_to_library(Library *library) const;
   void load_stretchables_to_library(Library *library) const;

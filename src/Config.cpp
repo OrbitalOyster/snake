@@ -37,10 +37,10 @@ SDL_Color Config::get_background_color() const { return background_color; };
 bool Config::get_fullscreen() const { return fullscreen; };
 bool Config::get_resizeable() const { return resizeable; };
 
-void Config::load_images_to_library(Library *library) const {
+void Config::load_textures_to_library(Library *library) const {
   try {
-    YAML::Node images_yaml = yaml["images"];
-    for (YAML::const_iterator i = images_yaml.begin(); i != images_yaml.end();
+    YAML::Node textures_yaml = yaml["textures"];
+    for (YAML::const_iterator i = textures_yaml.begin(); i != textures_yaml.end();
          ++i) {
       const std::string key = i->first.as<YAML::Node>().as<std::string>();
       const auto value = i->second.as<YAML::Node>();

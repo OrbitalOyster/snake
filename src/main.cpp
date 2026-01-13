@@ -28,7 +28,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     core->set_GUI(gui);
     /* Library */
     Library *library = new Library(core->get_renderer());
-    config.load_images_to_library(library);
+    config.load_textures_to_library(library);
     config.load_fonts_to_library(library);
     config.load_sprite_maps_to_library(library);
     config.load_stretchables_to_library(library);
@@ -38,13 +38,13 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
                                library->get_sprite_map("apple_default"));
     core->add_sprite(apple);
 
-    GUILayout l1 = GUILayout(1.0f, .5f, {}, {});
+    GUILayout l1 = GUILayout(1.0, .5, {}, {});
     GUIContainer *container = new GUIContainer("upper half", l1);
     container->set_skin(library->get_skin("window"));
     gui->add_container(container);
 
     GUILayout top_right_layout =
-        GUILayout(.5f, .5f, {}, GUIUnit(8, Absolute), GUIUnit(8, Absolute), {});
+        GUILayout(.5, .5, {}, GUIUnit(8, Absolute), GUIUnit(8, Absolute), {});
     GUIContainer *top_right_container =
         new GUIContainer("top right", top_right_layout);
     top_right_container->set_skin(library->get_skin("button"));
@@ -55,16 +55,16 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     container->add_container(top_right_container);
 
     GUILayout top_left_layout =
-        GUILayout(.4f, .5f, GUISegment(GUIUnit(8.0f, Absolute)),
-                  GUISegment(GUIUnit(8.0f, Absolute)), {}, {});
+        GUILayout(.4, .5, GUISegment(GUIUnit(8.0, Absolute)),
+                  GUISegment(GUIUnit(8.0, Absolute)), {}, {});
     GUIContainer *top_left_container =
         new GUIContainer("top left", top_left_layout);
     top_left_container->set_skin(library->get_skin("button"));
     container->add_container(top_left_container);
 
     GUILayout stoopid_layout =
-        GUILayout(GUISegment(GUIUnit(.25f), 0, GUIUnit(0, Absolute)),
-                  GUISegment(GUIUnit(.5f)),
+        GUILayout(GUISegment(GUIUnit(.25), 0, GUIUnit(0, Absolute)),
+                  GUISegment(GUIUnit(.5)),
                   GUISegment(GUIUnit(100, Absolute), 0, GUIUnit(0, Absolute)),
                   GUISegment(GUIUnit(32, Absolute)));
     GUIContainer *stoopid_container =
@@ -79,7 +79,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
     Font *regular_font = library->get_font("regular");
     TextLayout center =
-        TextLayout(GUISegment(.5f, 0, .5f), GUISegment(.5f, 0u, .5f));
+        TextLayout(GUISegment(.5, 0, .5), GUISegment(.5, 0, .5));
     GUIText *hello = new GUIText(std::string("Hello, World!"), regular_font,
                                  white, black, center);
     top_right_container->add_text(hello);

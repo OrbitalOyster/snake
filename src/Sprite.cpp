@@ -12,7 +12,7 @@ void Sprite::render(unsigned long ticks) const {
     SDL_FRect src = sprite_map->get_frame(animation_start_time, ticks);
     texture->render(&src, x, y, w, h);
   } else {
-    SDL_FRect src = {0, 0, (float)texture->get_width(),
+    SDL_FRect src = {0.0, 0.0, (float)texture->get_width(),
                      (float)texture->get_height()};
     texture->render(&src, x, y, w, h);
   }

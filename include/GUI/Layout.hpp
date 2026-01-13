@@ -22,7 +22,8 @@ public:
   GUILayout(GUISegment left, GUISegment top);
   double get_left();
   void move(double dx, double dy);
-  SDL_FRect calculate(double parent_width, double parent_height, bool round_result);
+  SDL_FRect calculate(double parent_width, double parent_height,
+                      bool round_result);
 };
 
 #endif

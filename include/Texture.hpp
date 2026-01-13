@@ -9,7 +9,7 @@ private:
   std::string filename;
   SDL_Renderer *renderer;
   SDL_Texture *texture;
-  float width, height;
+  unsigned width, height;
 
 public:
   Texture(std::string filename, SDL_Renderer *renderer);
