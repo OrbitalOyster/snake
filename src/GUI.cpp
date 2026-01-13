@@ -8,14 +8,14 @@ GUI::GUI(SDL_Renderer *renderer) : renderer(renderer) {
 
 void GUI::add_container(GUIContainer *container) {
   root_container->add_container(container);
-  container->on_resize(root_container->get_width(),
+  container->on_resize(0, 0, root_container->get_width(),
                        root_container->get_height());
 }
 
 void GUI::add_text(GUIText *text) { root_container->add_text(text); }
 
 void GUI::on_window_resize(double width, double height) {
-  root_container->on_resize(width, height);
+  root_container->on_resize(0, 0, width, height);
   reset_mouse();
 }
 

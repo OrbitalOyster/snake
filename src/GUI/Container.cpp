@@ -1,3 +1,4 @@
+#include "SDL3/SDL_log.h"
 #include <GUI/Container.hpp>
 #include <cmath>
 #include <cstdlib>
@@ -28,9 +29,9 @@ std::vector<GUIContainer *> GUIContainer::get_all_children() {
 
 bool GUIContainer::is_draggable() { return draggable; }
 
-void GUIContainer::on_resize(double parent_width, double parent_height) {
+void GUIContainer::on_resize(double parent_x, double parent_y, double parent_width, double parent_height) {
   double old_w = rect.w, old_h = rect.h;
-  rect = layout.calculate(parent_width, parent_height, false);
+  rect = layout.calculate(parent_x, parent_y, parent_width, parent_height, false);
 
   /* Adjust min. size */
   if (rect.w < min_width.to_pixels(parent_width))
@@ -42,7 +43,7 @@ void GUIContainer::on_resize(double parent_width, double parent_height) {
     cache_is_outdated = true;
 
   for (GUIContainer *child : children)
-    child->on_resize(rect.w, rect.h);
+    child->on_resize(rect.x, rect.y, rect.w, rect.h);
 }
 
 void GUIContainer::set_skin(Skin *new_skin) {
@@ -79,7 +80,7 @@ bool GUIContainer::is_mouse_down() const { return mouse_down; };
 
 void GUIContainer::add_container(GUIContainer *container) {
   children.push_back(container);
-  children.back()->on_resize(rect.w, rect.h);
+  children.back()->on_resize(rect.x, rect.y, rect.w, rect.h);
 }
 
 void GUIContainer::add_text(GUIText *text) { texts.push_back(text); }
@@ -159,8 +160,9 @@ void GUIContainer::render(SDL_Renderer *renderer, double parent_x,
   SDL_FRect dst = get_bounding_rect();
   if (!dst.w || !dst.h)
     return;
-  dst.x += parent_x;
-  dst.y += parent_y;
+
+  // dst.x += parent_x;
+  // dst.y += parent_y;
 
   if (skin != NULL) {
     if (cache_is_outdated)

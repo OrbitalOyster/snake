@@ -48,7 +48,7 @@ public:
   double get_height() const;
   bool is_mouse_over() const;
   bool is_mouse_down() const;
-  void on_resize(double parent_width, double parent_height);
+  void on_resize(double parent_x, double parent_y, double parent_width, double parent_height);
   void add_container(GUIContainer *container);
   void add_text(GUIText *text);
   void update_cache(SDL_Renderer *renderer);
