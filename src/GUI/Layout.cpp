@@ -44,13 +44,6 @@ GUILayout::GUILayout(std::optional<GUIUnit> width,
   }
 }
 
-GUILayout::GUILayout() {
-  this->width = GUIUnit(1.0);
-  this->height = GUIUnit(1.0);
-  this->top = GUISegment();
-  this->left = GUISegment();
-}
-
 /* a.k.a "movable layout" */
 GUILayout::GUILayout(GUIUnit width, GUIUnit height, GUISegment left,
                      GUISegment top)

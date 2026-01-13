@@ -1,4 +1,5 @@
 #include "SDL3/SDL_log.h"
+#include "Sprite.hpp"
 #include <GUI/Container.hpp>
 #include <cmath>
 #include <cstdlib>
@@ -86,6 +87,10 @@ void GUIContainer::add_container(GUIContainer *container) {
 
 void GUIContainer::add_text(GUIText *text) { texts.push_back(text); }
 
+void GUIContainer::add_sprite(Sprite *sprite){
+  sprites.push_back(sprite);
+};
+
 void GUIContainer::update_cache(SDL_Renderer *renderer) {
   if (cache != NULL)
     SDL_DestroyTexture(cache);
@@ -103,6 +108,10 @@ void GUIContainer::update_cache(SDL_Renderer *renderer) {
 
   for (GUIText *text : texts)
     text->render(renderer, rect.w, rect.h);
+
+  for (Sprite *sprite : sprites)
+    sprite->render();
+
   SDL_SetRenderTarget(renderer, NULL);
   cache_is_outdated = false;
 }

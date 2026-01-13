@@ -26,7 +26,6 @@ public:
   double calculate(double parent_size) const;
   bool is_resizable() const;
   void resize(double delta);
-  double get_absolute_size() const;
 };
 
 #endif

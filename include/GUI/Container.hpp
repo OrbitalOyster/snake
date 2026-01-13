@@ -1,6 +1,7 @@
 #ifndef GUI_CONTAINER_HPP_
 #define GUI_CONTAINER_HPP_
 
+#include "Sprite.hpp"
 #include <GUI/Layout.hpp>
 #include <GUI/Segment.hpp>
 #include <GUI/Skin.hpp>
@@ -29,6 +30,7 @@ private:
   SDL_Cursor *cursor = NULL;
   std::vector<GUIContainer *> children;
   std::vector<GUIText *> texts;
+  std::vector<Sprite *> sprites;
 
 public:
   GUIContainer(std::string tag);
@@ -52,6 +54,7 @@ public:
                  double parent_height);
   void add_container(GUIContainer *container);
   void add_text(GUIText *text);
+  void add_sprite(Sprite *sprite);
   void update_cache(SDL_Renderer *renderer);
   void on_mouse_enter();
   void on_mouse_leave();

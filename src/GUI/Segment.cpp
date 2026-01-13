@@ -24,9 +24,3 @@ double GUISegment::calculate(double parent_size) const {
     throw std::runtime_error("Circular dependency");
   return start.to_pixels(parent_size) + size.to_pixels(parent_size);
 }
-
-double GUISegment::get_absolute_size() const {
-  if (!size.is_absolute())
-    throw std::runtime_error("Wrong!");
-  return size.to_pixels();
-}

@@ -35,8 +35,7 @@ public:
                        SDL_FRect bottom_left, SDL_FRect left);
   Stretchable *get_stretchable(std::string key);
   void add_skin(std::string key, std::string base_key,
-                std::optional<std::string> hover_key,
-                std::optional<std::string> active_key);
+                std::string hover_key = "", std::string active_key = "");
   Skin *get_skin(std::string key);
   ~Library();
 };

@@ -1,5 +1,4 @@
 #include <Library.hpp>
-#include <optional>
 #include <stdexcept>
 
 Library::Library(SDL_Renderer *renderer) : renderer(renderer) {}
@@ -70,17 +69,12 @@ Stretchable *Library::get_stretchable(std::string key) {
 }
 
 void Library::add_skin(std::string key, std::string base_key,
-                       std::optional<std::string> hover_key,
-                       std::optional<std::string> active_key) {
+                       std::string hover_key, std::string active_key) {
   if (skins.contains(key))
     throw std::runtime_error("Duplicate skin: " + key);
   Stretchable *base = stretchables[base_key];
-  std::optional<Stretchable *> hover;
-  std::optional<Stretchable *> active;
-  if (hover_key.has_value())
-    hover = stretchables[hover_key.value()];
-  if (active_key.has_value())
-    active = stretchables[active_key.value()];
+  Stretchable *hover = hover_key.empty() ? NULL : stretchables[hover_key];
+  Stretchable *active = active_key.empty() ? NULL : stretchables[active_key];
   skins[key] = new Skin(base, hover, active);
 }
 

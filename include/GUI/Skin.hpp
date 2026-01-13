@@ -2,7 +2,6 @@
 #define GUI_SKIN_HPP_
 
 #include <Stretchable.hpp>
-#include <optional>
 
 enum ContainerState { Base, Hover, Active };
 
@@ -13,8 +12,7 @@ private:
   Stretchable *active = NULL;
 
 public:
-  Skin(Stretchable *base, std::optional<Stretchable *> hover,
-       std::optional<Stretchable *> active);
+  Skin(Stretchable *base, Stretchable *hover = NULL, Stretchable *active = NULL);
   void render(SDL_FRect rect, enum ContainerState state = Base);
 };
 

@@ -118,9 +118,8 @@ void Config::load_stretchables_to_library(Library *library) const {
                   top_right["w"].as<float>(), top_right["h"].as<float>()),
         SDL_FRect(right["x"].as<float>(), right["y"].as<float>(),
                   right["w"].as<float>(), right["h"].as<float>()),
-        SDL_FRect(
-            bottom_right["x"].as<float>(), bottom_right["y"].as<float>(),
-            bottom_right["w"].as<float>(), bottom_right["h"].as<float>()),
+        SDL_FRect(bottom_right["x"].as<float>(), bottom_right["y"].as<float>(),
+                  bottom_right["w"].as<float>(), bottom_right["h"].as<float>()),
         SDL_FRect(bottom["x"].as<float>(), bottom["y"].as<float>(),
                   bottom["w"].as<float>(), bottom["h"].as<float>()),
         SDL_FRect(bottom_left["x"].as<float>(), bottom_left["y"].as<float>(),
@@ -136,13 +135,11 @@ void Config::load_skins_to_library(Library *library) const {
        i++) {
     const std::string key = i->first.as<YAML::Node>().as<std::string>();
     const auto value = i->second.as<YAML::Node>();
-    const std::string base = value["base"].as<std::string>();
-    std::optional<std::string> hover;
-    std::optional<std::string> active;
-    if (value["hover"].IsDefined())
-      hover = value["hover"].as<std::string>();
-    if (value["active"].IsDefined())
-      active = value["active"].as<std::string>();
-    library->add_skin(key, base, hover, active);
+    const std::string base_key = value["base"].as<std::string>();
+    const std::string hover_key =
+        value["hover"].IsDefined() ? value["hover"].as<std::string>() : "";
+    const std::string active_key =
+        value["active"].IsDefined() ? value["active"].as<std::string>() : "";
+    library->add_skin(key, base_key, hover_key, active_key);
   }
 }

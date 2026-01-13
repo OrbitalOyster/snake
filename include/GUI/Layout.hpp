@@ -15,13 +15,13 @@ public:
   GUILayout(std::optional<GUIUnit> width, std::optional<GUIUnit> height,
             std::optional<GUISegment> left, std::optional<GUISegment> top,
             std::optional<GUISegment> right, std::optional<GUISegment> bottom);
-  GUILayout();
-  GUILayout(GUIUnit width, GUIUnit height, GUISegment left, GUISegment top);
+  GUILayout(GUIUnit width = GUIUnit(1.0), GUIUnit height = GUIUnit(1.0),
+            GUISegment left = GUISegment(), GUISegment top = GUISegment());
   GUILayout(GUISegment left, GUISegment top, GUISegment right,
             GUISegment bottom);
   void move(double dx, double dy);
-  SDL_FRect calculate(double parent_x, double parent_y, double parent_width, double parent_height,
-                      bool round_result);
+  SDL_FRect calculate(double parent_x, double parent_y, double parent_width,
+                      double parent_height, bool round_result);
 };
 
 #endif
