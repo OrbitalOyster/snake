@@ -19,8 +19,6 @@ public:
   GUILayout(GUIUnit width, GUIUnit height, GUISegment left, GUISegment top);
   GUILayout(GUISegment left, GUISegment top, GUISegment right,
             GUISegment bottom);
-  GUILayout(GUISegment left, GUISegment top);
-  double get_left();
   void move(double dx, double dy);
   SDL_FRect calculate(double parent_x, double parent_y, double parent_width, double parent_height,
                       bool round_result);

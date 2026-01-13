@@ -1,4 +1,3 @@
-#include "SDL3/SDL_log.h"
 #include <GUI/Layout.hpp>
 #include <cmath>
 #include <stdexcept>
@@ -46,10 +45,10 @@ GUILayout::GUILayout(std::optional<GUIUnit> width,
 }
 
 GUILayout::GUILayout() {
-  width = GUIUnit(1.0);
-  height = GUIUnit(1.0);
-  top = GUISegment();
-  left = GUISegment();
+  this->width = GUIUnit(1.0);
+  this->height = GUIUnit(1.0);
+  this->top = GUISegment();
+  this->left = GUISegment();
 }
 
 /* a.k.a "movable layout" */
@@ -61,12 +60,6 @@ GUILayout::GUILayout(GUIUnit width, GUIUnit height, GUISegment left,
 GUILayout::GUILayout(GUISegment left, GUISegment top, GUISegment right,
                      GUISegment bottom)
     : GUILayout({}, {}, left, top, right, bottom) {}
-
-/* Top-left */
-GUILayout::GUILayout(GUISegment left, GUISegment top)
-    : GUILayout({}, {}, left, top, {}, {}) {};
-
-double GUILayout::get_left() { return left->get_absolute_size(); }
 
 void GUILayout::move(double dx, double dy) {
   left->resize(dx);

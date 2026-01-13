@@ -75,4 +75,4 @@ void GUI::reset_mouse() {
       child->on_mouse_leave();
 }
 
-void GUI::render() const { root_container->render(renderer, 0, 0); }
+void GUI::render() const { root_container->render(renderer); }

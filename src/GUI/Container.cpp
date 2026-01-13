@@ -29,9 +29,11 @@ std::vector<GUIContainer *> GUIContainer::get_all_children() {
 
 bool GUIContainer::is_draggable() { return draggable; }
 
-void GUIContainer::on_resize(double parent_x, double parent_y, double parent_width, double parent_height) {
+void GUIContainer::on_resize(double parent_x, double parent_y,
+                             double parent_width, double parent_height) {
   double old_w = rect.w, old_h = rect.h;
-  rect = layout.calculate(parent_x, parent_y, parent_width, parent_height, false);
+  rect =
+      layout.calculate(parent_x, parent_y, parent_width, parent_height, false);
 
   /* Adjust min. size */
   if (rect.w < min_width.to_pixels(parent_width))
@@ -70,7 +72,6 @@ SDL_FRect GUIContainer::get_bounding_rect() const { return rect; }
 void GUIContainer::move(double dx, double dy) {
   rect.x += dx;
   rect.y += dy;
-  // layout.move(dx, dy);
 }
 
 double GUIContainer::get_width() const { return rect.w; }
@@ -155,23 +156,18 @@ void GUIContainer::on_mouse_up() {
 
 void GUIContainer::on_mouse_click() { SDL_Log("Mouse click %s", tag.c_str()); }
 
-void GUIContainer::render(SDL_Renderer *renderer, double parent_x,
-                          double parent_y) {
+void GUIContainer::render(SDL_Renderer *renderer) {
   SDL_FRect dst = get_bounding_rect();
   if (!dst.w || !dst.h)
     return;
-
-  // dst.x += parent_x;
-  // dst.y += parent_y;
-
   if (skin != NULL) {
     if (cache_is_outdated)
       update_cache(renderer);
-    const SDL_FRect _dst = {.x = (float)round(dst.x),
-                            .y = (float)round(dst.y),
-                            .w = (float)round(dst.w),
-                            .h = (float)round(dst.h)};
-    SDL_RenderTexture(renderer, cache, NULL, &_dst);
+    const SDL_FRect rounded_dst = {.x = (float)round(dst.x),
+                                   .y = (float)round(dst.y),
+                                   .w = (float)round(dst.w),
+                                   .h = (float)round(dst.h)};
+    SDL_RenderTexture(renderer, cache, NULL, &rounded_dst);
   }
 
   /* Mouse state debug */
@@ -187,5 +183,5 @@ void GUIContainer::render(SDL_Renderer *renderer, double parent_x,
   */
 
   for (GUIContainer *c : children)
-    c->render(renderer, dst.x, dst.y);
+    c->render(renderer);
 }

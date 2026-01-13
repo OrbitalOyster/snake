@@ -58,7 +58,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     SDL_Color black = {0x44, 0x44, 0x44, 0xFF};
     Font *regular_font = library->get_font("regular");
     TextLayout center =
-        TextLayout(GUISegment(.5, 0, .5), GUISegment(.5, 0, .5));
+        TextLayout(GUISegment(.5, 0.0, .5), GUISegment(.5, 0.0, .5));
     GUIText *hello = new GUIText(std::string("Hello, World!"), regular_font,
                                  white, black, center);
     top_right_container->add_text(hello);
@@ -78,9 +78,9 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     upper_half_container->add_container(top_left_container);
 
     GUILayout stoopid_layout = GUILayout(
-        GUISegment(GUIUnit(.25), 0, GUIUnit(0.0, Absolute)),
+        GUISegment(GUIUnit(.25), 0.0, GUIUnit(0.0, Absolute)),
         GUISegment(GUIUnit(.5)),
-        GUISegment(GUIUnit(100, Absolute), 0.0, GUIUnit(0.0, Absolute)),
+        GUISegment(GUIUnit(100.0, Absolute), 0.0, GUIUnit(0.0, Absolute)),
         GUISegment(GUIUnit(32.0, Absolute)));
     GUIContainer *stoopid_container =
         new GUIContainer("stoopid", stoopid_layout);
