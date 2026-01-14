@@ -9,12 +9,12 @@ private:
   std::string filename;
   SDL_Renderer *renderer;
   SDL_Texture *texture;
-  unsigned width, height;
+  float width, height;
 
 public:
   Texture(std::string filename, SDL_Renderer *renderer);
-  unsigned get_width() const;
-  unsigned get_height() const;
+  float get_width() const;
+  float get_height() const;
   void render(const SDL_FRect *dst) const;
   void render(const SDL_FRect *src, double x, double y, double w,
               double h) const;

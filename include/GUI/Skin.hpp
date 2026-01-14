@@ -13,7 +13,7 @@ private:
 
 public:
   Skin(Stretchable *base, Stretchable *hover = NULL, Stretchable *active = NULL);
-  void render(SDL_FRect rect, enum ContainerState state = Base);
+  void render(SDL_FRect *dst, enum ContainerState state = Base);
 };
 
 #endif

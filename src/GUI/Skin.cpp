@@ -3,16 +3,16 @@
 Skin::Skin(Stretchable *base, Stretchable *hover, Stretchable *active)
     : base(base), hover(hover), active(active) {}
 
-void Skin::render(SDL_FRect rect, enum ContainerState state) {
+void Skin::render(SDL_FRect *dst, enum ContainerState state) {
   switch (state) {
   case Base:
-    base->render(rect);
+    base->render(dst);
     break;
   case Hover:
-    hover ? hover->render(rect) : base->render(rect);
+    hover ? hover->render(dst) : base->render(dst);
     break;
   case Active:
-    active ? active->render(rect) : base->render(rect);
+    active ? active->render(dst) : base->render(dst);
     break;
   }
 }

@@ -1,10 +1,7 @@
-#include "SDL3/SDL_log.h"
-#include "Sprite.hpp"
+#include "SDL3/SDL_rect.h"
 #include <GUI/Container.hpp>
+#include <Utils.hpp>
 #include <cmath>
-#include <cstdlib>
-#include <string>
-#include <vector>
 
 bool point_within_rect(double x, double y, SDL_FRect rect) {
   return x > rect.x && x < rect.x + rect.w && y > rect.y && y < rect.y + rect.h;
@@ -87,9 +84,7 @@ void GUIContainer::add_container(GUIContainer *container) {
 
 void GUIContainer::add_text(GUIText *text) { texts.push_back(text); }
 
-void GUIContainer::add_sprite(Sprite *sprite){
-  sprites.push_back(sprite);
-};
+void GUIContainer::add_sprite(Sprite *sprite) { sprites.push_back(sprite); };
 
 void GUIContainer::update_cache(SDL_Renderer *renderer) {
   if (cache != NULL)
@@ -98,20 +93,17 @@ void GUIContainer::update_cache(SDL_Renderer *renderer) {
       SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32,
                         SDL_TEXTUREACCESS_TARGET, round(rect.w), round(rect.h));
   SDL_SetRenderTarget(renderer, cache);
-
+  SDL_FRect dst = {0.0, 0.0, rect.w, rect.h};
   if (mouse_down)
-    skin->render({0, 0, rect.w, rect.h}, Active);
+    skin->render(&dst, Active);
   else if (mouse_over)
-    skin->render({0, 0, rect.w, rect.h}, Hover);
+    skin->render(&dst, Hover);
   else
-    skin->render({0, 0, rect.w, rect.h}, Base);
-
+    skin->render(&dst, Base);
   for (GUIText *text : texts)
     text->render(renderer, rect.w, rect.h);
-
   for (Sprite *sprite : sprites)
     sprite->render();
-
   SDL_SetRenderTarget(renderer, NULL);
   cache_is_outdated = false;
 }
@@ -172,10 +164,7 @@ void GUIContainer::render(SDL_Renderer *renderer) {
   if (skin != NULL) {
     if (cache_is_outdated)
       update_cache(renderer);
-    const SDL_FRect rounded_dst = {.x = (float)round(dst.x),
-                                   .y = (float)round(dst.y),
-                                   .w = (float)round(dst.w),
-                                   .h = (float)round(dst.h)};
+    const SDL_FRect rounded_dst = get_frect(dst);
     SDL_RenderTexture(renderer, cache, NULL, &rounded_dst);
   }
 

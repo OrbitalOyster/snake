@@ -1,12 +1,10 @@
 #ifndef GUI_CONTAINER_HPP_
 #define GUI_CONTAINER_HPP_
 
-#include "Sprite.hpp"
 #include <GUI/Layout.hpp>
-#include <GUI/Segment.hpp>
 #include <GUI/Skin.hpp>
 #include <GUI/Text.hpp>
-#include <GUI/Unit.hpp>
+#include <Sprite.hpp>
 #include <Stretchable.hpp>
 #include <string>
 #include <vector>
