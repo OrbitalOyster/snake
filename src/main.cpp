@@ -35,9 +35,8 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
 
     Sprite *apple = new Sprite(0, 320, 128, 128, library->get_texture("apple"),
                                library->get_sprite_map("apple_default"));
-    Sprite *cross =
-        new Sprite(100, 320, 16, 16, library->get_texture("gui_skin"),
-                   library->get_sprite_map("cross"));
+    Sprite *cross = new Sprite(8, 8, 16, 16, library->get_texture("gui_skin"),
+                               library->get_sprite_map("cross"));
     core->add_sprite(apple);
     core->add_sprite(cross);
 
@@ -95,6 +94,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     GUIContainer *close_button =
         new GUIContainer("close_button", close_button_layout);
     close_button->set_skin(library->get_skin("button"));
+    close_button->add_sprite(cross);
     stoopid_container->add_container(close_button);
 
     /*

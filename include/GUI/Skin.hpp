@@ -12,7 +12,8 @@ private:
   Stretchable *active = NULL;
 
 public:
-  Skin(Stretchable *base, Stretchable *hover = NULL, Stretchable *active = NULL);
+  Skin(Stretchable *base, Stretchable *hover = NULL,
+       Stretchable *active = NULL);
   void render(SDL_FRect *dst, enum ContainerState state = Base);
 };
 

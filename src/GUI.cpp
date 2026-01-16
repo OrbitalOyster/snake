@@ -14,7 +14,7 @@ void GUI::add_container(GUIContainer *container) {
 
 void GUI::add_text(GUIText *text) { root_container->add_text(text); }
 
-void GUI::on_window_resize(double width, double height) {
+void GUI::on_window_resize(unsigned width, unsigned height) {
   root_container->on_resize(0, 0, width, height);
   reset_mouse();
 }

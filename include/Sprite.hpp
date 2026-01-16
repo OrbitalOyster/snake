@@ -15,7 +15,8 @@ private:
   unsigned long animation_start_time;
 
 public:
-  Sprite(double x, double y, double w, double h, Texture *texture, const SpriteMap *sprite_map = NULL);
+  Sprite(double x, double y, double w, double h, Texture *texture,
+         const SpriteMap *sprite_map = NULL);
   SDL_FRect get_bounding_rect() const;
   void render() const;
   void render(unsigned long ticks) const;
