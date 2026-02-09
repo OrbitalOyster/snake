@@ -1,7 +1,7 @@
 #include <GUI/Layout.hpp>
+#include <SDL3/SDL_log.h>
 #include <Utils.hpp>
 #include <stdexcept>
-#include <SDL3/SDL_log.h>
 
 GUILayout::GUILayout(std::optional<GUIUnit> width,
                      std::optional<GUIUnit> height,
@@ -93,7 +93,8 @@ SDL_FRect GUILayout::calculate(double parent_x, double parent_y,
   }
   x += parent_x;
   y += parent_y;
-  // SDL_Log("%f %f %fx%f, %f %f %f %f", (float)x, (float)y, (float)w, (float)h, parent_x, parent_y, parent_width, parent_height);
+  // SDL_Log("%f %f %fx%f, %f %f %f %f", (float)x, (float)y, (float)w, (float)h,
+  // parent_x, parent_y, parent_width, parent_height);
   /* Done */
   return get_frect(x, y, w, h);
 }

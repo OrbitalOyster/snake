@@ -36,11 +36,11 @@ public:
   std::string get_tag() const;
   std::vector<GUIContainer *> get_all_children();
   bool is_draggable();
-  void set_skin(Skin *skin);
-  void set_cursor(SDL_Cursor *cursor);
-  void set_min_width(GUIUnit min_width);
-  void set_min_height(GUIUnit min_height);
-  void set_draggable(bool draggable);
+  void set_skin(Skin *new_skin);
+  void set_cursor(SDL_Cursor *new_cursor);
+  void set_min_width(GUIUnit new_min_width);
+  void set_min_height(GUIUnit new_min_height);
+  void set_draggable(bool new_draggable);
   SDL_FRect get_bounding_rect() const;
   GUIContainer *find_child(double x, double y);
   void move(double dx, double dy);

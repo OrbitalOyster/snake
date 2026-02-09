@@ -38,7 +38,6 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     Sprite *cross = new Sprite(8, 8, 16, 16, library->get_texture("gui_skin"),
                                library->get_sprite_map("cross"));
     core->add_sprite(apple);
-    // core->add_sprite(cross);
 
     GUILayout upper_half_layout = GUILayout(1.0, .5, {}, {});
     GUIContainer *upper_half_container =
@@ -60,10 +59,6 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     GUIText *hello = new GUIText(std::string("Hello, World!"), regular_font,
                                  white, black, center);
     top_right_container->add_text(hello);
-
-    SDL_Cursor *pointerCursor =
-        SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_POINTER);
-    top_right_container->set_cursor(pointerCursor);
     upper_half_container->add_container(top_right_container);
 
     GUILayout top_left_layout =
@@ -75,11 +70,10 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     top_left_container->set_skin(library->get_skin("button"));
     upper_half_container->add_container(top_left_container);
 
-    GUILayout stoopid_layout = GUILayout(
-        GUISegment(GUIUnit(.25)),
-        GUISegment(GUIUnit(.5)),
-        GUISegment(GUIUnit(100.0, Absolute)),
-        GUISegment(GUIUnit(32.0, Absolute)));
+    GUILayout stoopid_layout =
+        GUILayout(GUISegment(GUIUnit(.25)), GUISegment(GUIUnit(.5)),
+                  GUISegment(GUIUnit(100.0, Absolute)),
+                  GUISegment(GUIUnit(32.0, Absolute)));
     GUIContainer *stoopid_container =
         new GUIContainer("stoopid", stoopid_layout);
 
@@ -95,6 +89,8 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
         new GUIContainer("close_button", close_button_layout);
     close_button->set_skin(library->get_skin("button"));
     close_button->add_sprite(cross);
+    close_button->set_cursor(gui->get_system_cursor("pointer"));
+
     stoopid_container->add_container(close_button);
 
     GUILayout movable_layout = GUILayout(

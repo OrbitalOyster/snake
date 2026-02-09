@@ -5,16 +5,20 @@
 #include <GUI/Font.hpp>
 #include <GUI/Text.hpp>
 #include <Stretchable.hpp>
+#include <map>
 
 class GUI {
 private:
   SDL_Renderer *renderer;
   GUIContainer *root_container;
+  std::map<std::string, SDL_Cursor *> system_cursors;
   bool mouse_down = false;
   bool mouse_dragging = false;
 
 public:
   GUI(SDL_Renderer *renderer);
+  void create_cursors();
+  SDL_Cursor *get_system_cursor(std::string key);
   GUIContainer *get_root_container() const;
   void add_container(GUIContainer *container);
   void add_text(GUIText *text);

@@ -6,7 +6,7 @@ window:
   width: 630
   height: 480
   fullscreen: false
-  resizeable: true
+  resizeable: false
 
 textures:
   goose:
@@ -19,8 +19,8 @@ textures:
 fonts:
   regular:
     filename: "assets/fonts/MartianMono-Regular.ttf"
-    size: 32
-    outline_size: 4
+    size: 24
+    outline_size: 2
   bold:
     filename: "assets/fonts/MartianMono-Bold.ttf"
     size: 32

@@ -1,4 +1,3 @@
-#include "SDL3/SDL_log.h"
 #include <Texture.hpp>
 #include <Utils.hpp>
 #include <cmath>

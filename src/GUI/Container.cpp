@@ -47,22 +47,22 @@ void GUIContainer::on_resize(double parent_x, double parent_y,
 }
 
 void GUIContainer::set_skin(Skin *new_skin) {
-  this->skin = new_skin;
+  skin = new_skin;
   cache_is_outdated = true;
 }
 
-void GUIContainer::set_cursor(SDL_Cursor *cursor) { this->cursor = cursor; }
+void GUIContainer::set_cursor(SDL_Cursor *new_cursor) { cursor = new_cursor; }
 
-void GUIContainer::set_min_width(GUIUnit min_width) {
-  this->min_width = min_width;
+void GUIContainer::set_min_width(GUIUnit new_min_width) {
+  min_width = new_min_width;
 }
 
-void GUIContainer::set_min_height(GUIUnit min_height) {
-  this->min_height = min_height;
+void GUIContainer::set_min_height(GUIUnit new_min_height) {
+  min_height = new_min_height;
 }
 
-void GUIContainer::set_draggable(bool draggable) {
-  this->draggable = draggable;
+void GUIContainer::set_draggable(bool new_draggable) {
+  draggable = new_draggable;
 }
 
 SDL_FRect GUIContainer::get_bounding_rect() const { return rect; }

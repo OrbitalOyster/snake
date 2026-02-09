@@ -1,9 +1,41 @@
 #include <GUI.hpp>
 #include <SDL3/SDL_render.h>
+#include <stdexcept>
 
 GUI::GUI(SDL_Renderer *renderer) : renderer(renderer) {
   TTF_Init();
+  create_cursors();
   root_container = new GUIContainer("root");
+}
+
+void GUI::create_cursors() {
+  system_cursors["default"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_DEFAULT); /**< Default cursor. Usually an arrow. */
+  system_cursors["text"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_TEXT); /**< Text selection. Usually an I-beam. */
+  system_cursors["wait"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_WAIT); /**< Wait. Usually an hourglass or watch or spinning ball. */
+  system_cursors["crosshair"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_CROSSHAIR); /**< Crosshair. */
+  system_cursors["progress"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_PROGRESS); /**< Program is busy but still interactive. Usually it's WAIT with an arrow. */
+  system_cursors["nwse_resize"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NWSE_RESIZE); /**< Double arrow pointing northwest and southeast. */
+  system_cursors["nesw_resize"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NESW_RESIZE); /**< Double arrow pointing northeast and southwest. */
+  system_cursors["ew_resize"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_EW_RESIZE); /**< Double arrow pointing west and east. */
+  system_cursors["ns_resize"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NS_RESIZE); /**< Double arrow pointing north and south. */
+  system_cursors["move"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_MOVE); /**< Four pointed arrow pointing north, south, east, and west. */
+  system_cursors["not_allowed"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NOT_ALLOWED); /**< Not permitted. Usually a slashed circle or crossbones. */
+  system_cursors["pointer"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_POINTER); /**< Pointer that indicates a link. Usually a pointing hand. */
+  system_cursors["nw_resize"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NW_RESIZE); /**< Window resize top-left. This may be a single arrow or a double arrow like NWSE_RESIZE. */
+  system_cursors["n_resize"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_N_RESIZE); /**< Window resize top. May be NS_RESIZE. */
+  system_cursors["ne_resize"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NE_RESIZE); /**< Window resize top-right. May be NESW_RESIZE. */
+  system_cursors["e_resize"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_E_RESIZE); /**< Window resize right. May be EW_RESIZE. */
+  system_cursors["se_resize"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SE_RESIZE); /**< Window resize bottom-right. May be NWSE_RESIZE. */
+  system_cursors["s_resize"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_S_RESIZE); /**< Window resize bottom. May be NS_RESIZE. */
+  system_cursors["sw_resize"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SW_RESIZE); /**< Window resize bottom-left. May be NESW_RESIZE. */
+  system_cursors["w_resize"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_W_RESIZE); /**< Window resize left. May be EW_RESIZE. */
+  system_cursors["count"] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_COUNT);
+}
+
+SDL_Cursor *GUI::get_system_cursor(std::string key) {
+  if (!system_cursors.contains(key))
+      throw std::runtime_error("System cursor not found: " + key);
+  return system_cursors.at(key);
 }
 
 void GUI::add_container(GUIContainer *container) {
