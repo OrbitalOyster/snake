@@ -1,6 +1,7 @@
 #include <GUI/Layout.hpp>
-#include <cmath>
+#include <Utils.hpp>
 #include <stdexcept>
+#include <SDL3/SDL_log.h>
 
 GUILayout::GUILayout(std::optional<GUIUnit> width,
                      std::optional<GUIUnit> height,
@@ -60,8 +61,7 @@ void GUILayout::move(double dx, double dy) {
 }
 
 SDL_FRect GUILayout::calculate(double parent_x, double parent_y,
-                               double parent_width, double parent_height,
-                               bool round_result) {
+                               double parent_width, double parent_height) {
   double x, y, w, h;
   /* Known width */
   if (width.has_value()) {
@@ -93,12 +93,7 @@ SDL_FRect GUILayout::calculate(double parent_x, double parent_y,
   }
   x += parent_x;
   y += parent_y;
-  if (round_result) {
-    x = round(x);
-    y = round(y);
-    w = round(w);
-    h = round(h);
-  }
+  // SDL_Log("%f %f %fx%f, %f %f %f %f", (float)x, (float)y, (float)w, (float)h, parent_x, parent_y, parent_width, parent_height);
   /* Done */
-  return {(float)x, (float)y, (float)w, (float)h};
+  return get_frect(x, y, w, h);
 }

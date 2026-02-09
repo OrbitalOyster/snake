@@ -18,6 +18,6 @@ void GUIText::update(std::string new_text) {
 
 void GUIText::render(SDL_Renderer *renderer, double parent_width,
                      double parent_height) {
-  SDL_FRect dst = layout.calculate(0, 0, parent_width, parent_height, true);
+  SDL_FRect dst = layout.calculate(0, 0, parent_width, parent_height);
   SDL_RenderTexture(renderer, texture, NULL, &dst);
 }

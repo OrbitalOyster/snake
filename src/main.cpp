@@ -38,7 +38,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     Sprite *cross = new Sprite(8, 8, 16, 16, library->get_texture("gui_skin"),
                                library->get_sprite_map("cross"));
     core->add_sprite(apple);
-    core->add_sprite(cross);
+    // core->add_sprite(cross);
 
     GUILayout upper_half_layout = GUILayout(1.0, .5, {}, {});
     GUIContainer *upper_half_container =
@@ -76,9 +76,9 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     upper_half_container->add_container(top_left_container);
 
     GUILayout stoopid_layout = GUILayout(
-        GUISegment(GUIUnit(.25), 0.0, GUIUnit(0.0, Absolute)),
+        GUISegment(GUIUnit(.25)),
         GUISegment(GUIUnit(.5)),
-        GUISegment(GUIUnit(100.0, Absolute), 0.0, GUIUnit(0.0, Absolute)),
+        GUISegment(GUIUnit(100.0, Absolute)),
         GUISegment(GUIUnit(32.0, Absolute)));
     GUIContainer *stoopid_container =
         new GUIContainer("stoopid", stoopid_layout);
@@ -97,7 +97,6 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     close_button->add_sprite(cross);
     stoopid_container->add_container(close_button);
 
-    /*
     GUILayout movable_layout = GUILayout(
         GUIUnit(320, Absolute), GUIUnit(240, Absolute),
         GUISegment(GUIUnit(200, Absolute)), GUISegment(GUIUnit(600, Absolute)));
@@ -106,7 +105,6 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     movable_container->set_skin(library->get_skin("window"));
     movable_container->set_draggable(true);
     gui->add_container(movable_container);
-    */
 
     return SDL_APP_CONTINUE;
   } catch (const std::runtime_error err) {

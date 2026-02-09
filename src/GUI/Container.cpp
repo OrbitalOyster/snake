@@ -1,3 +1,4 @@
+#include "SDL3/SDL_log.h"
 #include "SDL3/SDL_rect.h"
 #include <GUI/Container.hpp>
 #include <Utils.hpp>
@@ -30,8 +31,7 @@ bool GUIContainer::is_draggable() { return draggable; }
 void GUIContainer::on_resize(double parent_x, double parent_y,
                              double parent_width, double parent_height) {
   double old_w = rect.w, old_h = rect.h;
-  rect =
-      layout.calculate(parent_x, parent_y, parent_width, parent_height, false);
+  rect = layout.calculate(parent_x, parent_y, parent_width, parent_height);
 
   /* Adjust min. size */
   if (rect.w < min_width.to_pixels(parent_width))
@@ -164,8 +164,7 @@ void GUIContainer::render(SDL_Renderer *renderer) {
   if (skin != NULL) {
     if (cache_is_outdated)
       update_cache(renderer);
-    const SDL_FRect rounded_dst = get_frect(dst);
-    SDL_RenderTexture(renderer, cache, NULL, &rounded_dst);
+    SDL_RenderTexture(renderer, cache, NULL, &dst);
   }
 
   /* Mouse state debug */

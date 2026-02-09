@@ -21,7 +21,7 @@ public:
             GUISegment bottom);
   void move(double dx, double dy);
   SDL_FRect calculate(double parent_x, double parent_y, double parent_width,
-                      double parent_height, bool round_result);
+                      double parent_height);
 };
 
 #endif
