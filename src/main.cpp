@@ -46,7 +46,7 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     gui->add_container(upper_half_container);
 
     GUILayout top_right_layout = GUILayout(.5, .5, {}, GUIUnit(8.0, Absolute),
-                                           GUIUnit(8.0, Absolute), {});
+                                           GUIUnit(0.0, Absolute), {});
     GUIContainer *top_right_container =
         new GUIContainer("top right", top_right_layout);
     top_right_container->set_skin(library->get_skin("button"));
@@ -62,8 +62,8 @@ SDL_AppResult SDL_AppInit(void **appstate, [[maybe_unused]] int argc,
     upper_half_container->add_container(top_right_container);
 
     GUILayout top_left_layout =
-        GUILayout(GUIUnit(100.0, Absolute), GUIUnit(150.0, Absolute),
-                  GUISegment(GUIUnit(8.0, Absolute)),
+        GUILayout(GUIUnit(.5, Relative), GUIUnit(150.0, Absolute),
+                  GUISegment(GUIUnit(0.0, Absolute)),
                   GUISegment(GUIUnit(8.0, Absolute)), {}, {});
     GUIContainer *top_left_container =
         new GUIContainer("top left", top_left_layout);

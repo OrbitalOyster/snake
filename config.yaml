@@ -3,10 +3,10 @@
 window:
   title: "Snake"
   background-color: 0x2596be
-  width: 640
+  width: 631
   height: 480
   fullscreen: false
-  resizeable: false
+  resizeable: true
 
 textures:
   goose:
